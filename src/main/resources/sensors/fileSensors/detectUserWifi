@@ -1,0 +1,24 @@
+#!/bin/bash
+LOCAL_FILE=wifiPresenceSensor
+
+LOCAL_FILE_SIGNAL="$LOCAL_FILE"Sig
+SLEEP_TIME=20
+#I have to create both - a directory and a file inside. Then I will be able to pointing my inotify to whole directory
+#MACS[0]=18:af:61:4a:03:c9
+#NAMES[0]="Fred"
+
+#Truncate at every boot
+ truncate -s 0 "$LOCAL_FILE_SIGNAL"
+
+
+COUNTER=1
+while [  true ]; do    
+  /usr/bin/truncate -s 0 "$LOCAL_FILE"
+  echo "$(date) querying the router	($COUNTER)" 
+  ssh -x root@192.168.1.1 "/etc/config/show_wifi_clients.sh " >> "$LOCAL_FILE"  
+  echo "$(date) query completed		($COUNTER)"  
+  echo -n $COUNTER >> "$LOCAL_FILE_SIGNAL"
+  COUNTER=$((COUNTER +1))
+  sleep $SLEEP_TIME
+done
+
