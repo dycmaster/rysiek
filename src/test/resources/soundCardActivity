@@ -1,0 +1,29 @@
+#!/bin/bash
+LOCAL_FILE=soundCardSensor
+ENABLE=true
+LOCAL_FILE_SIGNAL=soundCardSensorSig
+SLEEP_TIME=2
+
+truncate -s 0 "$LOCAL_FILE_SIGNAL"
+
+substream=card0/pcm0p/sub0
+last_usage=`date +%s`
+timeout_sec=12
+
+
+COUNTER=1
+while true; do
+    /usr/bin/truncate -s 0 "$LOCAL_FILE"
+	
+	now=`date +%s`
+	if [ "`cat /proc/asound/${substream}/status`" != "closed" ]; then
+		echo busy >> "$LOCAL_FILE"
+    else
+        echo idle  >> "$LOCAL_FILE"
+    fi
+
+    echo sound card checked
+    echo -n $COUNTER >> "$LOCAL_FILE_SIGNAL"
+    COUNTER=$((COUNTER +1))
+    sleep $SLEEP_TIME
+done

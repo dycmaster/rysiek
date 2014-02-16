@@ -4,14 +4,11 @@ package dycmaster.rysiek.deployment;
 import dycmaster.rysiek.shared.FileTools;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
-import sun.rmi.runtime.Log;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * This class is responsible for starting all the shell scripts (for file sensors)
@@ -28,16 +25,16 @@ public class DeploymentManager {
     private String runDir = System.getProperty("user.dir");
     private String fileSensorsDir = "fileSensors";
 
-    private static final Collection<FileSensorScript> _deployedScripts = CollectionUtils.synchronizedCollection(new LinkedList<FileSensorScript>());
+    private static final Collection<FileDataProvider> _deployedScripts = CollectionUtils.synchronizedCollection(new LinkedList<FileDataProvider>());
 
 
-    public static void AddDeployedScript(FileSensorScript script){
+    public static void AddDeployedScript(FileDataProvider script){
         synchronized (_deployedScripts){
             _deployedScripts.add(script);
         }
     }
 
-    public static Collection<FileSensorScript>  GetDeployedScripts(){
+    public static Collection<FileDataProvider>  GetDeployedScripts(){
         synchronized (_deployedScripts){
             return  _deployedScripts;
         }
@@ -46,7 +43,7 @@ public class DeploymentManager {
 
 
 
-    public void deployAllAndRun(Collection<FileSensorScript> sensorScripts){
+    public void deployAllAndRun(Collection<FileDataProvider> sensorScripts){
 
 
         deployScriptDirs(sensorScripts);
@@ -56,8 +53,8 @@ public class DeploymentManager {
     }
 
 
-    protected void runDeployedScripts(Collection<FileSensorScript> sensorScripts){
-        for(FileSensorScript script: sensorScripts){
+    protected void runDeployedScripts(Collection<FileDataProvider> sensorScripts){
+        for(FileDataProvider script: sensorScripts){
             logger.info("Starting script: "+script.getScriptName());
             script.run();
             logger.info("Started script: "+script.getScriptName());
@@ -66,7 +63,7 @@ public class DeploymentManager {
 
 
 
-    protected void deployScriptDirs(Collection<FileSensorScript> sensorScripts) {
+    protected void deployScriptDirs(Collection<FileDataProvider> sensorScripts) {
 
         logger.debug("Running dir is: " + runDir);
         Path fileSensorsDirPath = FileSystems.getDefault().getPath(runDir, fileSensorsDir);
@@ -74,7 +71,7 @@ public class DeploymentManager {
 
         prepareMainDirForSensors(fileSensorsDirPath);
 
-        for(FileSensorScript script: sensorScripts){
+        for(FileDataProvider script: sensorScripts){
             Path currScriptPath = FileSystems.getDefault().getPath(runDir, fileSensorsDir, script.getScriptName());
             try {
                 Files.createDirectory(currScriptPath);
@@ -85,9 +82,9 @@ public class DeploymentManager {
     }
 
 
-    protected void deployScriptFiles(Collection<FileSensorScript> sensorScripts){
+    protected void deployScriptFiles(Collection<FileDataProvider> sensorScripts){
 
-        for(FileSensorScript script: sensorScripts){
+        for(FileDataProvider script: sensorScripts){
             Path sourcePath = script.getSourceFile().toPath();
             Path targetPath = FileSystems.getDefault().getPath(runDir, fileSensorsDir, script.getScriptName(), script.getScriptName());
             script.setTargetFile(targetPath);
@@ -100,21 +97,21 @@ public class DeploymentManager {
         }
     }
 
-    protected void addDeployedScriptToControlTable(FileSensorScript script){
+    protected void addDeployedScriptToControlTable(FileDataProvider script){
         DeploymentManager.AddDeployedScript(script);
     }
 
-    public Collection<FileSensorScript> getAllScriptsToDeploy(){
-        Collection<FileSensorScript> scripts = getScriptsFromEnum();
+    public Collection<FileDataProvider> getAllScriptsToDeploy(){
+        Collection<FileDataProvider> scripts = getScriptsFromEnum();
         scripts.addAll(getScriptsFromDir());
         return  scripts;
     }
 
-    protected Collection<FileSensorScript> getScriptsFromEnum(){
+    protected Collection<FileDataProvider> getScriptsFromEnum(){
 
-        Collection<FileSensorScript> scripts = new LinkedList<>();
-        for(FILE_SENSORS fileSensor:  FILE_SENSORS.values()){
-            scripts.add( new FileSensorScript(fileSensor.getUrl()));
+        Collection<FileDataProvider> scripts = new LinkedList<>();
+        for(FILE_DATA_PROVIDERS fileSensor:  FILE_DATA_PROVIDERS.values()){
+            scripts.add( new FileDataProvider(fileSensor.getUrl()));
         }
 
         return scripts;
@@ -124,7 +121,7 @@ public class DeploymentManager {
     /*
      * User can also put his scripts in a specified directory
      */
-    protected Collection<FileSensorScript> getScriptsFromDir(){
+    protected Collection<FileDataProvider> getScriptsFromDir(){
         //TODO add pulling scripts from some directory
         return CollectionUtils.EMPTY_COLLECTION;
     }

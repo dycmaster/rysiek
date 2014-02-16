@@ -10,15 +10,15 @@ import java.net.URL;
 /**
  * Created by frs on 2/15/14.
  */
-public class FileSensorScriptTest {
+public class FileDataProviderTest {
 
 
-    public static final URL TestSensorFile = FILE_SENSORS.class.getClassLoader().getResource("testSensor");
+    public static final URL TestSensorFile = FILE_DATA_PROVIDERS.class.getClassLoader().getResource("testSensor");
 
 
     @Test
     public void testUrlConstructor(){
-        FileSensorScript eut = new FileSensorScript(TestSensorFile);
+        FileDataProvider eut = new FileDataProvider(TestSensorFile);
 
         Assert.assertEquals(eut.getOutputFileName(), "testFileSensor");
         Assert.assertEquals(eut.getSignalFileName(), "testFileSensorSig");
@@ -31,7 +31,7 @@ public class FileSensorScriptTest {
     @Test
     public void testReadSensorEnabled() throws Exception {
         final Boolean expexted = true;
-        FileSensorScript eut = new FileSensorScript();
+        FileDataProvider eut = new FileDataProvider();
         File f = FileTools.openFile(TestSensorFile);
         Boolean actual = eut.readSensorEnabled(f);
         Assert.assertEquals(expexted, actual);
@@ -40,7 +40,7 @@ public class FileSensorScriptTest {
     @Test
     public void testReadOutputFileName() throws Exception {
         final String expected="testFileSensor";
-        FileSensorScript eut = new FileSensorScript();
+        FileDataProvider eut = new FileDataProvider();
         File f = FileTools.openFile(TestSensorFile);
         String fName = eut.readOutputFileName(f);
         Assert.assertEquals(expected, fName);
@@ -49,7 +49,7 @@ public class FileSensorScriptTest {
     @Test
     public void testReadSignalFileName() throws Exception {
         final String expected="testFileSensorSig";
-        FileSensorScript eut = new FileSensorScript();
+        FileDataProvider eut = new FileDataProvider();
         File f = FileTools.openFile(TestSensorFile);
         String fName = eut.readSignalFileName(f);
         Assert.assertEquals(expected, fName);
@@ -58,7 +58,7 @@ public class FileSensorScriptTest {
     @Test
     public void testReadSleepTime() throws Exception {
         final int expected = 20;
-        FileSensorScript eut = new FileSensorScript();
+        FileDataProvider eut = new FileDataProvider();
         File f = FileTools.openFile(TestSensorFile);
         int actual = eut.readSleepTime(f);
         Assert.assertEquals(expected, actual);

@@ -1,4 +1,4 @@
-package dycmaster.rysiek.actions;
+package dycmaster.rysiek.sensors;
 
 import java.util.List;
 

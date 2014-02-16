@@ -2,7 +2,7 @@
 LOCAL_FILE=testFileSensor
 ENABLE=true
 LOCAL_FILE_SIGNAL=testFileSensorSig
-SLEEP_TIME=3
+SLEEP_TIME=2
 
 truncate -s 0 "$LOCAL_FILE_SIGNAL"
 

@@ -12,9 +12,9 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 
-public class FileSensorScript {
+public class FileDataProvider {
 
-    Logger logger = Logger.getLogger(FileSensorScript.class);
+    Logger logger = Logger.getLogger(FileDataProvider.class);
 
     private final String outputFileTag = "LOCAL_FILE";
     private final String isEnabledTag = "ENABLE";
@@ -84,7 +84,7 @@ public class FileSensorScript {
     }
 
 
-    public  FileSensorScript(){
+    public FileDataProvider(){
         setRunning(false);
         setEnabled(false);
         setOutputFileName("");
@@ -94,11 +94,11 @@ public class FileSensorScript {
         setScriptName("");
     }
 
-    public  FileSensorScript(URL fileUrl){
+    public FileDataProvider(URL fileUrl){
         this(FileTools.openFile(fileUrl));
     }
 
-    public FileSensorScript(File f){
+    public FileDataProvider(File f){
         setSleepTime(readSleepTime(f));
         setSignalFileName(readSignalFileName(f));
         setOutputFileName(readOutputFileName(f));

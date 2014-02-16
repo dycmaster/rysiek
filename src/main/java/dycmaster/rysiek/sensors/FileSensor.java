@@ -1,14 +1,13 @@
-package dycmaster.rysiek.actions;
+package dycmaster.rysiek.sensors;
 
 
-import dycmaster.rysiek.deployment.FileSensorScript;
+import dycmaster.rysiek.deployment.FileDataProvider;
 import net.contentobjects.jnotify.JNotify;
 import net.contentobjects.jnotify.JNotifyException;
 import net.contentobjects.jnotify.JNotifyListener;
 import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.LinkedList;
@@ -17,9 +16,7 @@ import java.util.List;
 
 public class FileSensor extends Sensor {
 
-	private static Logger logger = Logger.getLogger(FileSensor.class);
-
-	JNotifyListener changeListener = new JNotifyListener() {
+	private JNotifyListener changeListener = new JNotifyListener() {
 		@Override
 		public void fileCreated(int i, String s, String s2) {
 		}
@@ -35,15 +32,10 @@ public class FileSensor extends Sensor {
 				logger.info(signalFile.getName() + " sensor: Change detected!!");
 
 				List<String> lines = new LinkedList<>();
-				try {
-					lines = Files.readAllLines(fileToObserve.toPath(), StandardCharsets.UTF_8);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				lines = Files.readAllLines(fileToObserve.toPath(), StandardCharsets.UTF_8);
 
 				SensorValue sv = new SensorValue(lines);
 				observedEntityChanged(sv);
-
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -55,19 +47,23 @@ public class FileSensor extends Sensor {
 
 		}
 	};
+
+	private Logger logger;
 	private File fileToObserve;
 	private File signalFile;
 	private int fileWatchId;
 
-	public FileSensor(FileSensorScript script) {
-		this.fileToObserve = script.getOutputFile();
-		this.signalFile = script.getSignalFile();
-	}
 
+
+	public FileSensor(FileDataProvider script) {
+		this(script.getOutputFile(), script.getSignalFile());
+	}
 
 	public FileSensor(File fileToObserve, File signalFile) {
 		this.fileToObserve = fileToObserve;
 		this.signalFile = signalFile;
+		setName(fileToObserve.getName());
+		logger = Logger.getLogger(FileSensor.class.getSimpleName() +":"+getName() );
 	}
 
 	/*

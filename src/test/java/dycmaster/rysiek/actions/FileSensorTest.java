@@ -1,8 +1,13 @@
 package dycmaster.rysiek.actions;
 
 import dycmaster.rysiek.deployment.DeploymentManager;
-import dycmaster.rysiek.deployment.FILE_SENSORS;
-import dycmaster.rysiek.deployment.FileSensorScript;
+import dycmaster.rysiek.deployment.FILE_DATA_PROVIDERS;
+import dycmaster.rysiek.deployment.FileDataProvider;
+import dycmaster.rysiek.sensors.DummySensorListener;
+import dycmaster.rysiek.sensors.FileSensor;
+import dycmaster.rysiek.sensors.Sensor;
+import dycmaster.rysiek.sensors.SensorListener;
+import dycmaster.rysiek.triggers.DummySensorTrigger;
 import org.junit.Test;
 
 import java.net.URL;
@@ -13,11 +18,11 @@ import java.util.LinkedList;
 
 public class FileSensorTest {
 
-	public static final URL TestSensorFile = FILE_SENSORS.class.getClassLoader().getResource("testSensor");
+	public static final URL TestSensorFile = FILE_DATA_PROVIDERS.class.getClassLoader().getResource("testSensor");
 
-	private FileSensorScript deployTestScriptAndRun(){
-		FileSensorScript testScript = new FileSensorScript(TestSensorFile);
-		Collection<FileSensorScript> scripts = new LinkedList<>();
+	private FileDataProvider deployTestScriptAndRun(){
+		FileDataProvider testScript = new FileDataProvider(TestSensorFile);
+		Collection<FileDataProvider> scripts = new LinkedList<>();
 		scripts.add(testScript);
 		DeploymentManager deploymentManager = new DeploymentManager();
 		deploymentManager.deployAllAndRun(scripts);
@@ -26,24 +31,41 @@ public class FileSensorTest {
 
 	@Test
 	public void testStartAndStopObserving() throws Exception {
-		FileSensorScript testScript = deployTestScriptAndRun();
+		FileDataProvider testScript = deployTestScriptAndRun();
 		FileSensor fs = new FileSensor(testScript);
 		fs.startObserving();
-		Thread.sleep(6000);
+		Thread.sleep(20000);
 		fs.stopObserving();
 	}
 
 	@Test
 	public void testSensorListener () throws Exception {
-		FileSensorScript testScript = deployTestScriptAndRun();
+		FileDataProvider testScript = deployTestScriptAndRun();
 		FileSensor fs = new FileSensor(testScript);
 		fs.startObserving();
-		SensorListener sensorListener = new DefaultSensorListener(fs);
+
+		Sensor sensor = new FileSensor(testScript);
+		sensor.startObserving();
+
+		SensorListener sensorListener = new DummySensorListener(sensor);
 		sensorListener.startListening();
 		Thread.sleep(6000);
-		sensorListener.stopListening();
-		fs.stopObserving();
 	}
+
+	@Test
+	public void testSensorTrigger () throws Exception {
+		FileDataProvider testScript = deployTestScriptAndRun();
+		FileSensor fs = new FileSensor(testScript);
+		fs.startObserving();
+
+		Sensor sensor = new FileSensor(testScript);
+		sensor.startObserving();
+
+		SensorListener sensorListener = new DummySensorTrigger(sensor);
+		sensorListener.startListening();
+		Thread.sleep(6000);
+	}
+
 
 
 }
