@@ -28,7 +28,7 @@ public class DeploymentManager {
     private String runDir = System.getProperty("user.dir");
     private String fileSensorsDir = "fileSensors";
 
-    private static Collection<FileSensorScript> _deployedScripts = CollectionUtils.synchronizedCollection(new LinkedList<FileSensorScript>());
+    private static final Collection<FileSensorScript> _deployedScripts = CollectionUtils.synchronizedCollection(new LinkedList<FileSensorScript>());
 
 
     public static void AddDeployedScript(FileSensorScript script){
@@ -142,7 +142,6 @@ public class DeploymentManager {
             logger.debug("FileSensors directory created.");
         } catch (IOException e) {
             logger.error("Unable to create FileSensors directory!!");
-            return;
         }
     }
 

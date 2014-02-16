@@ -52,6 +52,11 @@ public class FileSensorScript {
         return  FileSystems.getDefault().getPath(targetFile.getParent(),getSignalFileName()).toFile();
     }
 
+	public File getOutputFile(){
+		return  FileSystems.getDefault().getPath(targetFile.getParent(), getOutputFileName()).toFile();
+	}
+
+
     public Path getRunningDir(){
         return  runningDir;
     }

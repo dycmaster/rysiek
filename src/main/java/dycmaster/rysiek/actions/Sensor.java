@@ -1,39 +1,56 @@
 package dycmaster.rysiek.actions;
 
+import org.apache.commons.collections.CollectionUtils;
+
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by frs on 2/16/14.
+ * Sensor observes something and can issue a signal when the underlying
+ * observed changes it's state. Sensor copies the current output of the observed entity
+ * and provides it to be processed by a trigger using some certain logic.
  */
 public abstract class Sensor {
 
-    private boolean state;
-    List<SensorListener> sensorListeners = new LinkedList<>();
+	private Collection<SensorListener> sensorListeners = CollectionUtils.synchronizedCollection(new LinkedList<>());
 
-    public void subscribeToSensor(SensorListener listener){
-        sensorListeners.add(listener);
-    }
+	public abstract void startObserving();
+	public abstract void stopObserving();
 
-    protected  void stateHasChanged(){
-        for(SensorListener listener: sensorListeners){
-            listener.handleStateChanged(getState());
-        }
-    }
+	public void subscribeToSensor(SensorListener listener){
+		sensorListeners.add(listener);
+	}
+
+	public void removeSubscriber(SensorListener listener){
+		sensorListeners.remove(listener);
+	}
+
+	/*
+	 * Internal action when a change has been detected.
+	 */
+	protected  void observedEntityChanged(final SensorValue sensorValue){
+		for(final SensorListener listener: sensorListeners){
+			Runnable notifyListener = new Runnable() {
+				@Override
+				public void run() {
+					listener.sensorValueChangedHandler(sensorValue);
+				}
+			};
+			new Thread(notifyListener).start();
+		}
+	}
 
 
-    public  boolean getState(){
-        return state;
-    }
-
-    public void setState(boolean state){
-        if(state != this.state){
-            this.state = state;
-            stateHasChanged();
-        }
-    }
 
 
-    public abstract  void startObserving();
+
+
+
+
+
+
+
+
 
 }

@@ -5,6 +5,8 @@ package dycmaster.rysiek.actions;
  */
 public interface SensorListener {
 
-    public void handleStateChanged(boolean currState);
+    public void sensorValueChangedHandler(SensorValue sensorValue);
+	public void startListening();
+	public void stopListening();
 
 }

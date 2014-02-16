@@ -18,7 +18,7 @@
     <orderEntry type="library" name="Maven: junit:junit:4.11" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.0" level="project" />
-    <orderEntry type="library" name="jnotify-0.94" level="project" />
+    <orderEntry type="library" name="Maven: jnotify:jnotify:0.94" level="project" />
   </component>
 </module>
 
