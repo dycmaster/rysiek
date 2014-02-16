@@ -1054,7 +1054,11 @@
       <created>1392514477360</created>
       <updated>1392514477360</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="day 2&#10;">
+      <created>1392514491837</created>
+      <updated>1392514491837</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1101,7 +1105,8 @@
     <MESSAGE value="test" />
     <MESSAGE value="test&#10;" />
     <MESSAGE value="day 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="day 2" />
+    <MESSAGE value="day 2&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="day 2&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
