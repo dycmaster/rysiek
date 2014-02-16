@@ -25,6 +25,9 @@
         <module name="rysiek" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="rysiek" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
 

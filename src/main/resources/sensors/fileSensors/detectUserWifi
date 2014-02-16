@@ -1,8 +1,9 @@
 #!/bin/bash
 LOCAL_FILE=wifiPresenceSensor
-
-LOCAL_FILE_SIGNAL="$LOCAL_FILE"Sig
+ENABLE=true
+LOCAL_FILE_SIGNAL=wifiPresenceSensorSig
 SLEEP_TIME=20
+
 #I have to create both - a directory and a file inside. Then I will be able to pointing my inotify to whole directory
 #MACS[0]=18:af:61:4a:03:c9
 #NAMES[0]="Fred"

@@ -1,0 +1,10 @@
+#!/bin/bash
+LOCAL_FILE=testFileSensor
+ENABLE=true
+LOCAL_FILE_SIGNAL=testFileSensorSig
+SLEEP_TIME=20
+
+for i in $(seq 1 10); do
+ echo "Hello world $i"
+ sleep 5
+done

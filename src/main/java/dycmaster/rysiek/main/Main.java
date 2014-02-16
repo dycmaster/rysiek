@@ -10,16 +10,14 @@ import java.net.URL;
 public class Main {
 
     public static void main(String[] args) {
-
-        URL url = Main.class.getClassLoader().getResource("log4j.xml");
-        DOMConfigurator.configure(url);
-        Logger logger = Logger.getLogger("test");
+        DOMConfigurator.configure(Main.class.getClassLoader().getResource("log4j.xml"));
         new Main().run();
     }
 
     private void run(){
         DeploymentManager deploymentManager = new DeploymentManager();
-        deploymentManager.deployScriptDirs();
+        deploymentManager.deployAllAndRun(deploymentManager.getAllScriptsToDeploy());
+
     }
 
 }

@@ -1,0 +1,29 @@
+#!/bin/bash
+LOCAL_FILE=tempSensor
+ENABLE=true
+LOCAL_FILE_SIGNAL=tempSensorSig
+SLEEP_TIME=5
+
+truncate -s 0 "$LOCAL_FILE_SIGNAL"
+
+COUNTER=1
+while [ true ]; do
+  /usr/bin/truncate -s 0 "$LOCAL_FILE"
+
+  str=$(sensors | grep -i "temp1:")
+  newstr=${str:15:2}
+  echo $newstr >> "$LOCAL_FILE"
+
+  echo "temp checked"
+  echo -n $COUNTER >> "$LOCAL_FILE_SIGNAL"
+  COUNTER=$((COUNTER +1))
+  sleep $SLEEP_TIME
+done
+
+
+
+
+
+
+
+
