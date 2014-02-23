@@ -1,99 +1,68 @@
 package dycmaster.rysiek.triggers;
 
 
-import dycmaster.rysiek.sensors.SensorValue;
-import dycmaster.rysiek.sensors.AbstractSensorListener;
-import dycmaster.rysiek.sensors.Sensor;
-import org.apache.commons.collections.CollectionUtils;
+import dycmaster.rysiek.sensors.SensorInterpreter;
+import dycmaster.rysiek.sensors.SensorListener;
+import dycmaster.rysiek.triggers.triggerParsers.TriggerParametersParser;
 import org.apache.log4j.Logger;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
+import java.util.Map;
 
-public abstract class SensorTrigger extends AbstractSensorListener implements Trigger{
+/*
+To use you have to:
+1) override the logic for parsing sensor raw data to sensor parameters
+2) provide the list of possible sensor parameters
+3) deliver an object containing the parsing logic
+ */
+public class SensorTrigger extends DefaultTrigger implements SensorInterpreter {
 
-	private Collection<TriggerListener> _triggerListeners = CollectionUtils.synchronizedCollection(new LinkedList<>());
 	protected Logger logger;
-
-	public SensorTrigger(Sensor sensor) {
-		super(sensor);
-		setName("Sensor trigger for: "+sensor.getName());
-		logger = Logger.getLogger(getName());
-	}
+	private SensorListener sensorListener;
+	private TriggerParametersParser triggerParametersParser;
 
 
 
-	@Override
-	public void sensorValueChangedHandler(SensorValue sensorValue) {
-		TriggersManager.getInstance().executeTriggerLogic(processSensorEvent(sensorValue));
-	}
-
-	protected abstract Runnable processSensorEvent(final SensorValue sensorValue);
-
-	@Override
-	public void subscribeToTrigger(TriggerListener listener) {
-		_triggerListeners.add(listener);
+	public SensorTrigger(SensorListener sensorListener, TriggerParametersParser triggerParametersParser) {
+		setSensorListener(sensorListener);
+		setTriggerParametersParser(triggerParametersParser);
+		getSensorListener().addSubscriber(this);
 	}
 
 	@Override
-	public void removeSubscriber(TriggerListener listener) {
-		_triggerListeners.remove(listener);
-	}
-
-	@Override
-	public Collection<TriggerListener> getAllSubscribers() {
-		return _triggerListeners;
-	}
-
-	@Override
-	public void removeSubscribers(Collection<TriggerListener> toRemove) {
-		_triggerListeners.removeAll(toRemove);
-	}
-
-
-	private boolean _state;
-	@Override
-	public boolean getTriggerState() {
-		return _state;
-	}
-
-	@Override
-	public  void setTriggerState(boolean state){
-		if(state!=_state){
-			_lastStateChangeTime = new Date();
-			logger.info("trigger goes "+state);
+	public void sensorParametersChangedHandler(Map<String, String> parametersMap) {
+		if ( isEnabled() ) {
+			TriggersManager.getInstance().
+					executeTriggerLogic(processSensorParametersToTriggerState(parametersMap, getTriggerParametersParser()));
 		}
-		_state = state;
-	}
-
-	Date _lastStateChangeTime = new Date();
-	@Override
-	public Date getLastStateChangeTime() {
-		return _lastStateChangeTime;
 	}
 
 
-
-	private String _name;
-	@Override
-	public String getName() {
-		return _name;
+	protected Runnable processSensorParametersToTriggerState(final Map<String, String> sensorParameters,
+	                                                         final TriggerParametersParser parser) {
+		return new Runnable() {
+			@Override
+			public void run() {
+				boolean state = parser.parseParametersToState(sensorParameters, getSensorListener().getAvailableParameters());
+				setTriggerState(state);
+			}
+		};
 	}
 
-	@Override
-	public void setName(String name) {
-		_name = name;
+
+	public SensorListener getSensorListener() {
+		return sensorListener;
 	}
 
-	private String _description;
-	@Override
-	public String getDescription() {
-		return _description;
+	public void setSensorListener(SensorListener sensorListener) {
+		this.sensorListener = sensorListener;
 	}
 
-	@Override
-	public void setDescription(String description) {
-		_description = description;
+	public TriggerParametersParser getTriggerParametersParser() {
+		return triggerParametersParser;
 	}
+
+	public void setTriggerParametersParser(TriggerParametersParser triggerParametersParser) {
+		this.triggerParametersParser = triggerParametersParser;
+	}
+
 }

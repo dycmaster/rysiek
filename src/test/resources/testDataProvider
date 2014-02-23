@@ -10,7 +10,7 @@ COUNTER=1
 for i in $(seq 1 10); do
   /usr/bin/truncate -s 0 "$LOCAL_FILE"
   echo $i >> "$LOCAL_FILE"
-  echo "test fired      $i"
+  echo "test script fired      $i"
   echo -n $COUNTER >> "$LOCAL_FILE_SIGNAL"
   echo "test - signal file changed  $i"
   COUNTER=$((COUNTER +1))

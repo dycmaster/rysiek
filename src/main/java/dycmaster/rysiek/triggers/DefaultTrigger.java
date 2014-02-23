@@ -1,24 +1,38 @@
 package dycmaster.rysiek.triggers;
 
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
-
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 
-/**
- * Created by frs on 2/16/14.
- */
-public class BasicTrigger implements Trigger {
 
-	private Collection<TriggerListener> _triggerListeners = CollectionUtils.synchronizedCollection(new LinkedList<>());
-	protected Logger logger;
 
-	public BasicTrigger(String name) {
-		setName(name);
-		logger = Logger.getLogger(getName());
+public  class DefaultTrigger implements Trigger {
+
+	Logger logger = Logger.getLogger(DefaultTrigger.class);
+	Date _lastStateChangeTime = new Date();
+	private Collection<TriggerListener> _triggerListeners =
+			CollectionUtils.synchronizedCollection(new LinkedList<TriggerListener>());
+	private volatile boolean _state;
+	private String _name;
+	private String _description;
+
+
+	@Override
+	public boolean isEnabled() {
+		return isEnabled;
 	}
+
+	@Override
+	public void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+
+	private boolean isEnabled;
+
+
 
 	@Override
 	public void subscribeToTrigger(TriggerListener listener) {
@@ -40,31 +54,25 @@ public class BasicTrigger implements Trigger {
 		_triggerListeners.removeAll(toRemove);
 	}
 
-
-	private boolean _state;
 	@Override
 	public boolean getTriggerState() {
 		return _state;
 	}
 
 	@Override
-	public  void setTriggerState(boolean state){
-		if(state!=_state){
+	public void setTriggerState(boolean state) {
+		if (state != _state) {
 			_lastStateChangeTime = new Date();
-			logger.info("trigger goes "+state);
+			logger.info("trigger goes " + state);
 		}
 		_state = state;
 	}
 
-	Date _lastStateChangeTime = new Date();
 	@Override
 	public Date getLastStateChangeTime() {
 		return _lastStateChangeTime;
 	}
 
-
-
-	private String _name;
 	@Override
 	public String getName() {
 		return _name;
@@ -75,7 +83,6 @@ public class BasicTrigger implements Trigger {
 		_name = name;
 	}
 
-	private String _description;
 	@Override
 	public String getDescription() {
 		return _description;
@@ -85,4 +92,5 @@ public class BasicTrigger implements Trigger {
 	public void setDescription(String description) {
 		_description = description;
 	}
+
 }

@@ -1,7 +1,7 @@
 package dycmaster.rysiek.sensors;
 
 
-import dycmaster.rysiek.deployment.FileDataProvider;
+import dycmaster.rysiek.deployment.ScriptRunner;
 import net.contentobjects.jnotify.JNotify;
 import net.contentobjects.jnotify.JNotifyException;
 import net.contentobjects.jnotify.JNotifyListener;
@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -31,7 +30,7 @@ public class FileSensor extends Sensor {
 			try {
 				logger.info(signalFile.getName() + " sensor: Change detected!!");
 
-				List<String> lines = new LinkedList<>();
+				List<String> lines;
 				lines = Files.readAllLines(fileToObserve.toPath(), StandardCharsets.UTF_8);
 
 				SensorValue sv = new SensorValue(lines);
@@ -55,7 +54,7 @@ public class FileSensor extends Sensor {
 
 
 
-	public FileSensor(FileDataProvider script) {
+	public FileSensor(ScriptRunner script) {
 		this(script.getOutputFile(), script.getSignalFile());
 	}
 

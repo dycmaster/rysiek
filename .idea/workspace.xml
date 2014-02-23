@@ -2,49 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fb239b90-feee-49dc-9c86-be559652b93f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/AbstractSensorListener.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/BasicTrigger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/CommandAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/CompoundAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/CompoundTrigger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/DummySensorListener.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/DummySensorTrigger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FILE_DATA_PROVIDERS.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/JavaAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_all_1_8_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/MusicIsOnTrigger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/NetSensor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SensorTrigger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/actions/SensorTriggerTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorsManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SystemTrigger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TimeTrigger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/Trigger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TriggerListener.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TriggerValue.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TriggersManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/soundCardActivity" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fileSensors/testSensor/testFileSensor" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fileSensors/testSensor/testFileSensorSig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fileSensors/testSensor/testSensor" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/DefaultSensorListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/NetSensor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/SensorTrigger.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FILE_SENSORS.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/FileSensor.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/FileSensor.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/Sensor.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/Sensor.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/SensorListener.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorListener.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/SensorValue.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorValue.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/SensorsManager.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/Action.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/Trigger.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/ActionsManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FileSensorScript.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FileDataProvider.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/FileSensorScriptTest.java" afterPath="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/FileDataProviderTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/DefaultSensorListener.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/sensorParsers/FlipFlopSensorParser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/triggerParsers/FredIsHomeTriggerParametersParser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/sensorParsers/MusicOnSensorParser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/SCRIPTS_TO_RUN.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorInterpreter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/sensorParsers/SensorParser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/triggers/SensorTriggerTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/triggerParsers/TriggerParametersParser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/triggerParsers/flipFlopTriggerParser.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FILE_DATA_PROVIDERS.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/AbstractSensorListener.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/DummySensorListener.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/DummySensorTrigger.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/MusicIsOnTrigger.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/actions/SensorTriggerTest.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FileDataProvider.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/ScriptRunner.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/BasicTrigger.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/DefaultTrigger.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/sensors/fileSensors/detectUserWifi" afterPath="$PROJECT_DIR$/src/main/resources/sensors/fileDataProviders/detectUserWifi" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/sensors/fileSensors/soundCardActivity" afterPath="$PROJECT_DIR$/src/main/resources/sensors/fileDataProviders/soundCardActivity" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/sensors/fileSensors/tempShutdown" afterPath="$PROJECT_DIR$/src/main/resources/sensors/fileDataProviders/tempShutdown" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/actions/FileSensorTest.java" afterPath="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/sensors/FileSensorIntegrationTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/FileDataProviderTest.java" afterPath="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/ScriptRunnerTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/resources/testSensor" afterPath="$PROJECT_DIR$/src/test/resources/testDataProvider" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/CompoundTrigger.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/CompoundTrigger.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/DeploymentManager.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/DeploymentManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/DeploymentManagerTest.java" afterPath="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/DeploymentManagerTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/actions/FileSensorTest.java" afterPath="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/actions/FileSensorTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rysiek.iml" afterPath="$PROJECT_DIR$/rysiek.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/testSensor" afterPath="$PROJECT_DIR$/src/test/resources/testSensor" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/FileSensor.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/FileSensor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/Sensor.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/Sensor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorListener.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SensorTrigger.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SensorTrigger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SystemTrigger.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SystemTrigger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TimeTrigger.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TimeTrigger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/Trigger.java" afterPath="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/Trigger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="rysiek.iws" />
@@ -109,96 +101,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SensorsManager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorsManager.java">
+      <file leaf-file-name="MusicOnSensorParser.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/sensorParsers/MusicOnSensorParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="45" selection-start="516" selection-end="516" vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="738">
+            <state line="25" column="55" selection-start="785" selection-end="785" vertical-scroll-proportion="2.5" vertical-offset="120" max-vertical-offset="720">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TriggerValue.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TriggerValue.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="0" selection-start="102" selection-end="102" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BasicTrigger.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/BasicTrigger.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="13" selection-start="257" selection-end="257" vertical-scroll-proportion="0.0" vertical-offset="7" max-vertical-offset="1440">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SensorValue.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorValue.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="38" selection-start="311" selection-end="311" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Action.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/Action.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="17" selection-start="53" selection-end="53" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="198">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CommandAction.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/CommandAction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="44" selection-start="117" selection-end="117" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CompoundAction.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/CompoundAction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="45" selection-start="118" selection-end="118" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JavaAction.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/JavaAction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="41" selection-start="114" selection-end="114" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ActionsManager.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/ActionsManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="60" selection-start="166" selection-end="166" vertical-scroll-proportion="0.31141868" vertical-offset="0" max-vertical-offset="289">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SystemTrigger.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SystemTrigger.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="4" selection-start="125" selection-end="125" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -216,57 +125,57 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/log4j.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FileSensorFiles.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/sensors/fileSensors/testSensor" />
-        <option value="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/DeployAgentTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/FileSensorScriptTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/shared/FileTools.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FileSensorScriptURLs.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/DeployAgent.java" />
-        <option value="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/DeploymentManagerTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/main/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/sensors/fileSensors/detectUserWifi" />
-        <option value="$PROJECT_DIR$/src/main/resources/sensors/fileSensors/tempShutdown" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FILE_SENSORS.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/sensors/fileSensors/soundCardActivity" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/DeploymentManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FileSensorScript.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/SensorValue.java" />
-        <option value="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/FileDataProviderTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FILE_DATA_PROVIDERS.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/DefaultSensorListener.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FileDataProvider.java" />
-        <option value="$PROJECT_DIR$/src/test/resources/testSensor" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/FileSensor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/NetSensor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/Sensor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/SensorsManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/TriggerListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/TriggerValue.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/TriggersManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/SensorListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/AbstractSensorListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/DummySensorListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/DummySensorTrigger.java" />
-        <option value="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/actions/FileSensorTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/Trigger.java" />
         <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/SensorTrigger.java" />
         <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/MusicIsOnTrigger.java" />
-        <option value="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/actions/SensorTriggerTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/BasicTrigger.java" />
         <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/TimeTrigger.java" />
         <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/CompoundTrigger.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/AbstractSensorListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TriggerValue.java" />
         <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorValue.java" />
         <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/Action.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SystemTrigger.java" />
         <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/JavaAction.java" />
         <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/CompoundAction.java" />
         <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/CommandAction.java" />
         <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/ActionsManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/DeploymentManager.java" />
+        <option value="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/FileDataProviderTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FileDataProvider.java" />
+        <option value="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/sensors/FileSensorTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/FileSensor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/ScriptRunner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FILE_DATA_PROVIDERS.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/SCRIPTS_TO_RUN.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/testDataProvider" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/Sensor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SensorTriggerParametersParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/FredIsHomeSensorTriggerParametersParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/DummySensorTrigger.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/MusicIsOnTrigger.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/sensorParsers/flipFlopSensorTriggerParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/sensorParsers/FredIsHomeSensorTriggerParametersParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/sensorParsers/SensorTriggerParametersParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/sensorParsers/SensorParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/DummySensorListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/AbstractSensorListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/AbstractTrigger.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/CompoundTrigger.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SystemTrigger.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TimeTrigger.java" />
+        <option value="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/actions/SensorTriggerTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorInterpreter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/Trigger.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/DefaultTrigger.java" />
+        <option value="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/DeploymentManagerTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/sensors/FileSensorIntegrationTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/sensorParsers/MusicOnSensorParser.java" />
+        <option value="$PROJECT_DIR$/src/test/java/dycmaster/rysiek/triggers/SensorTriggerTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/triggerParsers/TriggerParametersParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/triggerParsers/FredIsHomeTriggerParametersParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/triggerParsers/flipFlopTriggerParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SensorTrigger.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/sensorParsers/FlipFlopSensorParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/DefaultSensorListener.java" />
       </list>
     </option>
   </component>
@@ -287,6 +196,10 @@
         <PATH_ELEMENT>
           <option name="myItemId" value="rysiek" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Dependencies" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$DependenciesNode" />
         </PATH_ELEMENT>
       </PATH>
       <PATH>
@@ -325,8 +238,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-2" />
     <option name="y" value="-3" />
-    <option name="width" value="1924" />
-    <option name="height" value="1180" />
+    <option name="width" value="1370" />
+    <option name="height" value="748" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -425,7 +338,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="2" />
+    <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
@@ -440,6 +353,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -506,7 +421,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="deployment" />
+              <option name="myItemId" value="triggers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -536,7 +451,37 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="actions" />
+              <option name="myItemId" value="sensors" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rysiek" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rysiek" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rysiek" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deployment" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -584,7 +529,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="fileSensors" />
+              <option name="myItemId" value="fileDataProviders" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -615,6 +560,40 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="triggers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rysiek" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rysiek" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rysiek" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="triggers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="triggerParsers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -770,8 +749,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -784,7 +761,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="options.lastSelected" value="copyright.filetypes.JAVA" />
+    <property name="options.lastSelected" value="preferences.pluginManager" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
@@ -802,12 +779,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/jnotify-0.94.jar!/" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="dycmaster.rysiek.actions" />
       <recent name="dycmaster.rysiek.deployment" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="dycmaster.rysiek.deployment" />
@@ -817,6 +794,9 @@
       <recent name="$PROJECT_DIR$/src/main/resources/sensors/fileSensors" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="dycmaster.rysiek.sensors" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
@@ -825,85 +805,13 @@
       <recent name="$PROJECT_DIR$/src/main/resources/sensors/fileSensors" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.SensorTriggerTest.testMusicTrigger">
-    <configuration default="false" name="FileSensorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.SensorTriggerTest.testMusicSensorDummyTrigger">
+    <configuration default="false" name="FileSensorIntegrationTest.testSensorTrigger" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="rysiek" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="PACKAGE_NAME" value="dycmaster.rysiek.actions" />
-      <option name="MAIN_CLASS_NAME" value="dycmaster.rysiek.actions.FileSensorTest" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea -Djava.library.path=$PROJECT_DIR$/lib/" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="FileSensorTest.testStartAndStopObserving" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="rysiek" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="PACKAGE_NAME" value="dycmaster.rysiek.actions" />
-      <option name="MAIN_CLASS_NAME" value="dycmaster.rysiek.actions.FileSensorTest" />
-      <option name="METHOD_NAME" value="testStartAndStopObserving" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea -Djava.library.path=$PROJECT_DIR$/lib/" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="FileSensorTest.testSensorListener" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="rysiek" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="PACKAGE_NAME" value="dycmaster.rysiek.actions" />
-      <option name="MAIN_CLASS_NAME" value="dycmaster.rysiek.actions.FileSensorTest" />
-      <option name="METHOD_NAME" value="testSensorListener" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea -Djava.library.path=$PROJECT_DIR$/lib/" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="FileSensorTest.testSensorTrigger" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="rysiek" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="PACKAGE_NAME" value="dycmaster.rysiek.actions" />
-      <option name="MAIN_CLASS_NAME" value="dycmaster.rysiek.actions.FileSensorTest" />
+      <option name="PACKAGE_NAME" value="dycmaster.rysiek.sensors" />
+      <option name="MAIN_CLASS_NAME" value="dycmaster.rysiek.sensors.FileSensorIntegrationTest" />
       <option name="METHOD_NAME" value="testSensorTrigger" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea -Djava.library.path=$PROJECT_DIR$/lib/" />
@@ -920,13 +828,79 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="SensorTriggerTest.testMusicTrigger" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="FileSensorIntegrationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="rysiek" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="PACKAGE_NAME" value="dycmaster.rysiek.actions" />
-      <option name="MAIN_CLASS_NAME" value="dycmaster.rysiek.actions.SensorTriggerTest" />
-      <option name="METHOD_NAME" value="testMusicTrigger" />
+      <option name="PACKAGE_NAME" value="dycmaster.rysiek.sensors" />
+      <option name="MAIN_CLASS_NAME" value="dycmaster.rysiek.sensors.FileSensorIntegrationTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea -Djava.library.path=$PROJECT_DIR$/lib/" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="SensorTriggerTest.testMusicSensorListener" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="rysiek" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="PACKAGE_NAME" value="dycmaster.rysiek.triggers" />
+      <option name="MAIN_CLASS_NAME" value="dycmaster.rysiek.triggers.SensorTriggerTest" />
+      <option name="METHOD_NAME" value="testMusicSensorListener" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea -Djava.library.path=$PROJECT_DIR$/lib/" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="SensorTriggerTest.testMusicSensorTrigger" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="rysiek" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="PACKAGE_NAME" value="dycmaster.rysiek.triggers" />
+      <option name="MAIN_CLASS_NAME" value="dycmaster.rysiek.triggers.SensorTriggerTest" />
+      <option name="METHOD_NAME" value="testMusicSensorTrigger" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea -Djava.library.path=$PROJECT_DIR$/lib/" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="SensorTriggerTest.testMusicSensorDummyTrigger" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="rysiek" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="PACKAGE_NAME" value="dycmaster.rysiek.triggers" />
+      <option name="MAIN_CLASS_NAME" value="dycmaster.rysiek.triggers.SensorTriggerTest" />
+      <option name="METHOD_NAME" value="testMusicSensorDummyTrigger" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea -Djava.library.path=$PROJECT_DIR$/lib/" />
       <option name="PARAMETERS" value="" />
@@ -1116,19 +1090,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.FileSensorTest" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.FileSensorTest.testStartAndStopObserving" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.FileSensorTest.testSensorListener" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.FileSensorTest.testSensorTrigger" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.SensorTriggerTest.testMusicTrigger" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.FileSensorIntegrationTest.testSensorTrigger" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.FileSensorIntegrationTest" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.SensorTriggerTest.testMusicSensorListener" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.SensorTriggerTest.testMusicSensorTrigger" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.SensorTriggerTest.testMusicSensorDummyTrigger" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.SensorTriggerTest.testMusicTrigger" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.FileSensorTest.testSensorTrigger" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.FileSensorTest.testSensorListener" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.FileSensorTest.testStartAndStopObserving" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.FileSensorTest" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.SensorTriggerTest.testMusicSensorDummyTrigger" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.SensorTriggerTest.testMusicSensorTrigger" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.SensorTriggerTest.testMusicSensorListener" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.FileSensorIntegrationTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.FileSensorIntegrationTest.testSensorTrigger" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -1188,7 +1162,11 @@
       <created>1392565681814</created>
       <updated>1392565681814</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="triggers and sensors improved, project packages split better, first trigger (MusicIsOnTrigger) implemented.&#10;Now it's time to implement trigger manager and actions and to tie it all together.&#10;">
+      <created>1392582789471</created>
+      <updated>1392582789471</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1212,28 +1190,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="-3" width="1924" height="1180" extended-state="6" />
+    <frame x="-2" y="-3" width="1370" height="748" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.67374516" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.73675495" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.11196911" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28642383" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4372587" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34749034" sideWeight="0.5003965" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34602648" sideWeight="0.5003965" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291506" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.102649" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291506" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12460064" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1485623" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20543806" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15861027" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1799787" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34749034" sideWeight="0.49960348" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20921451" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0016556291" sideWeight="0.49960348" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1257,7 +1235,8 @@
     <MESSAGE value="day 2" />
     <MESSAGE value="day 2&#10;" />
     <MESSAGE value="Sensor, FileSensor, SensorListener, DefaultSensorListener, jnotify for linux, maven configuration to build jar with all deps" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sensor, FileSensor, SensorListener, DefaultSensorListener, jnotify for linux, maven configuration to build jar with all deps" />
+    <MESSAGE value="triggers and sensors improved, project packages split better, first trigger (MusicIsOnTrigger) implemented.&#10;Now it's time to implement trigger manager and actions and to tie it all together.&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="triggers and sensors improved, project packages split better, first trigger (MusicIsOnTrigger) implemented.&#10;Now it's time to implement trigger manager and actions and to tie it all together.&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1267,65 +1246,14 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="3" selection-start="164" selection-end="164" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rysiek.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270" />
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.7.0/src.zip!/java/lang/Boolean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="26" selection-start="3475" selection-end="3475" vertical-scroll-proportion="0.0" vertical-offset="1193" max-vertical-offset="3975">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.7.0/src.zip!/java/util/List.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="50" selection-start="4502" selection-end="4502" vertical-scroll-proportion="-0.11435832" vertical-offset="1485" max-vertical-offset="8745">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.0/commons-collections-3.0.jar!/org/apache/commons/collections/CollectionUtils.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="45" selection-start="286" selection-end="286" vertical-scroll-proportion="0.13962767" vertical-offset="0" max-vertical-offset="1560">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.0/commons-collections-3.0-sources.jar!/org/apache/commons/collections/CollectionUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="35" selection-start="4280" selection-end="4280" vertical-scroll-proportion="0.33333334" vertical-offset="225" max-vertical-offset="15090">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-1.7.0/src.zip!/java/lang/Process.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="32" selection-start="4317" selection-end="4317" vertical-scroll-proportion="0.61140585" vertical-offset="979" max-vertical-offset="2400">
-          <folding />
-        </state>
+        <state line="119" column="32" selection-start="4317" selection-end="4317" vertical-scroll-proportion="0.61140585" vertical-offset="979" max-vertical-offset="2400" />
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.0/commons-collections-3.0-sources.jar!/org/apache/commons/collections/collection/SynchronizedCollection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="170" column="0" selection-start="5997" selection-end="5997" vertical-scroll-proportion="0.33634022" vertical-offset="1494" max-vertical-offset="2760">
-          <folding />
-        </state>
+        <state line="170" column="0" selection-start="5997" selection-end="5997" vertical-scroll-proportion="0.33634022" vertical-offset="1494" max-vertical-offset="2760" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/main/Main.java">
@@ -1337,115 +1265,36 @@
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/jnotify/jnotify/0.94/jnotify-0.94.jar!/net/contentobjects/jnotify/linux/JNotify_linux.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="175" selection-end="175" vertical-scroll-proportion="0.0071174377" vertical-offset="86" max-vertical-offset="1134">
-          <folding />
-        </state>
+        <state line="6" column="13" selection-start="175" selection-end="175" vertical-scroll-proportion="0.0071174377" vertical-offset="86" max-vertical-offset="1134" />
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/jnotify/jnotify/0.94/jnotify-0.94.jar!/net/contentobjects/jnotify/JNotify.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="169" selection-end="169" vertical-scroll-proportion="0.16393442" vertical-offset="0" max-vertical-offset="549">
-          <folding />
-        </state>
+        <state line="6" column="13" selection-start="169" selection-end="169" vertical-scroll-proportion="0.16393442" vertical-offset="0" max-vertical-offset="549" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sensors/fileSensors/detectUserWifi">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/sensors/fileDataProviders/detectUserWifi">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="62" selection-start="518" selection-end="535" vertical-scroll-proportion="0.5519591" vertical-offset="0" max-vertical-offset="587">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sensors/fileSensors/tempShutdown">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="128" selection-end="402" vertical-scroll-proportion="0.24531516" vertical-offset="0" max-vertical-offset="630">
-          <folding />
-        </state>
+        <state line="18" column="62" selection-start="518" selection-end="535" vertical-scroll-proportion="0.5519591" vertical-offset="0" max-vertical-offset="587" />
       </provider>
     </entry>
     <entry file="jar:///usr/lib/jvm/java-1.7.0/src.zip!/java/io/File.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="452" column="18" selection-start="18815" selection-end="18815" vertical-scroll-proportion="0.33236152" vertical-offset="7278" max-vertical-offset="38916">
-          <folding />
-        </state>
+        <state line="452" column="18" selection-start="18815" selection-end="18815" vertical-scroll-proportion="0.33236152" vertical-offset="7278" max-vertical-offset="38916" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/shared/FileTools.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="44" selection-start="633" selection-end="633" vertical-scroll-proportion="0.5801749" vertical-offset="52" max-vertical-offset="738">
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FILE_DATA_PROVIDERS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="12" selection-start="72" selection-end="72" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/DeploymentManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="16" selection-start="1369" selection-end="1369" vertical-scroll-proportion="0.8753799" vertical-offset="0" max-vertical-offset="2664">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/DeploymentManagerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="180" selection-end="180" vertical-scroll-proportion="0.18237083" vertical-offset="0" max-vertical-offset="987">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/FileDataProviderTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="9" selection-start="374" selection-end="374" vertical-scroll-proportion="0.015197569" vertical-offset="219" max-vertical-offset="1206">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="116" column="36" selection-start="4494" selection-end="4494" vertical-scroll-proportion="0.787172" vertical-offset="1548" max-vertical-offset="2574">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/FileDataProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="26" selection-start="785" selection-end="785" vertical-scroll-proportion="0.55797935" vertical-offset="0" max-vertical-offset="4482">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/testSensor">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="12" selection-start="98" selection-end="98" vertical-scroll-proportion="0.114832535" vertical-offset="0" max-vertical-offset="627">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/FileSensor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="31" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.71291864" vertical-offset="219" max-vertical-offset="1980">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/NetSensor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="35" selection-start="72" selection-end="72" vertical-scroll-proportion="0.114832535" vertical-offset="0" max-vertical-offset="627">
           <folding />
         </state>
       </provider>
@@ -1457,120 +1306,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/DummySensorListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="308" selection-end="308" vertical-scroll-proportion="0.40191388" vertical-offset="0" max-vertical-offset="627">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/DummySensorTrigger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="203" selection-end="203" vertical-scroll-proportion="0.34449762" vertical-offset="0" max-vertical-offset="627">
-          <folding>
-            <element signature="e#383#562#0" expanded="true" />
-            <element signature="e#557#558#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/Sensor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="664" selection-end="664" vertical-scroll-proportion="0.029275808" vertical-offset="269" max-vertical-offset="1134">
-          <folding>
-            <element signature="e#1102#1103#0" expanded="true" />
-            <element signature="e#1131#1132#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/soundCardActivity">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="565" selection-end="565" vertical-scroll-proportion="0.83253586" vertical-offset="0" max-vertical-offset="630">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sensors/fileSensors/soundCardActivity">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/dycmaster/rysiek/actions/FileSensorTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="0" selection-start="1226" selection-end="1226" vertical-scroll-proportion="1.1093991" vertical-offset="0" max-vertical-offset="1296">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/Trigger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="41" selection-start="563" selection-end="563" vertical-scroll-proportion="0.47149462" vertical-offset="0" max-vertical-offset="649">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SensorTrigger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="436" selection-end="2178" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="1638">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TimeTrigger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="4" selection-start="87" selection-end="87" vertical-scroll-proportion="0.16640987" vertical-offset="0" max-vertical-offset="649">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/CompoundTrigger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="46" selection-start="131" selection-end="131" vertical-scroll-proportion="0.110939905" vertical-offset="0" max-vertical-offset="649">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/dycmaster/rysiek/actions/SensorTriggerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="26" selection-start="1297" selection-end="1297" vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="936">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="1" selection-start="337" selection-end="337" vertical-scroll-proportion="0.3882897" vertical-offset="0" max-vertical-offset="649">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TriggersManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="30" selection-start="472" selection-end="472" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="756">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/AbstractSensorListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="26" selection-start="657" selection-end="668" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="792">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="29" column="0" selection-start="565" selection-end="565" vertical-scroll-proportion="0.83253586" vertical-offset="0" max-vertical-offset="630" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TriggerValue.java">
@@ -1580,57 +1318,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/BasicTrigger.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/ActionsManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="257" selection-end="257" vertical-scroll-proportion="0.0" vertical-offset="7" max-vertical-offset="1440">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorValue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="38" selection-start="311" selection-end="311" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SystemTrigger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="4" selection-start="125" selection-end="125" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/MusicIsOnTrigger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="32" selection-start="369" selection-end="369" vertical-scroll-proportion="0.37480065" vertical-offset="71" max-vertical-offset="720">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorsManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="45" selection-start="516" selection-end="516" vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="738">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/Action.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="17" selection-start="53" selection-end="53" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="198">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/CompoundAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="45" selection-start="118" selection-end="118" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
+        <state line="9" column="0" selection-start="203" selection-end="203" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
           <folding />
         </state>
       </provider>
@@ -1642,17 +1332,319 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/CommandAction.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/CompoundAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="44" selection-start="117" selection-end="117" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
+        <state line="5" column="45" selection-start="118" selection-end="118" vertical-scroll-proportion="0.1978022" vertical-offset="0" max-vertical-offset="455">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/ActionsManager.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/Action.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="60" selection-start="166" selection-end="166" vertical-scroll-proportion="0.31141868" vertical-offset="0" max-vertical-offset="289">
+        <state line="3" column="17" selection-start="53" selection-end="53" vertical-scroll-proportion="0.119469024" vertical-offset="0" max-vertical-offset="452">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/actions/CommandAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="44" selection-start="117" selection-end="117" vertical-scroll-proportion="0.19911504" vertical-offset="0" max-vertical-offset="452">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/DeploymentManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="14" selection-start="2481" selection-end="2481" vertical-scroll-proportion="0.33157894" vertical-offset="1386" max-vertical-offset="2700">
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/sensors/fileDataProviders/tempShutdown">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="91" selection-end="91" vertical-scroll-proportion="0.13948919" vertical-offset="19" max-vertical-offset="630">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/ScriptRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="174" column="38" selection-start="3684" selection-end="3684" vertical-scroll-proportion="0.12903225" vertical-offset="3072" max-vertical-offset="5346">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#958#959#0" expanded="true" />
+            <element signature="e#979#980#0" expanded="true" />
+            <element signature="e#1011#1012#0" expanded="true" />
+            <element signature="e#1035#1036#0" expanded="true" />
+            <element signature="e#1082#1083#0" expanded="true" />
+            <element signature="e#1117#1118#0" expanded="true" />
+            <element signature="e#1549#1550#0" expanded="true" />
+            <element signature="e#1573#1574#0" expanded="true" />
+            <element signature="e#1605#1606#0" expanded="true" />
+            <element signature="e#1629#1630#0" expanded="true" />
+            <element signature="e#1663#1664#0" expanded="true" />
+            <element signature="e#1687#1688#0" expanded="true" />
+            <element signature="e#1736#1737#0" expanded="true" />
+            <element signature="e#1771#1772#0" expanded="true" />
+            <element signature="e#1830#1831#0" expanded="true" />
+            <element signature="e#1850#1851#0" expanded="true" />
+            <element signature="e#1892#1893#0" expanded="true" />
+            <element signature="e#1919#1920#0" expanded="true" />
+            <element signature="e#2496#2497#0" expanded="true" />
+            <element signature="e#2519#2520#0" expanded="true" />
+            <element signature="e#2563#2564#0" expanded="true" />
+            <element signature="e#2596#2597#0" expanded="true" />
+            <element signature="e#2634#2635#0" expanded="true" />
+            <element signature="e#2662#2663#0" expanded="true" />
+            <element signature="e#2719#2720#0" expanded="true" />
+            <element signature="e#2762#2763#0" expanded="true" />
+            <element signature="e#2800#2801#0" expanded="true" />
+            <element signature="e#2828#2829#0" expanded="true" />
+            <element signature="e#2885#2886#0" expanded="true" />
+            <element signature="e#2928#2929#0" expanded="true" />
+            <element signature="e#2959#2960#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
+            <element signature="e#3028#3029#0" expanded="true" />
+            <element signature="e#3061#3062#0" expanded="true" />
+            <element signature="e#3092#3093#0" expanded="true" />
+            <element signature="e#3115#3116#0" expanded="true" />
+            <element signature="e#3161#3162#0" expanded="true" />
+            <element signature="e#3194#3195#0" expanded="true" />
+            <element signature="e#4104#4105#0" expanded="true" />
+            <element signature="e#4137#4477#0" expanded="true" />
+            <element signature="e#4473#4474#0" expanded="true" />
+            <element signature="e#4505#4858#0" expanded="true" />
+            <element signature="e#4854#4855#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/deployment/SCRIPTS_TO_RUN.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="0" selection-start="90" selection-end="90" vertical-scroll-proportion="0.199262" vertical-offset="0" max-vertical-offset="542">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/testDataProvider">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="19" selection-start="256" selection-end="256" vertical-scroll-proportion="0.3743501" vertical-offset="0" max-vertical-offset="577">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/FileSensor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="31" selection-start="963" selection-end="963" vertical-scroll-proportion="0.0" vertical-offset="331" max-vertical-offset="1962">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/NetSensor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="35" selection-start="72" selection-end="72" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorValue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="38" selection-start="311" selection-end="311" vertical-scroll-proportion="0.4864865" vertical-offset="0" max-vertical-offset="555">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorsManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="8" selection-start="357" selection-end="357" vertical-scroll-proportion="0.0" vertical-offset="79" max-vertical-offset="684">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-1.7.0/src.zip!/java/lang/Override.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="18" selection-start="971" selection-end="971" vertical-scroll-proportion="0.72983116" vertical-offset="97" max-vertical-offset="630">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/Sensor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="30" selection-start="1253" selection-end="1253" vertical-scroll-proportion="0.86135185" vertical-offset="259" max-vertical-offset="1116">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/CompoundTrigger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="22" selection-start="190" selection-end="190" vertical-scroll-proportion="0.21837088" vertical-offset="0" max-vertical-offset="577">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TriggersManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="30" selection-start="472" selection-end="472" vertical-scroll-proportion="0.3136915" vertical-offset="161" max-vertical-offset="738">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/TimeTrigger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="22" selection-start="140" selection-end="140" vertical-scroll-proportion="0.21837088" vertical-offset="0" max-vertical-offset="577">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="16" selection-start="384" selection-end="384" vertical-scroll-proportion="0.3778802" vertical-offset="106" max-vertical-offset="540">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/DeploymentManagerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="51" selection-start="738" selection-end="738" vertical-scroll-proportion="0.6531049" vertical-offset="73" max-vertical-offset="540">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/SensorInterpreter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="175" selection-end="175" vertical-scroll-proportion="0.2625" vertical-offset="0" max-vertical-offset="480">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/DefaultTrigger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="580" selection-end="580" vertical-scroll-proportion="0.375" vertical-offset="198" max-vertical-offset="1512">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SystemTrigger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="22" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/Trigger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="31" selection-start="696" selection-end="696" vertical-scroll-proportion="0.6812749" vertical-offset="0" max-vertical-offset="522">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/dycmaster/rysiek/deployment/ScriptRunnerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="49" selection-start="769" selection-end="769" vertical-scroll-proportion="0.77300614" vertical-offset="0" max-vertical-offset="1206">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/dycmaster/rysiek/sensors/FileSensorIntegrationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="711" selection-end="711" vertical-scroll-proportion="0.61098903" vertical-offset="118" max-vertical-offset="1494">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/sensors/fileDataProviders/soundCardActivity">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/sensorParsers/SensorParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="64" selection-start="384" selection-end="384" vertical-scroll-proportion="0.44" vertical-offset="25" max-vertical-offset="504">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/triggerParsers/flipFlopTriggerParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="12" selection-start="270" selection-end="270" vertical-scroll-proportion="0.6446281" vertical-offset="0" max-vertical-offset="432">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/SensorTrigger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="0" selection-start="1601" selection-end="1601" vertical-scroll-proportion="1.6860987" vertical-offset="362" max-vertical-offset="1044">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/dycmaster/rysiek/triggers/SensorTriggerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="27" selection-start="1483" selection-end="1483" vertical-scroll-proportion="0.25812274" vertical-offset="721" max-vertical-offset="1278">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/sensorParsers/FlipFlopSensorParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="4" selection-start="677" selection-end="677" vertical-scroll-proportion="0.67509025" vertical-offset="94" max-vertical-offset="684">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/triggerParsers/TriggerParametersParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="0" selection-start="266" selection-end="266" vertical-scroll-proportion="0.35740072" vertical-offset="0" max-vertical-offset="554">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/DefaultSensorListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="54" selection-start="150" selection-end="150" vertical-scroll-proportion="0.12788633" vertical-offset="0" max-vertical-offset="2016">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/triggers/triggerParsers/FredIsHomeTriggerParametersParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="12" selection-start="242" selection-end="242" vertical-scroll-proportion="0.3125" vertical-offset="0" max-vertical-offset="576">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dycmaster/rysiek/sensors/sensorParsers/MusicOnSensorParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="55" selection-start="785" selection-end="785" vertical-scroll-proportion="2.5" vertical-offset="120" max-vertical-offset="720">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

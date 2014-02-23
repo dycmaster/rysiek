@@ -17,6 +17,8 @@ public interface Trigger {
 	public void  setName(String name);
 	public String getDescription();
 	public void setDescription(String description);
+	public void setEnabled(boolean isEnabled);
+	public boolean isEnabled();
 
 
 }

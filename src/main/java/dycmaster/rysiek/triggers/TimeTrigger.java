@@ -1,10 +1,10 @@
 package dycmaster.rysiek.triggers;
 
 
-public class TimeTrigger extends BasicTrigger {
+public class TimeTrigger extends DefaultTrigger {
 
 
 	public TimeTrigger(String name) {
-		super(name);
+		setName(name);
 	}
 }

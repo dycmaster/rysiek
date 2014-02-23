@@ -10,38 +10,38 @@ import java.net.URL;
 /**
  * Created by frs on 2/15/14.
  */
-public class FileDataProviderTest {
+public class ScriptRunnerTest {
 
 
-    public static final URL TestSensorFile = FILE_DATA_PROVIDERS.class.getClassLoader().getResource("testSensor");
+    public static final URL testFileDataProvider = SCRIPTS_TO_RUN.class.getClassLoader().getResource("testDataProvider");
 
 
     @Test
     public void testUrlConstructor(){
-        FileDataProvider eut = new FileDataProvider(TestSensorFile);
+        ScriptRunner eut = new ScriptRunner(testFileDataProvider);
 
         Assert.assertEquals(eut.getOutputFileName(), "testFileSensor");
         Assert.assertEquals(eut.getSignalFileName(), "testFileSensorSig");
         Assert.assertTrue(eut.isEnabled());
         Assert.assertFalse(eut.isRunning());
-        Assert.assertEquals(eut.getSleepTime(), 20);
+        Assert.assertEquals(eut.getSleepTime(), 2);
         Assert.assertFalse(eut.isFailed());
     }
 
     @Test
     public void testReadSensorEnabled() throws Exception {
         final Boolean expexted = true;
-        FileDataProvider eut = new FileDataProvider();
-        File f = FileTools.openFile(TestSensorFile);
-        Boolean actual = eut.readSensorEnabled(f);
+        ScriptRunner eut = new ScriptRunner();
+        File f = FileTools.openFile(testFileDataProvider);
+        Boolean actual = eut.readIsSensorEnabled(f);
         Assert.assertEquals(expexted, actual);
     }
 
     @Test
     public void testReadOutputFileName() throws Exception {
         final String expected="testFileSensor";
-        FileDataProvider eut = new FileDataProvider();
-        File f = FileTools.openFile(TestSensorFile);
+        ScriptRunner eut = new ScriptRunner();
+        File f = FileTools.openFile(testFileDataProvider);
         String fName = eut.readOutputFileName(f);
         Assert.assertEquals(expected, fName);
     }
@@ -49,17 +49,17 @@ public class FileDataProviderTest {
     @Test
     public void testReadSignalFileName() throws Exception {
         final String expected="testFileSensorSig";
-        FileDataProvider eut = new FileDataProvider();
-        File f = FileTools.openFile(TestSensorFile);
+        ScriptRunner eut = new ScriptRunner();
+        File f = FileTools.openFile(testFileDataProvider);
         String fName = eut.readSignalFileName(f);
         Assert.assertEquals(expected, fName);
     }
 
     @Test
     public void testReadSleepTime() throws Exception {
-        final int expected = 20;
-        FileDataProvider eut = new FileDataProvider();
-        File f = FileTools.openFile(TestSensorFile);
+        final int expected = 2;
+        ScriptRunner eut = new ScriptRunner();
+        File f = FileTools.openFile(testFileDataProvider);
         int actual = eut.readSleepTime(f);
         Assert.assertEquals(expected, actual);
     }

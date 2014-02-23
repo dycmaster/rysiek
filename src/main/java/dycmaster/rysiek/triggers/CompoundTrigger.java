@@ -1,10 +1,10 @@
 package dycmaster.rysiek.triggers;
 
-public class CompoundTrigger extends BasicTrigger {
+public class CompoundTrigger extends DefaultTrigger {
 
 	//TODO add logic to combine many triggers
 
 	public CompoundTrigger(String name) {
-		super(name);
+		setName(name);
 	}
 }
