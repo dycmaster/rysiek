@@ -15,9 +15,7 @@ SLEEP_TIME=20
 COUNTER=1
 while [  true ]; do    
   /usr/bin/truncate -s 0 "$LOCAL_FILE"
-  echo "$(date) querying the router	($COUNTER)" 
-  ssh -x root@192.168.1.1 "/etc/config/show_wifi_clients.sh " >> "$LOCAL_FILE"  
-  echo "$(date) query completed		($COUNTER)"  
+  ssh -x root@192.168.1.1 "/etc/config/show_wifi_clients.sh " >> "$LOCAL_FILE"
   echo -n $COUNTER >> "$LOCAL_FILE_SIGNAL"
   COUNTER=$((COUNTER +1))
   sleep $SLEEP_TIME

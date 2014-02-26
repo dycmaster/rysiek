@@ -1,10 +1,13 @@
 package dycmaster.rysiek.triggers;
 
 
+import java.util.Map;
+
 public class TimeTrigger extends DefaultTrigger {
 
 
-	public TimeTrigger(String name) {
-		setName(name);
+	@Override
+	protected Map<String, String> getTriggerInput() {
+		return null;
 	}
 }

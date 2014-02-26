@@ -1,24 +1,54 @@
 package dycmaster.rysiek.triggers;
 
 
+import dycmaster.rysiek.triggers.triggerParsers.TriggerParametersParser;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
+
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Map;
 
 
-
-public  class DefaultTrigger implements Trigger {
+public abstract class DefaultTrigger implements Trigger {
 
 	Logger logger = Logger.getLogger(DefaultTrigger.class);
 	Date _lastStateChangeTime = new Date();
 	private Collection<TriggerListener> _triggerListeners =
 			CollectionUtils.synchronizedCollection(new LinkedList<TriggerListener>());
-	private volatile boolean _state;
+	private volatile boolean _state = false;
 	private String _name;
 	private String _description;
+	private TriggerParametersParser triggerParametersParser;
+	private Collection<String> _possibleTriggerParameters;
+	private boolean isEnabled;
 
+	public DefaultTrigger() {
+	}
+
+	public DefaultTrigger(TriggerParametersParser triggerParametersParser) {
+		this.triggerParametersParser = triggerParametersParser;
+	}
+
+	@Override
+	public Collection<String> getPossibleTriggerParameters() {
+		return _possibleTriggerParameters;
+	}
+
+	public void setPossibleTriggerParameters(Collection<String> possibleTriggerParameters) {
+		_possibleTriggerParameters = possibleTriggerParameters;
+	}
+
+	public TriggerParametersParser getTriggerParametersParser() {
+		return triggerParametersParser;
+	}
+
+	public void setTriggerParametersParser(TriggerParametersParser triggerParametersParser) {
+
+		this.triggerParametersParser = triggerParametersParser;
+		setPossibleTriggerParameters(triggerParametersParser.getPossibleParameters());
+	}
 
 	@Override
 	public boolean isEnabled() {
@@ -30,9 +60,26 @@ public  class DefaultTrigger implements Trigger {
 		this.isEnabled = isEnabled;
 	}
 
-	private boolean isEnabled;
+	@Override
+	public void triggerInputChanged() {
+		Map<String, String> triggerParameters = getTriggerInput();
+		TriggersManager.getInstance().
+				executeTriggerLogic(processSensorParametersToTriggerState(triggerParameters, getTriggerParametersParser()));
+	}
 
+	//implementation depends on a trigger
+	protected abstract Map<String, String> getTriggerInput();
 
+	protected Runnable processSensorParametersToTriggerState(final Map<String, String> sensorParameters,
+	                                                         final TriggerParametersParser parser) {
+		return new Runnable() {
+			@Override
+			public void run() {
+				boolean state = parser.parseParametersToState(sensorParameters);
+				setTriggerState(state);
+			}
+		};
+	}
 
 	@Override
 	public void subscribeToTrigger(TriggerListener listener) {
@@ -55,12 +102,12 @@ public  class DefaultTrigger implements Trigger {
 	}
 
 	@Override
-	public boolean getTriggerState() {
+	public synchronized boolean getTriggerState() {
 		return _state;
 	}
 
 	@Override
-	public void setTriggerState(boolean state) {
+	public synchronized void setTriggerState(boolean state) {
 		if (state != _state) {
 			_lastStateChangeTime = new Date();
 			logger.info("trigger goes " + state);

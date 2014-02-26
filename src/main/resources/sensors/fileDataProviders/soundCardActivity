@@ -22,7 +22,6 @@ while true; do
         echo idle  >> "$LOCAL_FILE"
     fi
 
-    echo sound card checked
     echo -n $COUNTER >> "$LOCAL_FILE_SIGNAL"
     COUNTER=$((COUNTER +1))
     sleep $SLEEP_TIME

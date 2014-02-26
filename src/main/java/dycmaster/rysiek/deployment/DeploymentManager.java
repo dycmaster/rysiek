@@ -10,7 +10,7 @@ import java.nio.file.*;
 import java.util.Collection;
 import java.util.LinkedList;
 
-/**
+/*
  * This class is responsible for starting all the shell scripts (for file sensors)
  * Firstly it has to prepare a directory structure, later it has to run the scripts.
  * We run all the scripts from sensors.fileDataProviders directory
@@ -18,6 +18,27 @@ import java.util.LinkedList;
 public class DeploymentManager {
 
     Logger logger = Logger.getLogger(DeploymentManager.class);
+
+	public DeploymentManager(){
+
+	}
+
+	public DeploymentManager(Collection<String> scriptsToRun){
+		deployAllAndRun(parseString(scriptsToRun));
+	}
+
+	private Collection<ScriptRunner> parseString(Collection<String> scriptsCollection){
+		Collection<ScriptRunner> result = new LinkedList<>();
+		for(String scriptName: scriptsCollection){
+			for(SCRIPTS_TO_RUN script: SCRIPTS_TO_RUN.values()){
+				if(script.name().equalsIgnoreCase(scriptName)){
+					result.add(new ScriptRunner(script.getUrl()));
+				}
+			}
+		}
+
+		return  result;
+	}
 
     /*
      * Directory to which files are deployed
@@ -41,11 +62,16 @@ public class DeploymentManager {
     }
 
 
-
+	public void deployOneAndRun(ScriptRunner scriptRunner){
+		Collection<ScriptRunner> coll = new LinkedList<>();
+		coll.add(scriptRunner);
+		deployAllAndRun(coll);
+	}
 
     public void deployAllAndRun(Collection<ScriptRunner> sensorScripts){
 
-
+	    Path fileSensorsDirPath = FileSystems.getDefault().getPath(runDir, fileSensorsDir);
+	    prepareMainDirForSensors(fileSensorsDirPath);
         deployScriptDirs(sensorScripts);
         deployScriptFiles(sensorScripts);
 
@@ -66,10 +92,6 @@ public class DeploymentManager {
     protected void deployScriptDirs(Collection<ScriptRunner> sensorScripts) {
 
         logger.info("deployScriptDirs()");
-        Path fileSensorsDirPath = FileSystems.getDefault().getPath(runDir, fileSensorsDir);
-
-
-        prepareMainDirForSensors(fileSensorsDirPath);
 
         for(ScriptRunner script: sensorScripts){
             Path currScriptPath = FileSystems.getDefault().getPath(runDir, fileSensorsDir, script.getScriptName());
@@ -124,7 +146,7 @@ public class DeploymentManager {
      */
     protected Collection<ScriptRunner> getScriptsFromDir(){
         //TODO add pulling scripts from some directory
-        return CollectionUtils.EMPTY_COLLECTION;
+	    return  CollectionUtils.EMPTY_COLLECTION;
     }
 
     protected void prepareMainDirForSensors(Path fileSensorsDirPath){

@@ -4,9 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
-/**
- * Created by frs on 2/16/14.
- */
+
 public interface SensorListener {
 
 	public Collection<String> getAvailableParameters();

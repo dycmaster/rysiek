@@ -20,5 +20,11 @@ public interface Trigger {
 	public void setEnabled(boolean isEnabled);
 	public boolean isEnabled();
 
+	/**
+	 * Called internally when trigger's data source has changed
+	 */
+	public void triggerInputChanged();
+	public Collection<String> getPossibleTriggerParameters();
+
 
 }

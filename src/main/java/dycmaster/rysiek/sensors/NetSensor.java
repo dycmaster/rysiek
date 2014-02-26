@@ -12,4 +12,9 @@ public class NetSensor extends Sensor {
 	public void stopObserving() {
 
 	}
+
+	@Override
+	protected SensorValue getChangedEventArgs() {
+		return null;
+	}
 }

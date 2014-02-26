@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,19 +27,7 @@ public class FileSensor extends Sensor {
 
 		@Override
 		public void fileModified(int wd, String rootPath, String name) {
-
-			try {
-				logger.info(signalFile.getName() + " sensor: Change detected!!");
-
-				List<String> lines;
-				lines = Files.readAllLines(fileToObserve.toPath(), StandardCharsets.UTF_8);
-
-				SensorValue sv = new SensorValue(lines);
-				observedEntityChanged(sv);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			onChangeDetected();
 		}
 
 		@Override
@@ -53,6 +42,25 @@ public class FileSensor extends Sensor {
 	private int fileWatchId;
 
 
+
+	@Override
+	protected SensorValue getChangedEventArgs() {
+		try {
+			logger.info(signalFile.getName() + " sensor: Change detected,");
+
+			List<String> lines;
+			lines = Files.readAllLines(fileToObserve.toPath(), StandardCharsets.UTF_8);
+
+			SensorValue sv = new SensorValue(lines);
+			return sv;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return  new SensorValue(new ArrayList<String>());
+		}
+	}
+
+	public FileSensor(){};
 
 	public FileSensor(ScriptRunner script) {
 		this(script.getOutputFile(), script.getSignalFile());
@@ -98,6 +106,5 @@ public class FileSensor extends Sensor {
 			logger.info(fileToObserve.getName() + " sensor: invalid watcher ID specified..");
 		}
 	}
-
 
 }

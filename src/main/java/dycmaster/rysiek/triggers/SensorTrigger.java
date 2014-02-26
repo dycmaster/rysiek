@@ -6,6 +6,7 @@ import dycmaster.rysiek.sensors.SensorListener;
 import dycmaster.rysiek.triggers.triggerParsers.TriggerParametersParser;
 import org.apache.log4j.Logger;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /*
@@ -18,9 +19,11 @@ public class SensorTrigger extends DefaultTrigger implements SensorInterpreter {
 
 	protected Logger logger;
 	private SensorListener sensorListener;
-	private TriggerParametersParser triggerParametersParser;
+	private volatile Map<String, String> _currTriggerParameters = new HashMap<>();
 
 
+	public SensorTrigger() {
+	}
 
 	public SensorTrigger(SensorListener sensorListener, TriggerParametersParser triggerParametersParser) {
 		setSensorListener(sensorListener);
@@ -29,40 +32,27 @@ public class SensorTrigger extends DefaultTrigger implements SensorInterpreter {
 	}
 
 	@Override
-	public void sensorParametersChangedHandler(Map<String, String> parametersMap) {
-		if ( isEnabled() ) {
-			TriggersManager.getInstance().
-					executeTriggerLogic(processSensorParametersToTriggerState(parametersMap, getTriggerParametersParser()));
-		}
+	protected Map<String, String> getTriggerInput() {
+		return _currTriggerParameters;
 	}
 
-
-	protected Runnable processSensorParametersToTriggerState(final Map<String, String> sensorParameters,
-	                                                         final TriggerParametersParser parser) {
-		return new Runnable() {
-			@Override
-			public void run() {
-				boolean state = parser.parseParametersToState(sensorParameters, getSensorListener().getAvailableParameters());
-				setTriggerState(state);
-			}
-		};
-	}
-
-
+	@Override
 	public SensorListener getSensorListener() {
 		return sensorListener;
 	}
 
+	@Override
 	public void setSensorListener(SensorListener sensorListener) {
 		this.sensorListener = sensorListener;
 	}
 
-	public TriggerParametersParser getTriggerParametersParser() {
-		return triggerParametersParser;
+	@Override
+	public void sensorParametersChangedHandler(Map<String, String> parametersMap) {
+		if (isEnabled()) {
+			_currTriggerParameters = parametersMap;
+			triggerInputChanged();
+		}
 	}
 
-	public void setTriggerParametersParser(TriggerParametersParser triggerParametersParser) {
-		this.triggerParametersParser = triggerParametersParser;
-	}
 
 }

@@ -1,5 +1,6 @@
 package dycmaster.rysiek.triggers;
 
+import dycmaster.rysiek.MockitoTest;
 import dycmaster.rysiek.deployment.DeploymentManager;
 import dycmaster.rysiek.deployment.SCRIPTS_TO_RUN;
 import dycmaster.rysiek.deployment.ScriptRunner;
@@ -14,27 +15,22 @@ import org.junit.Test;
 import java.util.Collection;
 import java.util.LinkedList;
 
-/**
- * Created by frs on 2/16/14.
- */
-public class SensorTriggerTest {
 
-	private ScriptRunner deployMusicScriptAndRun(){
+public class SensorTriggerIntegrationTest extends MockitoTest {
+
+	private ScriptRunner deployMusicScriptAndRun() {
 		ScriptRunner testScript = new ScriptRunner(SCRIPTS_TO_RUN.CheckSoundcard.getUrl());
 		Collection<ScriptRunner> scripts = new LinkedList<>();
 		scripts.add(testScript);
 		DeploymentManager deploymentManager = new DeploymentManager();
 		deploymentManager.deployAllAndRun(scripts);
-		return  testScript;
+		return testScript;
 	}
 
 
-
 	@Test
-	public void testMusicSensorListener () throws Exception {
+	public void testMusicSensorListener() throws Exception {
 		ScriptRunner testScript = deployMusicScriptAndRun();
-		FileSensor fs = new FileSensor(testScript);
-		fs.startObserving();
 
 		Sensor sensor = new FileSensor(testScript);
 		sensor.startObserving();
@@ -45,8 +41,9 @@ public class SensorTriggerTest {
 		Thread.sleep(20000);
 	}
 
+
 	@Test
-	public void testMusicSensorDummyTrigger () throws Exception {
+	public void testMusicSensorDummyTrigger() throws Exception {
 		ScriptRunner testScript = deployMusicScriptAndRun();
 		FileSensor fs = new FileSensor(testScript);
 		fs.startObserving();
@@ -57,7 +54,7 @@ public class SensorTriggerTest {
 		SensorListener sensorListener = new DefaultSensorListener(sensor, new MusicOnSensorParser());
 		sensorListener.startListening();
 
-		Trigger trigger  = new SensorTrigger(sensorListener, new flipFlopTriggerParser());
+		Trigger trigger = new SensorTrigger(sensorListener, new flipFlopTriggerParser());
 		trigger.setEnabled(true);
 
 		Thread.sleep(20000);

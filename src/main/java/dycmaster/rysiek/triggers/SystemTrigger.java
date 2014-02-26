@@ -1,10 +1,13 @@
 package dycmaster.rysiek.triggers;
 
-/**
- * Created by frs on 2/16/14.
- */
+import java.util.Map;
+
+
 public class SystemTrigger extends DefaultTrigger {
-	public SystemTrigger(String name) {
-		setName(name);
+
+	@Override
+	protected Map<String, String> getTriggerInput() {
+		return null;
 	}
+
 }

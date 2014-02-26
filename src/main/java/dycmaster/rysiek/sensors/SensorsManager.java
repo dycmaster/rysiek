@@ -1,6 +1,7 @@
 package dycmaster.rysiek.sensors;
 
 
+import dycmaster.rysiek.sensors.sensorParsers.SensorParser;
 import org.apache.commons.collections.CollectionUtils;
 
 import java.util.Collection;
@@ -30,6 +31,21 @@ public class SensorsManager {
 			removeSensor(sensor);
 		}
 	}
+
+	public void addSensorFor(SCRIPT_TO_SENSOR script_to_sensor){
+		Class sensorToCreate = script_to_sensor.getSensorClass();
+		//Sensor sensor = new FileSensor()
+
+		try {
+			SensorParser sensorParser = (SensorParser)  sensorToCreate.newInstance();
+
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 
 }

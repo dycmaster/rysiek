@@ -6,6 +6,7 @@ import java.util.Map;
 
 public interface TriggerParametersParser {
 
-	public boolean parseParametersToState
-			(Map<String, String> parameters, Collection<String> availableParameters);
+	public boolean parseParametersToState(Map<String, String> parameters);
+
+	public Collection<String> getPossibleParameters();
 }

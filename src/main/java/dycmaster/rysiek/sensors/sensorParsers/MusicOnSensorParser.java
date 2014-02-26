@@ -8,9 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by frs on 2/23/14.
- */
+
 public class MusicOnSensorParser extends   SensorParser {
 	private String [] availableParameters = {"isOn"};
 	Logger  logger = Logger.getLogger(MusicOnSensorParser.class);

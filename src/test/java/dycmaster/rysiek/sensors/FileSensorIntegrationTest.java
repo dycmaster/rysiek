@@ -8,13 +8,18 @@ import dycmaster.rysiek.triggers.SensorTrigger;
 import dycmaster.rysiek.triggers.Trigger;
 import dycmaster.rysiek.triggers.triggerParsers.flipFlopTriggerParser;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
-
+import java.util.List;
 
 
 public class FileSensorIntegrationTest {
@@ -22,15 +27,17 @@ public class FileSensorIntegrationTest {
 	public static final URL testFileDataProvider = SCRIPTS_TO_RUN.class.getClassLoader().getResource("testDataProvider");
 
 
-	@Test
-	public void testStartAndStopObserving() throws Exception {
-		ScriptRunner testScriptRunner = deployTestScriptAndRun();
-		Sensor s = new FileSensor(testScriptRunner);
-		s.startObserving();
-		Thread.sleep(2000);
-		Assert.assertNotNull("buu",s.getLastChangeTime());
 
-	}
+
+//	@Test
+//	public void testStartAndStopObserving() throws Exception {
+//		ScriptRunner testScriptRunner = deployTestScriptAndRun();
+//		Sensor s = new FileSensor(testScriptRunner);
+//		s.startObserving();
+//		Thread.sleep(2000);
+//		Assert.assertNotNull("buu",s.getLastChangeTime());
+//
+//	}
 
 	@Test
 	public void testSensorListener () throws Exception {

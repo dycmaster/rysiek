@@ -18,6 +18,13 @@ public class Main {
         DeploymentManager deploymentManager = new DeploymentManager();
         deploymentManager.deployAllAndRun(deploymentManager.getAllScriptsToDeploy());
 
+
+
+
+
+
+
+
     }
 
 }
