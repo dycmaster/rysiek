@@ -1,14 +1,23 @@
 package dycmaster.rysiek.sensors;
 
-import dycmaster.rysiek.MockitoTest;
+import dycmaster.rysiek.BaseTestMockito;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
+import static org.mockito.Mockito.*;
 
 
-public class FileSensorMockedTest extends MockitoTest {
+public class FileSensorMockedTestMockito extends BaseTestMockito {
+
+	@Test
+	public void testFileSensorNotifiesUponChanges() throws Exception{
+
+		Sensor sensor =  spy(new FileSensor());
+		sensor.onChangeDetected();
+		verify(sensor).observedEntityChangedEvent(any(SensorValue.class));
+	}
 
 	@Test
 	public void testFileSensorNotifiesAboutAChange(){
@@ -21,12 +30,12 @@ public class FileSensorMockedTest extends MockitoTest {
 		SensorValue inputSV = new SensorValue(sensorValList);
 
 		//stub
-		Mockito.doReturn(inputSV).when(spySensor).getChangedEventArgs();
+		doReturn(inputSV).when(spySensor).getChangedEventArgs();
 
 		//test
 		spySensor.onChangeDetected();
 
 		//trust and verify
-		Mockito.verify(spySensor).changed(inputSV);
+		verify(spySensor).observedEntityChangedEvent(inputSV);
 	}
 }

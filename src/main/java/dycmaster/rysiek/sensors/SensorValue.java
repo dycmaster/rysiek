@@ -14,6 +14,7 @@ public class SensorValue {
 	private final List<String> _sensorData;
 
 
+
 	public SensorValue(List<String> sensorData){
 		this._sensorData = sensorData;
 	}

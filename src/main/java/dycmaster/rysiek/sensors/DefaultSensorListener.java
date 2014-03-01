@@ -30,7 +30,8 @@ public  class DefaultSensorListener implements SensorListener {
 		_subscribers.add(interpreter);
 	}
 
-	protected void sensorParametersChanged(Map<String, String> parameters){
+
+	protected void sensorParametersChangedEvent(Map<String, String> parameters){
 		synchronized (this){
 			for(SensorInterpreter interpreter: getSubscribers()){
 				interpreter.sensorParametersChangedHandler(parameters);
@@ -86,7 +87,7 @@ public  class DefaultSensorListener implements SensorListener {
 			_parsedParameters = parseSensorValueToParameters(sensorValue, getSensorParser());
 		}
 		this.lastChangeTime = new Date();
-		sensorParametersChanged(_parsedParameters);
+		sensorParametersChangedEvent(_parsedParameters);
 	}
 
 	/*
@@ -97,19 +98,19 @@ public  class DefaultSensorListener implements SensorListener {
 	}
 
 	@Override
-	public void startListening() {
+	public void start() {
 		mySensor.subscribeToSensor(this);
 		isListening = true;
 	}
 
 	@Override
-	public void stopListening() {
+	public void stop() {
 		mySensor.removeSubscriber(this);
 		isListening = false;
 	}
 
 	@Override
-	public boolean isListening() {
+	public boolean isEnabled() {
 		return isListening;
 	}
 

@@ -17,6 +17,7 @@
                 <configuration>
                     <workingDirectory>target</workingDirectory>
                     <argLine>-Djava.library.path=${project.build.directory}/../lib</argLine>
+                    <skipTests>false</skipTests>
                 </configuration>
             </plugin>
             <plugin>

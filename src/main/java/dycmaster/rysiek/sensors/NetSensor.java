@@ -4,13 +4,18 @@ package dycmaster.rysiek.sensors;
 
 public class NetSensor extends Sensor {
 	@Override
-	public void startObserving() {
+	public void start() {
 
 	}
 
 	@Override
-	public void stopObserving() {
+	public void stop() {
 
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return false;
 	}
 
 	@Override

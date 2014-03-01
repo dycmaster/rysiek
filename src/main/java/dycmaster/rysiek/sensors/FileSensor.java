@@ -16,7 +16,7 @@ import java.util.List;
 
 public class FileSensor extends Sensor {
 
-	private JNotifyListener changeListener = new JNotifyListener() {
+	protected JNotifyListener changeListener = new JNotifyListener() {
 		@Override
 		public void fileCreated(int i, String s, String s2) {
 		}
@@ -40,27 +40,12 @@ public class FileSensor extends Sensor {
 	private File fileToObserve;
 	private File signalFile;
 	private int fileWatchId;
+	private boolean _isEnabled = false;
 
-
-
-	@Override
-	protected SensorValue getChangedEventArgs() {
-		try {
-			logger.info(signalFile.getName() + " sensor: Change detected,");
-
-			List<String> lines;
-			lines = Files.readAllLines(fileToObserve.toPath(), StandardCharsets.UTF_8);
-
-			SensorValue sv = new SensorValue(lines);
-			return sv;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return  new SensorValue(new ArrayList<String>());
-		}
+	public FileSensor() {
 	}
 
-	public FileSensor(){};
+	;
 
 	public FileSensor(ScriptRunner script) {
 		this(script.getOutputFile(), script.getSignalFile());
@@ -70,32 +55,60 @@ public class FileSensor extends Sensor {
 		this.fileToObserve = fileToObserve;
 		this.signalFile = signalFile;
 		setName(fileToObserve.getName());
-		logger = Logger.getLogger(FileSensor.class.getSimpleName() +":"+getName() );
+		logger = Logger.getLogger(FileSensor.class.getSimpleName() + ":" + getName());
 	}
 
-	/*
-	 * This method returns immediately
-	 */
 	@Override
-	public void startObserving() {
-
-		int mask = JNotify.FILE_MODIFIED;
+	protected SensorValue getChangedEventArgs() {
 		try {
-			//Observation takes place in a separate thread.
-			fileWatchId = JNotify.addWatch(signalFile.getPath(), mask, false, changeListener);
-			logger.info(fileToObserve.getName() + " sensor: File observation started.");
-		} catch (JNotifyException e) {
-			logger.error(e.getMessage());
+			if (signalFile != null)
+				logger.info(signalFile.getName() + " sensor: Change detected,");
+
+			if (fileToObserve != null) {
+				List<String> lines;
+				lines = Files.readAllLines(fileToObserve.toPath(), StandardCharsets.UTF_8);
+
+				SensorValue sv = new SensorValue(lines);
+				return sv;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new SensorValue(new ArrayList<String>());
 		}
 	}
 
 	/*
 	 * This method returns immediately
 	 */
-	public void stopObserving() {
+	@Override
+	public void start() {
+
+		int mask = JNotify.FILE_MODIFIED;
+		try {
+			//Observation takes place in a separate thread.
+			fileWatchId = JNotify.addWatch(signalFile.getPath(), mask, false, changeListener);
+			logger.info(fileToObserve.getName() + " sensor: File observation started.");
+			_isEnabled = true;
+		} catch (JNotifyException e) {
+			logger.error(e.getMessage());
+		}
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return _isEnabled;
+	}
+
+	/*
+	 * This method returns immediately
+	 */
+	public void stop() {
 		boolean res = false;
 		try {
 			res = JNotify.removeWatch(fileWatchId);
+			_isEnabled = false;
 		} catch (JNotifyException e) {
 			e.printStackTrace();
 			logger.info(fileToObserve.getName() + " sensor: exception while removing watcher!");

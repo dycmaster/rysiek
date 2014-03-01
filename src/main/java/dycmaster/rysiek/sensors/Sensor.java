@@ -10,10 +10,10 @@ import java.util.LinkedList;
  * Sensor observes something and can issue a signal when the underlying
  * observed changes it's state. Sensor copies the current output of the observed entity
  * and provides it to be processed by a trigger using some certain logic.
- * <p/>
+ *
  * 1. Detect the change
  * 2. Get new sensor value
- * 3. Inform subscribers by calling changed
+ * 3. Inform subscribers by calling observedEntityChangedEvent
  */
 public abstract class Sensor {
 
@@ -22,9 +22,11 @@ public abstract class Sensor {
 	private String _name;
 	private Date lastChangeTime;
 
-	public abstract void startObserving();
+	public abstract void start();
 
-	public abstract void stopObserving();
+	public abstract void stop();
+
+	public abstract  boolean isEnabled();
 
 
 	/*
@@ -33,11 +35,13 @@ public abstract class Sensor {
 	 */
 	protected void onChangeDetected() {
 		SensorValue sensorValue = getChangedEventArgs();
-		changed(sensorValue);
+		observedEntityChangedEvent(sensorValue);
 	}
 
 	/*
 	 * It has to be called after new sensor value has been detected.
+	 * You have to overload this method to make it able to get the
+	 * event args from a particular observed entity.
 	 */
 	protected abstract SensorValue getChangedEventArgs();
 
@@ -73,7 +77,7 @@ public abstract class Sensor {
 	/*
 	 * Fire an event
 	 */
-	protected void changed(final SensorValue sensorValue) {
+	protected void observedEntityChangedEvent(final SensorValue sensorValue) {
 		lastChangeTime = new Date();
 
 		for (final SensorListener listener : sensorListeners) {

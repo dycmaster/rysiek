@@ -55,13 +55,19 @@ public abstract class DefaultTrigger implements Trigger {
 		return isEnabled;
 	}
 
+
 	@Override
-	public void setEnabled(boolean isEnabled) {
-		this.isEnabled = isEnabled;
+	public void start(){
+		this.isEnabled = true;
 	}
 
 	@Override
-	public void triggerInputChanged() {
+	public void stop(){
+		this.isEnabled = false;
+	}
+
+
+	protected void triggerInputChanged() {
 		Map<String, String> triggerParameters = getTriggerInput();
 		TriggersManager.getInstance().
 				executeTriggerLogic(processSensorParametersToTriggerState(triggerParameters, getTriggerParametersParser()));
@@ -109,10 +115,12 @@ public abstract class DefaultTrigger implements Trigger {
 	@Override
 	public synchronized void setTriggerState(boolean state) {
 		if (state != _state) {
+			_state = state;
 			_lastStateChangeTime = new Date();
 			logger.info("trigger goes " + state);
+			TriggerValue triggerValue = new TriggerValue(this, state);
+			triggerStateChangedEvent(triggerValue);
 		}
-		_state = state;
 	}
 
 	@Override
@@ -138,6 +146,19 @@ public abstract class DefaultTrigger implements Trigger {
 	@Override
 	public void setDescription(String description) {
 		_description = description;
+	}
+
+	/**
+	 * Fire an event to notify subscribers
+	 *
+	 * @param triggerValue
+	 */
+	protected void triggerStateChangedEvent(final TriggerValue triggerValue) {
+		synchronized (triggerValue) {
+			for (TriggerListener triggerListener : _triggerListeners) {
+				triggerListener.triggerValueChangedHandler(triggerValue);
+			}
+		}
 	}
 
 }
