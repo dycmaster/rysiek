@@ -16,4 +16,6 @@ public class TriggerValue {
 		return  _triggerStatus;
 	}
 
+	public Trigger getSender(){return  _sender; }
+
 }

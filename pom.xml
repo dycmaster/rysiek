@@ -8,16 +8,48 @@
     <artifactId>rysiek</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <lib.directory>${project.build.directory}/lib/</lib.directory>
+        <nativesTargetDir>target/natives</nativesTargetDir>
+        <separateDirs>false</separateDirs>
+    </properties>
+
+    <!--${basedir} represents the directory containing pom.xml-->
+    <!--${project.build.directory} results in the path to your "target" directory, this is the same as ${pom.project.build.directory}-->
+    <!--${project.build.outputDirectory} results in the path to your "target/classes" directory-->
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <echo>Displaying value of 'lib.directory' property</echo>
+                                <echo>[lib.directory] ${lib.directory}</echo>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <workingDirectory>target</workingDirectory>
-                    <argLine>-Djava.library.path=${project.build.directory}/../lib</argLine>
                     <skipTests>false</skipTests>
+                    <forkMode>never</forkMode>
+                    <threadCount>1</threadCount>
+                    <argLine>-Djava.library.path=${lib.directory}</argLine>
                 </configuration>
             </plugin>
             <plugin>
@@ -33,7 +65,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
+                            <classpathPrefix>${lib.directory}</classpathPrefix>
                             <mainClass>dycmaster.rysiek.main.Main</mainClass>
                         </manifest>
                     </archive>
@@ -50,7 +82,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <outputDirectory>${lib.directory}</outputDirectory>
                             <stripVersion>true</stripVersion>
                         </configuration>
                     </execution>
@@ -62,7 +94,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
+                            <classpathPrefix>${lib.directory}</classpathPrefix>
                             <mainClass>dycmaster.rysiek.main.Main</mainClass>
                         </manifest>
                     </archive>
@@ -126,6 +158,12 @@
         <dependency>
             <groupId>jnotify</groupId>
             <artifactId>jnotify</artifactId>
+            <version>0.94</version>
+        </dependency>
+        <dependency>
+            <groupId>jnotify</groupId>
+            <artifactId>libjnotify</artifactId>
+            <type>so</type>
             <version>0.94</version>
         </dependency>
 
