@@ -1,9 +1,15 @@
 package dycmaster.rysiek.triggers;
 
 import dycmaster.rysiek.shared.Create;
+import dycmaster.rysiek.triggers.criteriaHandlers.AbstractCriteriaHandler;
 import dycmaster.rysiek.triggers.triggerParsers.CompoundTriggerLogicalCriteria;
 import dycmaster.rysiek.triggers.triggerParsers.CompoundTriggerLogicalCriterion;
+import org.apache.commons.collections.CollectionUtils;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeComparator;
+import org.joda.time.LocalDate;
 
+import java.lang.reflect.Constructor;
 import java.util.*;
 
 public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
@@ -18,9 +24,8 @@ public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
 	//if the change has not been handled yet
 	private Map<Trigger, Boolean> _triggerJustChangedState = new HashMap<>();
 
-	private LinkedList<Timer> _absoluteTimers = new LinkedList<>();
 
-	private Map<CompoundTriggerLogicalCriterion, ValidationObject> _criterionValidators = new HashMap<>();
+	private Map<CompoundTriggerLogicalCriterion, AbstractCriteriaHandler> _criterionHandlers = new HashMap<>();
 
 
 	protected void setObservedTriggerState(Trigger trigger, Boolean state){
@@ -85,187 +90,201 @@ public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
 
 
 
-	protected long getSameTimeToday(Date date){
+//	private  Collection<Timer> prepareAndApplyBeforeTimeAbsoluteTimers(
+//            CompoundTriggerLogicalCriterion timeAbsoluteCriterion, Trigger trigger) {
+//		Collection<Timer> result = Create.newCollection();
+//
+//        Date activeTo = timeAbsoluteCriterion.getTime();
+//		Date currentTime = new Date();
+//
+//
+//		//switch on every day midnight
+//		result.add(switchTriggerOnEveryDayAt(00,00,1,trigger));
+//
+//		//switchTrigger off every day at a time given
+//		result.add(switchTriggerOffEveryDayAt(activeTo, trigger));
+//
+//		if(beforOrEqualsHoursOnly(currentTime, activeTo)){
+//            trigger.setTriggerState(true);
+//		}else{
+//            trigger.setTriggerState(false);
+//		}
+//
+//		return result;
+//	}
+//
+//
+//    private static Trigger prepareOnDayTimeAbsoluteTrigger(CompoundTriggerLogicalCriterion timeAbsoluteCriterion,
+//                                                           int triggerNo){
+//
+//
+//        final Trigger absoluteTimeTrigger = new SensorTrigger();
+//        absoluteTimeTrigger.setName(timeAbsoluteCriterion.getKind().name() + "_" + triggerNo);
+//        absoluteTimeTrigger.start();
+//
+//        DateTime today = new DateTime();
+//        DateTime activeDate = new DateTime(timeAbsoluteCriterion.getTime());
+//
+//        int result =  DateTimeComparator.getDateOnlyInstance().compare(activeDate, today);
+//
+//        if(result<0){ //already in the past
+//            absoluteTimeTrigger.setTriggerState(false);
+//
+//        }else if(result == 0){ //today!
+//
+//            absoluteTimeTrigger.setTriggerState(true);
+//            Calendar switchOffAt = GregorianCalendar.getInstance();
+//            switchOffAt.setTime(new Date());
+//            switchOffAt.set(Calendar.HOUR, 23);
+//            switchOffAt.set(Calendar.MINUTE, 59);
+//            switchOffAt.set(Calendar.SECOND, 59);
+//
+//            switchTriggerOffAt(switchOffAt.getTime(), absoluteTimeTrigger);
+//
+//        }else{ //still in the future
+//
+//            activeDate.hourOfDay().setCopy(0);
+//            activeDate.minuteOfHour().setCopy(0);
+//            activeDate.secondOfMinute().setCopy(1);
+//
+//            DateTime offDate = new DateTime(activeDate);
+//            offDate.hourOfDay().setCopy(23);
+//            offDate.minuteOfHour().setCopy(59);
+//            offDate.secondOfMinute().setCopy(59);
+//
+//            switchTriggerOnAt(activeDate.toDate(), absoluteTimeTrigger);
+//            switchTriggerOffAt(offDate.toDate(), absoluteTimeTrigger);
+//        }
+//        return absoluteTimeTrigger;
+//    }
 
-		Calendar dateCal = GregorianCalendar.getInstance();
-		dateCal.setTime(date);
-		int hour = dateCal.get(Calendar.HOUR_OF_DAY);
-		int min = dateCal.get(Calendar.MINUTE);
-		int sec = dateCal.get(Calendar.SECOND);
-
-		return  getTodayTime(hour, min, sec);
-	}
-
-
-	protected long getTodayTime(int hourOfDay, int min, int sec){
-		Calendar nowCal =  GregorianCalendar.getInstance();
-		nowCal.setTime(new Date());
-		nowCal.set(Calendar.HOUR_OF_DAY, hourOfDay);
-		nowCal.set(Calendar.MINUTE, min);
-		nowCal.set(Calendar.SECOND, sec);
-
-		return  nowCal.getTime().getTime();
-	}
-
-
-	protected void switchTriggerOnOffEveryDayAt(int hourOfDay, int min, int sec, final Trigger trigger, final boolean targetState){
-
-		Date switchOnFirstRun = new Date(getTodayTime(hourOfDay, min, sec));
-		Date now = new Date();
-
-		if(now.after(switchOnFirstRun)){
-			switchOnFirstRun.setTime(switchOnFirstRun.getTime()+(24*60*60*1000));
-		}
-
-		long period = 24*60*60*1000;
-
-		Timer switchOnTimer = new Timer();
-		switchOnTimer.scheduleAtFixedRate(new TimerTask() {
-			@Override
-			public void run() {
-				trigger.setTriggerState(targetState);
-			}
-		}, switchOnFirstRun, period);
-	}
-
-
-
-	protected void switchTriggerOnEveryDayAt(int hourOfDay, int min, int sec, final Trigger trigger){
-		switchTriggerOnOffEveryDayAt(hourOfDay, min, sec,trigger,true);
-	}
-
-	protected void switchTriggerOffEveryDayAt(int hourOfDay, int min, int sec, final Trigger trigger){
-		switchTriggerOnOffEveryDayAt(hourOfDay, min, sec,trigger,false);
-	}
-
-	protected void switchTriggerOffEveryDayAt(Date date,  final Trigger trigger){
-
-		Calendar cal = GregorianCalendar.getInstance();
-		cal.setTime(date);
-
-		switchTriggerOnOffEveryDayAt(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),
-				cal.get(Calendar.SECOND), trigger, false);
-	}
-
-	protected void switchTriggerOnEveryDayAt(Date date,  final Trigger trigger){
-
-		Calendar cal = GregorianCalendar.getInstance();
-		cal.setTime(date);
-
-		switchTriggerOnOffEveryDayAt(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),
-				cal.get(Calendar.SECOND), trigger, true);
-	}
-
-
-	/*
-	Tells if d1 is before d2 (or the same)
-	 */
-	protected boolean beforOrEqualsHoursOnly(Date d1, Date d2){
-		return  ! afterHoursOnly(d1, d2);
-	}
-
-	/*
-	Tells if d1 is after d2 or not
-	 */
-	protected boolean afterHoursOnly(Date d1, Date d2){
-		Calendar c1 = GregorianCalendar.getInstance();
-		Calendar c2 = GregorianCalendar.getInstance();
-
-		c1.setTime(d1);
-		c2.setTime(d2);
-
-		if( c1.get(Calendar.HOUR_OF_DAY) > c2.get(Calendar.HOUR_OF_DAY)){
-			return  true;
-		}else if( c1.get(Calendar.HOUR_OF_DAY) < c2.get(Calendar.HOUR_OF_DAY)){
-			return  false;
-		}else {
-			if( c1.get(Calendar.MINUTE) > c2.get(Calendar.MINUTE)){
-				return  true;
-			}else if( c1.get(Calendar.MINUTE) < c2.get(Calendar.MINUTE)){
-				return  false;
-			}else{
-				if( c1.get(Calendar.SECOND) > c2.get(Calendar.SECOND)){
-					return  true;
-				}else if( c1.get(Calendar.SECOND) < c2.get(Calendar.SECOND)){
-					return  false;
-				}else{
-					return  false;
-				}
-			}
-		}
-	}
-
-	private Trigger prepareBeforeTimeAbsoluteTrigger(CompoundTriggerLogicalCriterion timeAbsoluteCriterion) {
-		Date activeTo = timeAbsoluteCriterion.getTime();
-		Date currentTime = new Date();
-
-		final Trigger beforeTimeTrigger = new SensorTrigger();
-		beforeTimeTrigger.setName(timeAbsoluteCriterion.getKind().name()+"_"+_triggers.entrySet().size());
-		beforeTimeTrigger.start();
-
-		//switch on every day at midnight
-		switchTriggerOnEveryDayAt(23,59,59,beforeTimeTrigger);
-
-		//switchTrigger off every day at a time given
-		switchTriggerOffEveryDayAt(activeTo, beforeTimeTrigger);
-
-		if(beforOrEqualsHoursOnly(currentTime, activeTo)){
-			beforeTimeTrigger.setTriggerState(true);
-		}else{
-			beforeTimeTrigger.setTriggerState(false);
-		}
-
-		return beforeTimeTrigger;
-	}
+//    private static Trigger prepareOnDayOfMonthAbsoluteTrigger(CompoundTriggerLogicalCriterion criterion,
+//                                                              int triggerNo){
+//
+//        DateTime dayOfMonth = new DateTime(criterion.getTime());
+//        int targetDayNo = dayOfMonth.getDayOfMonth();
+//        int todayDayNo = new DateTime().getDayOfMonth();
+//
+//        final Trigger absoluteTimeTrigger =  getNewSensorTriger(criterion.getKind().name(), triggerNo);
+//
+//        if(targetDayNo == todayDayNo){
+//            absoluteTimeTrigger.setTriggerState(true);
+//            DateTime offTime = new DateTime();
+//            offTime.hourOfDay().setCopy(23);
+//            offTime.minuteOfHour().setCopy(59);
+//            offTime.secondOfMinute().setCopy(59);
+//            switchTriggerOffAt(offTime.toDate(), absoluteTimeTrigger);
+//        }else{
+//            //get the closest occurrence of that day
+//            LocalDate start = new LocalDate();
+//            LocalDate resultCandidate =  start.withDayOfMonth(targetDayNo);
+//            if(resultCandidate.isBefore(start)){
+//                resultCandidate = resultCandidate.plusMonths(1);
+//            }
+//
+//            DateTime switchOnDate = new DateTime(resultCandidate);
+//            switchOnDate.hourOfDay().setCopy(0);
+//            switchOnDate.minuteOfHour().setCopy(0);
+//            switchOnDate.secondOfMinute().setCopy(1);
+//
+//            DateTime switchOffDate = new DateTime(switchOnDate);
+//            switchOffDate.hourOfDay().setCopy(23);
+//            switchOffDate.minuteOfHour().setCopy(59);
+//            switchOffDate.secondOfMinute().setCopy(59);
+//
+//            switchTriggerOnAt(switchOnDate.toDate(), absoluteTimeTrigger);
+//            switchTriggerOffAt(switchOffDate.toDate(), absoluteTimeTrigger);
+//        }
+//
+//
+//    }
 
 
-	private Trigger prepareAtTimeAbsoluteTrigger(CompoundTriggerLogicalCriterion timeAbsoluteCriterion) {
-		Date active = timeAbsoluteCriterion.getTime();
-		Date currentTime = new Date();
+//
+//    private static Trigger prepareOnDayOfWeekAbsoluteTrigger(CompoundTriggerLogicalCriterion criterion, int triggerNo){
+//
+//        DateTime dayOfWeekDate = new DateTime(criterion.getTime());
+//        int targetWeekday = dayOfWeekDate.getDayOfWeek();
+//        int todayDay = new DateTime().getDayOfWeek();
+//
+//        final Trigger absoluteTimeTrigger = new SensorTrigger();
+//        absoluteTimeTrigger.setName(criterion.getKind().name() + "_" + triggerNo);
+//        absoluteTimeTrigger.start();
+//
+//        if(targetWeekday == todayDay){
+//            absoluteTimeTrigger.setTriggerState(true);
+//            DateTime offDate = new DateTime();
+//            offDate.hourOfDay().setCopy(23);
+//            offDate.minuteOfHour().setCopy(59);
+//            offDate.secondOfMinute().setCopy(59);
+//            switchTriggerOffAt(offDate.toDate(), absoluteTimeTrigger);
+//        }else{
+//            absoluteTimeTrigger.setTriggerState(false);
+//            LocalDate ld = new LocalDate();
+//            LocalDate targetDate = getNearestDayOfWeek(ld, targetWeekday);
+//            DateTime targetOnTime = targetDate.toDateTimeAtStartOfDay();
+//            DateTime targetOffTime = new DateTime(targetOnTime);
+//            targetOffTime.hourOfDay().setCopy(23);
+//            targetOffTime.minuteOfHour().setCopy(59);
+//            targetOffTime.secondOfMinute().setCopy(59);
+//
+//            switchTriggerOnAt(targetOnTime.toDate(), absoluteTimeTrigger);
+//            switchTriggerOffAt(targetOffTime.toDate(), absoluteTimeTrigger);
+//        }
+//        return absoluteTimeTrigger;
+//    }
+//
 
-		final Trigger absoluteTimeTrigger = new SensorTrigger();
-		absoluteTimeTrigger.setName(timeAbsoluteCriterion.getKind().name() + "_" + _triggers.entrySet().size());
-		absoluteTimeTrigger.start();
 
-		//switch off every day at midnight
-		switchTriggerOffEveryDayAt(23,59,59,absoluteTimeTrigger);
-
-		//switchTrigger on every day at a time given
-		switchTriggerOnEveryDayAt(active, absoluteTimeTrigger);
-
-		//switch off every day 5 sec after go off time
-		Calendar c1 = GregorianCalendar.getInstance();
-		c1.setTime(active);
-		c1.add(Calendar.SECOND, 5);
-		switchTriggerOffEveryDayAt(c1.getTime(), absoluteTimeTrigger);
-
-		absoluteTimeTrigger.setTriggerState(false);
-
-		return absoluteTimeTrigger;
-	}
-
-	private Trigger prepareAfterTimeAbsoluteTrigger(CompoundTriggerLogicalCriterion timeAbsoluteCriterion) {
-		Date activeFrom = timeAbsoluteCriterion.getTime();
-		Date currentTime = new Date();
-
-		final Trigger afterTimeTrigger = new SensorTrigger();
-		afterTimeTrigger.setName(timeAbsoluteCriterion.getKind().name()+"_"+_triggers.entrySet().size());
-		afterTimeTrigger.start();
-
-		//switch off every day at midnight
-		switchTriggerOffEveryDayAt(23, 59, 59, afterTimeTrigger);
-
-		//switchTrigger off every day at a time given
-		switchTriggerOnEveryDayAt(activeFrom, afterTimeTrigger);
-
-		if(beforOrEqualsHoursOnly(currentTime, activeFrom)){
-			afterTimeTrigger.setTriggerState(false);
-		}else{
-			afterTimeTrigger.setTriggerState(true);
-		}
-
-		return afterTimeTrigger;
-	}
+//	private  Trigger prepareAtTimeAbsoluteTrigger(CompoundTriggerLogicalCriterion timeAbsoluteCriterion) {
+//		Date active = timeAbsoluteCriterion.getTime();
+//
+//		final Trigger absoluteTimeTrigger = new SensorTrigger();
+//		absoluteTimeTrigger.setName(timeAbsoluteCriterion.getKind().name() + "_" + _triggers.entrySet().size());
+//		absoluteTimeTrigger.start();
+//
+//		//switch off every day at midnight
+//		switchTriggerOffEveryDayAt(23,59,59,absoluteTimeTrigger);
+//
+//		//switchTrigger on every day at a time given
+//		switchTriggerOnEveryDayAt(active, absoluteTimeTrigger);
+//
+//		//switch off every day 5 sec after go off time
+//		Calendar c1 = GregorianCalendar.getInstance();
+//		c1.setTime(active);
+//		c1.add(Calendar.SECOND, 5);
+//		switchTriggerOffEveryDayAt(c1.getTime(), absoluteTimeTrigger);
+//
+//		absoluteTimeTrigger.setTriggerState(false);
+//
+//		return absoluteTimeTrigger;
+//	}
+//
+//
+//
+//
+//    private Trigger prepareAfterTimeAbsoluteTrigger(CompoundTriggerLogicalCriterion timeAbsoluteCriterion) {
+//		Date activeFrom = timeAbsoluteCriterion.getTime();
+//		Date currentTime = new Date();
+//
+//		final Trigger afterTimeTrigger = new SensorTrigger();
+//		afterTimeTrigger.setName(timeAbsoluteCriterion.getKind().name()+"_"+_triggers.entrySet().size());
+//		afterTimeTrigger.start();
+//
+//		//switch off every day at midnight
+//		switchTriggerOffEveryDayAt(23, 59, 59, afterTimeTrigger);
+//
+//		//switchTrigger off every day at a time given
+//		switchTriggerOnEveryDayAt(activeFrom, afterTimeTrigger);
+//
+//		if(beforOrEqualsHoursOnly(currentTime, activeFrom)){
+//			afterTimeTrigger.setTriggerState(false);
+//		}else{
+//			afterTimeTrigger.setTriggerState(true);
+//		}
+//
+//		return afterTimeTrigger;
+//	}
 
 
 	protected boolean isTimeAbsoluteCriterion(CompoundTriggerLogicalCriterion criterion){
@@ -275,24 +294,6 @@ public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
 		return false;
 	}
 
-	protected Collection<CompoundTriggerLogicalCriterion> getTimeAbsoluteCriteria(CompoundTriggerLogicalCriteria triggerCriteria){
-		Collection<CompoundTriggerLogicalCriterion> result = Create.newCollection();
-		for(CompoundTriggerLogicalCriterion criterion: triggerCriteria.getAllCriteria()){
-			if(CompoundTriggerLogicalCriterion.TIME_ABSOLUTE_CRITERIA.contains(criterion.getKind())){
-				result.add(criterion);
-			}
-		}
-		return result;
-	}
-
-	protected static  boolean containsSomeTimeAbsoluteCriteria(CompoundTriggerLogicalCriteria triggerCriteria){
-		for(CompoundTriggerLogicalCriterion criterion: triggerCriteria.getAllCriteria()){
-			if(CompoundTriggerLogicalCriterion.TIME_ABSOLUTE_CRITERIA.contains(criterion.getKind())){
-				return  true;
-			}
-		}
-		return  false;
-	}
 
 
 	/**
@@ -306,61 +307,69 @@ public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
 
 			if(isTimeAbsoluteCriterion(criterion)){
 
-				Trigger timeAbsoluteTrigger = null;
+                try{
+                    Class<? extends AbstractCriteriaHandler> handlerClass = CompoundTriggerLogicalCriterion.KIND_AND_HANDLER.get(criterion.getKind());
+                    Constructor<? extends AbstractCriteriaHandler> constructor =  handlerClass.getConstructor(CompoundTriggerLogicalCriterion.class);
+                    AbstractCriteriaHandler criteriaHandler =  constructor.newInstance(new Object[]{criterion});
+                    criteriaHandler.startHandling();
+                    addTriggerToListenTo(criteriaHandler.getTriggerToObserve());
+                    _criterionHandlers.put(criterion, criteriaHandler);
 
-				if(criterion.getKind() == CompoundTriggerLogicalCriterion.Kind.BEFORE_TIME){
-					timeAbsoluteTrigger = prepareBeforeTimeAbsoluteTrigger(criterion);
-				}
+                }catch(Exception e){
+                    logger.error(e);
+                }
 
-				if(criterion.getKind() == CompoundTriggerLogicalCriterion.Kind.AFTER_TIME){
-					timeAbsoluteTrigger = prepareAfterTimeAbsoluteTrigger(criterion);
-				}
+
 
 				if(criterion.getKind() == CompoundTriggerLogicalCriterion.Kind.AT_TIME){
-					timeAbsoluteTrigger = prepareAtTimeAbsoluteTrigger(criterion);
+				//	timeAbsoluteTrigger = prepareAtTimeAbsoluteTrigger(criterion);
 				}
 
-				addTriggerToListenTo(timeAbsoluteTrigger);
-				ValidationObject validationObject = new ValidationObject(criterion);
-				validationObject.getTriggers().add(timeAbsoluteTrigger);
-				_criterionValidators.put(criterion, validationObject);
+                if(criterion.getKind() == CompoundTriggerLogicalCriterion.Kind.ON_DAY){
+                //    timeAbsoluteTrigger = prepareOnDayTimeAbsoluteTrigger(criterion, _triggers.entrySet().size());
+                }
+
+                if(criterion.getKind() == CompoundTriggerLogicalCriterion.Kind.ON_DAY_OF_WEEK ){
+                 //   timeAbsoluteTrigger = prepareOnDayOfWeekAbsoluteTrigger(criterion, _triggers.entrySet().size());
+                }
+
+                if(criterion.getKind() == CompoundTriggerLogicalCriterion.Kind.ON_DAY_OF_MONTH){
+                    //TODO - add handling of this criterion
+                }
+
 			}
-
-
 		}
-
 
 		compoundTriggerInputChanged(null, getCompoundTriggerLogicalCriteria());
 	}
 
 
 
+    //It means either:
+    // 1. initTrigger just happened - in this case a changeSource parameter is null
+    // 2. someObserved trigger just changed its state
 	protected synchronized void compoundTriggerInputChanged(TriggerValue changeSource, CompoundTriggerLogicalCriteria triggerCriteria) {
 
 		Collection<Boolean> parsedObservedValues = new LinkedList<>();
 
 		//validate the criteria against the triggers
 		for(CompoundTriggerLogicalCriterion criterion: triggerCriteria.getAllCriteria()){
-			ValidationObject vo = _criterionValidators.get(criterion);
 
-			if(vo.getCriterionToValidate().getKind().equals(CompoundTriggerLogicalCriterion.Kind.BEFORE_TIME)
-					|| vo.getCriterionToValidate().getKind().equals(CompoundTriggerLogicalCriterion.Kind.AFTER_TIME)
-					|| vo.getCriterionToValidate().getKind().equals(CompoundTriggerLogicalCriterion.Kind.AT_TIME)){
-				parsedObservedValues.add(vo.getTriggers().iterator().next().getTriggerState());
-			}
+
+            //Current way for time absolute triggers
+            if(isTimeAbsoluteCriterion(criterion)){
+                AbstractCriteriaHandler handler =  _criterionHandlers.get(criterion);
+                parsedObservedValues.add(handler.getTriggerToObserve().getTriggerState());
+            }
 
 		}
 
-
-
-
-
-		//TODO
 
 		if(changeSource!=null){
 			_triggerJustChangedState.put(changeSource.getSender(), false);
 		}
 
+        //Simple multiply
 		Boolean compTriggerValue = true;
 		for(Boolean val:   parsedObservedValues){
 			if(val.equals(false)){

@@ -2,11 +2,11 @@ package dycmaster.rysiek.triggers.triggerParsers;
 
 
 import dycmaster.rysiek.shared.Create;
-import dycmaster.rysiek.triggers.Trigger;
-import org.apache.commons.collections.CollectionUtils;
+import dycmaster.rysiek.triggers.criteriaHandlers.AbstractCriteriaHandler;
+import dycmaster.rysiek.triggers.criteriaHandlers.AfterTimeCriterionHandler;
+import dycmaster.rysiek.triggers.criteriaHandlers.BeforeTimeCriterionHandler;
 
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 public class CompoundTriggerLogicalCriterion {
 
@@ -42,10 +42,27 @@ public class CompoundTriggerLogicalCriterion {
 
 		GOES_OFF_BEFORE_TIME,
 		GOES_OFF_AFTER_TIME,
-		GOES_OFF_AT_TIME
+		GOES_OFF_AT_TIME,
+
 	}
 
-	public static final Set<Kind> TIME_ABSOLUTE_CRITERIA = Create.boxIntoSet(Kind.BEFORE_TIME, Kind.AFTER_TIME, Kind.AT_TIME);
+
+    public static final Map<Kind, Class<? extends AbstractCriteriaHandler> > KIND_AND_HANDLER = getKindAndHandler();
+
+    private static final Map<Kind, Class<? extends AbstractCriteriaHandler>> getKindAndHandler(){
+
+        Map<Kind, Class<? extends AbstractCriteriaHandler>> result = new HashMap<>();
+        result.put(Kind.BEFORE_TIME, BeforeTimeCriterionHandler.class);
+        result.put(Kind.AFTER_TIME, AfterTimeCriterionHandler.class);
+
+        return  result;
+    }
+
+
+
+	public static final Set<Kind> TIME_ABSOLUTE_CRITERIA = Create.boxIntoSet(
+            Kind.BEFORE_TIME, Kind.AFTER_TIME, Kind.AT_TIME,
+            Kind.ON_DAY, Kind.ON_DAY_OF_WEEK, Kind.ON_DAY_OF_MONTH);
 
 	public CompoundTriggerLogicalCriterion(String trigger, Kind kind, int valueMs, Date time){
 		_triggerName = trigger;

@@ -20,6 +20,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-all:1.8.4" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.0" level="project" />
     <orderEntry type="library" name="Maven: jnotify:jnotify:0.94" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.3" level="project" />
   </component>
 </module>
 

@@ -3,6 +3,7 @@ package dycmaster.rysiek.triggers;
 import dycmaster.rysiek.BaseTestMockito;
 import dycmaster.rysiek.triggers.triggerParsers.CompoundTriggerLogicalCriteria;
 import dycmaster.rysiek.triggers.triggerParsers.CompoundTriggerLogicalCriterion;
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -17,15 +18,7 @@ import static org.mockito.Mockito.*;
 public class CompoundTriggerMockedTest  extends BaseTestMockito{
 
 
-	@Test
-	public void testContainsSomeTimeAbsolutCriteria(){
-		CompoundTriggerLogicalCriteria compoundTriggerLogicalCriteria = new CompoundTriggerLogicalCriteria();
-		Date now = new Date();
-		compoundTriggerLogicalCriteria.beforeTime(new Date(now.getTime()+3000));
 
-		boolean actual = CompoundTrigger.containsSomeTimeAbsoluteCriteria(compoundTriggerLogicalCriteria);
-		Assert.assertTrue(actual);
-	}
 
 
 	@Test
@@ -34,16 +27,37 @@ public class CompoundTriggerMockedTest  extends BaseTestMockito{
 		CompoundTriggerLogicalCriteria compoundTriggerLogicalCriteria = new CompoundTriggerLogicalCriteria();
 
 		Date now = new Date();
-		compoundTriggerLogicalCriteria.beforeTime(new Date(now.getTime()+3000));
+		compoundTriggerLogicalCriteria.beforeTime(new Date(now.getTime()+300));
 		compoundTrigger.setCompoundTriggerLogicalCriteria(compoundTriggerLogicalCriteria);
 		compoundTrigger.start();
 
 		Boolean initState = compoundTrigger.getTriggerState();
-		Thread.sleep(4000);
+		Thread.sleep(500);
 		Boolean finishState = compoundTrigger.getTriggerState();
 		Assert.assertTrue(initState);
 		Assert.assertFalse(finishState);
 	}
+
+    @Test
+    public void testTimeAbsoluteCriteriaInTrigger_AFTER_TIME() throws Exception{
+        CompoundTrigger compoundTrigger = new CompoundTrigger("testCompTrigger");
+        CompoundTriggerLogicalCriteria compoundTriggerLogicalCriteria = new CompoundTriggerLogicalCriteria();
+
+        Date now = new Date();
+        compoundTriggerLogicalCriteria.afterTime(new Date(now.getTime()+300));
+
+        //TODO - that causes a deadlock!!!
+        compoundTriggerLogicalCriteria.and(compoundTriggerLogicalCriteria.beforeTime(new Date(now.getTime()+300)));
+
+        compoundTrigger.setCompoundTriggerLogicalCriteria(compoundTriggerLogicalCriteria);
+        compoundTrigger.start();
+
+        Boolean initState = compoundTrigger.getTriggerState();
+        Thread.sleep(500);
+        Boolean finishState = compoundTrigger.getTriggerState();
+        Assert.assertFalse(initState);
+        Assert.assertTrue(finishState);
+    }
 
 	@Test
 	public void testTimeAbsoluteCriteriaInTrigger_BEFORE_TIME_doesntGoOffTooEarly() throws Exception{
@@ -51,15 +65,17 @@ public class CompoundTriggerMockedTest  extends BaseTestMockito{
 		CompoundTriggerLogicalCriteria compoundTriggerLogicalCriteria = new CompoundTriggerLogicalCriteria();
 
 		Date now = new Date();
-		compoundTriggerLogicalCriteria.beforeTime(new Date(now.getTime()+3000));
+		compoundTriggerLogicalCriteria.beforeTime(new Date(now.getTime()+500));
 		compoundTrigger.setCompoundTriggerLogicalCriteria(compoundTriggerLogicalCriteria);
 		compoundTrigger.start();
 
 		Boolean initState = compoundTrigger.getTriggerState();
-		Thread.sleep(2000);
+		Thread.sleep(300);
 		Boolean finishState = compoundTrigger.getTriggerState();
 		Assert.assertTrue(initState);
 		Assert.assertTrue(finishState);
+        Thread.sleep(300);
+        Assert.assertFalse(compoundTrigger.getTriggerState());
 	}
 
 	@Test
@@ -98,7 +114,7 @@ public class CompoundTriggerMockedTest  extends BaseTestMockito{
 		fakeTriggerStates.put("TWO", false);
 		fakeTriggerStates.put("THREE", true);
 
-		CompoundTrigger compoundTrigger = new CompoundTrigger("testCompTrigger");
+		CompoundTrigger compoundTrigger = spy( new CompoundTrigger("testCompTrigger"));
 		doReturn(fakeTriggerStates).when(compoundTrigger).getTriggerInput(any(TriggerValue.class));
 		CompoundTriggerLogicalCriteria compoundTriggerLogicalCriteria = new CompoundTriggerLogicalCriteria();
 
@@ -109,11 +125,39 @@ public class CompoundTriggerMockedTest  extends BaseTestMockito{
 		Thread.sleep(6000);
 
 
-//		compoundTrigger.setCompoundTriggerParametersParser(new DefaultCompoundTriggerParametersParser());
+	//	compoundTrigger.setCompoundTriggerParametersParser(new DefaultCompoundTriggerParametersParser());
 //
 //		compoundTrigger.compoundTriggerInputChanged(changeSource);
 //		verify(compoundTrigger).setTriggerState(anyBoolean());
 	}
+
+
+    @Test
+    public void testOnDayOfWeekTodayTimeAbsoluteCriteria(){
+        CompoundTriggerLogicalCriteria  criteria = new CompoundTriggerLogicalCriteria();
+        DateTime today =  new DateTime();
+        criteria.onDayOfWeek(today.toDate());
+
+        CompoundTrigger compoundTrigger = new CompoundTrigger("onDateTrigger");
+        compoundTrigger.setCompoundTriggerLogicalCriteria(criteria);
+        compoundTrigger.start();
+
+        junit.framework.Assert.assertTrue(compoundTrigger.getTriggerState());
+    }
+
+    @Test
+    public void testOnDayOfWeekTomorrowTimeAbsoluteCriteria() throws  Exception{
+        CompoundTriggerLogicalCriteria  criteria = new CompoundTriggerLogicalCriteria();
+        DateTime tomorrow =  new DateTime().plusDays(1);
+
+        criteria.onDayOfWeek(tomorrow.toDate());
+
+        CompoundTrigger compoundTrigger = new CompoundTrigger("onDateTrigger");
+        compoundTrigger.setCompoundTriggerLogicalCriteria(criteria);
+        compoundTrigger.start();
+        junit.framework.Assert.assertFalse(compoundTrigger.getTriggerState());
+    }
+
 
 	@Test
 	public void testCompoundTriggerLogicalCriteria(){
@@ -123,6 +167,9 @@ public class CompoundTriggerMockedTest  extends BaseTestMockito{
 		Collection<CompoundTriggerLogicalCriterion> actual =  t1Criteria.getAllCriteria();
 		Assert.assertEquals(actual.size(), 3);
 	}
+
+
+
 
 
 }
