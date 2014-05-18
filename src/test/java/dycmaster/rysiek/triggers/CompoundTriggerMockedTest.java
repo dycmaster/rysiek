@@ -27,36 +27,38 @@ public class CompoundTriggerMockedTest  extends BaseTestMockito{
 		CompoundTriggerLogicalCriteria compoundTriggerLogicalCriteria = new CompoundTriggerLogicalCriteria();
 
 		Date now = new Date();
-		compoundTriggerLogicalCriteria.beforeTime(new Date(now.getTime()+300));
+		compoundTriggerLogicalCriteria.beforeTime(new Date(now.getTime()+500));
 		compoundTrigger.setCompoundTriggerLogicalCriteria(compoundTriggerLogicalCriteria);
 		compoundTrigger.start();
 
 		Boolean initState = compoundTrigger.getTriggerState();
-		Thread.sleep(500);
+		Thread.sleep(1000);
 		Boolean finishState = compoundTrigger.getTriggerState();
 		Assert.assertTrue(initState);
 		Assert.assertFalse(finishState);
 	}
 
     @Test
-    public void testTimeAbsoluteCriteriaInTrigger_AFTER_TIME() throws Exception{
+    public void testTimeAbsoluteCriteriaInTrigger_AFTER_TIME_AND_BEFORE_TIME() throws Exception{
         CompoundTrigger compoundTrigger = new CompoundTrigger("testCompTrigger");
         CompoundTriggerLogicalCriteria compoundTriggerLogicalCriteria = new CompoundTriggerLogicalCriteria();
 
         Date now = new Date();
-        compoundTriggerLogicalCriteria.afterTime(new Date(now.getTime()+300));
+        compoundTriggerLogicalCriteria.afterTime(new Date(now.getTime()+500));
 
-        //TODO - that causes a deadlock!!!
-        compoundTriggerLogicalCriteria.and(compoundTriggerLogicalCriteria.beforeTime(new Date(now.getTime()+300)));
+        compoundTriggerLogicalCriteria.and(compoundTriggerLogicalCriteria.beforeTime(new Date(now.getTime()+1500)));
 
         compoundTrigger.setCompoundTriggerLogicalCriteria(compoundTriggerLogicalCriteria);
         compoundTrigger.start();
 
         Boolean initState = compoundTrigger.getTriggerState();
-        Thread.sleep(500);
+        Thread.sleep(1000);
         Boolean finishState = compoundTrigger.getTriggerState();
         Assert.assertFalse(initState);
         Assert.assertTrue(finishState);
+        Thread.sleep(1000);
+        Assert.assertFalse(compoundTrigger.getTriggerState());
+
     }
 
 	@Test

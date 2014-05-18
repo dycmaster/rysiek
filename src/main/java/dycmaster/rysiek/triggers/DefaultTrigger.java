@@ -23,6 +23,7 @@ public abstract class DefaultTrigger implements Trigger {
 	private TriggerParametersParser triggerParametersParser;
 	private Collection<String> _possibleTriggerParameters;
 	private boolean isEnabled;
+    private Object stateMutex = new Object();
 
 	public DefaultTrigger() {
 	}
@@ -108,18 +109,24 @@ public abstract class DefaultTrigger implements Trigger {
 	}
 
 	@Override
-	public synchronized boolean getTriggerState() {
-		return _state;
+	public boolean getTriggerState() {
+        synchronized (stateMutex){
+		    return _state;
+        }
 	}
 
 	@Override
-	public synchronized void setTriggerState(boolean state) {
+	public  void setTriggerState(boolean state) {
 		if (state != _state) {
+            synchronized (this){
+                synchronized (stateMutex){
 			_state = state;
+                }
 			_lastStateChangeTime = new Date();
-			logger.info("trigger goes " + state);
+            logger.info("Trigger "+getName()+" goes "+state);
 			TriggerValue triggerValue = new TriggerValue(this, state);
 			triggerStateChangedEvent(triggerValue);
+            }
 		}
 	}
 
@@ -154,11 +161,9 @@ public abstract class DefaultTrigger implements Trigger {
 	 * @param triggerValue
 	 */
 	protected void triggerStateChangedEvent(final TriggerValue triggerValue) {
-		synchronized (triggerValue) {
 			for (TriggerListener triggerListener : _triggerListeners) {
 				triggerListener.triggerValueChangedHandler(triggerValue);
 			}
-		}
 	}
 
 }

@@ -76,6 +76,7 @@ public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
 	 */
 	@Override
 	public void triggerValueChangedHandler(TriggerValue triggerValue) {
+        synchronized (this){
 		Boolean prevTriggerState = getObservedTriggerState(triggerValue.getSender());
 		Boolean currTriggerState = triggerValue.getTriggerStatus();
 
@@ -86,6 +87,7 @@ public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
 		}
 
 		compoundTriggerInputChanged(triggerValue, getCompoundTriggerLogicalCriteria());
+        }
 	}
 
 
@@ -348,8 +350,9 @@ public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
     //It means either:
     // 1. initTrigger just happened - in this case a changeSource parameter is null
     // 2. someObserved trigger just changed its state
-	protected synchronized void compoundTriggerInputChanged(TriggerValue changeSource, CompoundTriggerLogicalCriteria triggerCriteria) {
+	protected  void compoundTriggerInputChanged(TriggerValue changeSource, CompoundTriggerLogicalCriteria triggerCriteria) {
 
+        synchronized (this){
 		Collection<Boolean> parsedObservedValues = new LinkedList<>();
 
 		//validate the criteria against the triggers
@@ -378,8 +381,14 @@ public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
 			}
 		}
 		setTriggerState(compTriggerValue);
+        }
 	}
 
+    @Override
+    public  void setTriggerState(boolean state) {
+        super.setTriggerState(state);
+
+    }
 
 	/**
 	 * We want parameters from all the observed triggers!

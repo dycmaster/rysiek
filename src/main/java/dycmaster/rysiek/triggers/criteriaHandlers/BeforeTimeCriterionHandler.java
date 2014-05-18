@@ -53,7 +53,7 @@ public class BeforeTimeCriterionHandler extends AbstractCriteriaHandler {
         turnOnAt = turnOnAt.plus(Period.days(1));
         turnOnAt = turnOnAt.secondOfDay().setCopy(1);
 
-        Timer switchOnTimer = new Timer();
+        Timer switchOnTimer = new Timer(getTriggerDesc()+"turnOn");
         switchOnTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -75,7 +75,7 @@ public class BeforeTimeCriterionHandler extends AbstractCriteriaHandler {
         turnOffAtToday = turnOffAtToday.withTime(
                 turnOffAtCriteria.getHourOfDay(), turnOffAtCriteria.getMinuteOfHour(), turnOffAtCriteria.getSecondOfMinute(), turnOffAtCriteria.getMillisOfSecond());
 
-        Timer switchOffTimer = new Timer();
+        Timer switchOffTimer = new Timer(getTriggerDesc()+"turnOff");
         switchOffTimer.schedule(new TimerTask() {
             @Override
             public void run() {

@@ -44,7 +44,7 @@ public class AfterTimeCriterionHandler extends AbstractCriteriaHandler {
         turnOnAtToday = turnOnAtToday.withTime(turnOnAtTime.getHourOfDay(), turnOnAtTime.getMinuteOfHour(), turnOnAtTime.getSecondOfMinute(), turnOnAtTime.getMillisOfSecond());
 
 
-        Timer switchOnTimer = new Timer();
+        Timer switchOnTimer = new Timer(getTriggerDesc()+"turnOn");
         switchOnTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -72,7 +72,7 @@ public class AfterTimeCriterionHandler extends AbstractCriteriaHandler {
         turnOffAtTomorrow = turnOffAtTomorrow.withTime(
                 turnOffAtTime.getHourOfDay(), turnOffAtTime.getMinuteOfHour(), turnOffAtTime.getSecondOfMinute(), turnOffAtTime.getMillisOfSecond());
 
-        Timer switchOffTimer = new Timer();
+        Timer switchOffTimer = new Timer(getTriggerDesc()+"turnOff");
         switchOffTimer.schedule(new TimerTask() {
             @Override
             public void run() {
