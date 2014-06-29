@@ -7,9 +7,7 @@ import org.junit.Test;
 import java.io.File;
 import java.net.URL;
 
-/**
- * Created by frs on 2/15/14.
- */
+
 public class ScriptRunnerTest {
 
 

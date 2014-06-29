@@ -23,7 +23,10 @@ public class FileSensorIntegrationTest {
 
 	@Test
 	public void testSensorListenerNotifies () throws Exception {
-		ScriptRunner testScript = deployTestScriptAndRun();
+        String libPath =  System.getProperty("java.library.path");
+        System.out.println("libPath = " + libPath);
+        ScriptRunner testScript = deployTestScriptAndRun();
+
 
 		Sensor sensor = new FileSensor(testScript);
 		sensor.start();

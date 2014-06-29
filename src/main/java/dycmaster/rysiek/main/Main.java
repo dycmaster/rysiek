@@ -15,14 +15,15 @@ public class Main {
     }
 
     private void run(){
-        DeploymentManager deploymentManager = new DeploymentManager();
-        deploymentManager.deployAllAndRun(deploymentManager.getAllScriptsToDeploy());
 
-
-
-
-
-
+        while(true){
+            System.out.println("Hello world!");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
 
     }
