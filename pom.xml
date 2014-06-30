@@ -22,6 +22,7 @@
         <release.libs>lib/</release.libs>
         <natives>${basedir}/target/natives/</natives>
         <release.natives>natives/</release.natives>
+        <idea.natives>${basedir}/natives/</idea.natives>
     </properties>
 
     <profiles>
@@ -142,20 +143,11 @@
                 <executions>
                     <execution>
                         <id>make-assembly</id>
-                        <!-- this is used for inheritance merges -->
                         <phase>package</phase>
-                        <!-- bind to the packaging phase -->
                         <goals>
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <!--<archive>-->
-                            <!--<manifest>-->
-                            <!--<addClasspath>true</addClasspath>-->
-                            <!--&lt;!&ndash;<classpathPrefix>/</classpathPrefix>&ndash;&gt;-->
-                            <!--<mainClass>${main.class}</mainClass>-->
-                            <!--</manifest>-->
-                            <!--</archive>-->
                         </configuration>
                     </execution>
                 </executions>

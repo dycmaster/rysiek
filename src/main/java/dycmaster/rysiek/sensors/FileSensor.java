@@ -14,27 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FileSensor extends Sensor {
+public class FileSensor extends Sensor implements FileObserverSubscriber {
 
-	protected JNotifyListener changeListener = new JNotifyListener() {
-		@Override
-		public void fileCreated(int i, String s, String s2) {
-		}
 
-		@Override
-		public void fileDeleted(int i, String s, String s2) {
-		}
-
-		@Override
-		public void fileModified(int wd, String rootPath, String name) {
-			onChangeDetected();
-		}
-
-		@Override
-		public void fileRenamed(int i, String s, String s2, String s3) {
-
-		}
-	};
 
 	private Logger logger;
 	private File fileToObserve;
@@ -42,10 +24,6 @@ public class FileSensor extends Sensor {
 	private int fileWatchId;
 	private boolean _isEnabled = false;
 
-	public FileSensor() {
-	}
-
-	;
 
 	public FileSensor(ScriptRunner script) {
 		this(script.getOutputFile(), script.getSignalFile());
@@ -120,4 +98,8 @@ public class FileSensor extends Sensor {
 		}
 	}
 
+    @Override
+    public void handleFileObserverEvent(FileObserverEventArgs args) {
+
+    }
 }

@@ -4,9 +4,7 @@ import dycmaster.rysiek.sensors.sensorParsers.MusicOnSensorParser;
 import dycmaster.rysiek.sensors.sensorParsers.SensorParser;
 import dycmaster.rysiek.sensors.sensorParsers.TempSensorParser;
 
-/**
- * Created by frs on 2/24/14.
- */
+
 public enum SCRIPT_TO_SENSOR {
 
 
@@ -62,6 +60,4 @@ public enum SCRIPT_TO_SENSOR {
 		}
 	}
 
-//	Class<?> clazz = Class.forName("java.util.Date");
-//	Object date = clazz.newInstance();
 }
