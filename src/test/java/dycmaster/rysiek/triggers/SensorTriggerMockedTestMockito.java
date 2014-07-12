@@ -1,6 +1,5 @@
 package dycmaster.rysiek.triggers;
 
-import dycmaster.rysiek.BaseTestMockito;
 import dycmaster.rysiek.sensors.SensorListener;
 import dycmaster.rysiek.sensors.SensorValue;
 import dycmaster.rysiek.triggers.triggerParsers.TriggerParametersParser;
@@ -13,7 +12,7 @@ import org.mockito.Mockito;
 import java.util.Map;
 
 
-public class SensorTriggerMockedTestMockito extends BaseTestMockito {
+public class SensorTriggerMockedTestMockito {
 
 	@Mock private SensorListener sensorListener;
 	@Mock TriggerListener triggerListener;

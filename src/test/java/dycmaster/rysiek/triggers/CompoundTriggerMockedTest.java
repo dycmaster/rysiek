@@ -1,6 +1,5 @@
 package dycmaster.rysiek.triggers;
 
-import dycmaster.rysiek.BaseTestMockito;
 import dycmaster.rysiek.triggers.triggerParsers.CompoundTriggerLogicalCriteria;
 import dycmaster.rysiek.triggers.triggerParsers.CompoundTriggerLogicalCriterion;
 import org.joda.time.DateTime;
@@ -12,10 +11,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 
-public class CompoundTriggerMockedTest  extends BaseTestMockito{
+public class CompoundTriggerMockedTest {
 
 
 
@@ -144,7 +144,7 @@ public class CompoundTriggerMockedTest  extends BaseTestMockito{
         compoundTrigger.setCompoundTriggerLogicalCriteria(criteria);
         compoundTrigger.start();
 
-        junit.framework.Assert.assertTrue(compoundTrigger.getTriggerState());
+        assertEquals(true, compoundTrigger.getTriggerState());
     }
 
     @Test
@@ -167,7 +167,7 @@ public class CompoundTriggerMockedTest  extends BaseTestMockito{
 		t1Criteria.goesOn("t1").and(t1Criteria.afterTime(new Date())).and(t1Criteria.goesOnAtTime("t1",new Date()));
 
 		Collection<CompoundTriggerLogicalCriterion> actual =  t1Criteria.getAllCriteria();
-		Assert.assertEquals(actual.size(), 3);
+		assertEquals(actual.size(), 3);
 	}
 
 

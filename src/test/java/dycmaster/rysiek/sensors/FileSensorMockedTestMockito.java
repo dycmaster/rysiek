@@ -1,30 +1,34 @@
 package dycmaster.rysiek.sensors;
 
-import dycmaster.rysiek.BaseTestMockito;
+import dycmaster.rysiek.BaseContextTestTemplate;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 import static org.mockito.Mockito.*;
 
 
-public class FileSensorMockedTestMockito extends BaseTestMockito {
+public class FileSensorMockedTestMockito extends BaseContextTestTemplate {
+
+    @Autowired
+    FileSensor fileSensor;
 
 	@Test
 	public void testFileSensorNotifiesUponChanges() throws Exception{
-
-		Sensor sensor =  spy(new FileSensor());
-		sensor.onChangeDetected();
-		verify(sensor).observedEntityChangedEvent(any(SensorValue.class));
+        SensorListener listener = mock(SensorListener.class);
+        fileSensor.subscribeToSensor(listener);
+        fileSensor.onChangeDetected();
+        Mockito.verify(listener, Mockito.times(1)).sensorValueChangedHandler(Mockito.any(SensorValue.class));
 	}
 
 	@Test
 	public void testFileSensorNotifiesAboutAChange(){
 
 		//objects and values
-		Sensor testSensor = new FileSensor();
-		Sensor spySensor  = Mockito.spy(testSensor);
+
+		Sensor spySensor  = Mockito.spy(fileSensor);
 		List<String> sensorValList = new ArrayList<>();
 		sensorValList.add("test success");
 		SensorValue inputSV = new SensorValue(sensorValList);

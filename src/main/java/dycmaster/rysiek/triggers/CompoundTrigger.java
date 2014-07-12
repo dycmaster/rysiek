@@ -122,7 +122,7 @@ public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
 //
 //        final Trigger absoluteTimeTrigger = new SensorTrigger();
 //        absoluteTimeTrigger.setName(timeAbsoluteCriterion.getKind().name() + "_" + triggerNo);
-//        absoluteTimeTrigger.start();
+//        absoluteTimeTrigger.startObserving();
 //
 //        DateTime today = new DateTime();
 //        DateTime activeDate = new DateTime(timeAbsoluteCriterion.getTime());
@@ -178,9 +178,9 @@ public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
 //            switchTriggerOffAt(offTime.toDate(), absoluteTimeTrigger);
 //        }else{
 //            //get the closest occurrence of that day
-//            LocalDate start = new LocalDate();
-//            LocalDate resultCandidate =  start.withDayOfMonth(targetDayNo);
-//            if(resultCandidate.isBefore(start)){
+//            LocalDate startObserving = new LocalDate();
+//            LocalDate resultCandidate =  startObserving.withDayOfMonth(targetDayNo);
+//            if(resultCandidate.isBefore(startObserving)){
 //                resultCandidate = resultCandidate.plusMonths(1);
 //            }
 //
@@ -211,7 +211,7 @@ public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
 //
 //        final Trigger absoluteTimeTrigger = new SensorTrigger();
 //        absoluteTimeTrigger.setName(criterion.getKind().name() + "_" + triggerNo);
-//        absoluteTimeTrigger.start();
+//        absoluteTimeTrigger.startObserving();
 //
 //        if(targetWeekday == todayDay){
 //            absoluteTimeTrigger.setTriggerState(true);
@@ -243,7 +243,7 @@ public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
 //
 //		final Trigger absoluteTimeTrigger = new SensorTrigger();
 //		absoluteTimeTrigger.setName(timeAbsoluteCriterion.getKind().name() + "_" + _triggers.entrySet().size());
-//		absoluteTimeTrigger.start();
+//		absoluteTimeTrigger.startObserving();
 //
 //		//switch off every day at midnight
 //		switchTriggerOffEveryDayAt(23,59,59,absoluteTimeTrigger);
@@ -271,7 +271,7 @@ public class CompoundTrigger extends DefaultTrigger implements TriggerListener {
 //
 //		final Trigger afterTimeTrigger = new SensorTrigger();
 //		afterTimeTrigger.setName(timeAbsoluteCriterion.getKind().name()+"_"+_triggers.entrySet().size());
-//		afterTimeTrigger.start();
+//		afterTimeTrigger.startObserving();
 //
 //		//switch off every day at midnight
 //		switchTriggerOffEveryDayAt(23, 59, 59, afterTimeTrigger);

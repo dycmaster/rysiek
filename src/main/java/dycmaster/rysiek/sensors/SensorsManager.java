@@ -21,7 +21,7 @@ public class SensorsManager {
 
 
 	public void removeSensor(Sensor sensor) {
-		sensor.stop();
+		sensor.stopObserving();
 		sensor.removeSubscribers(sensor.getAllSubscribers());
 		_availableSensors.remove(sensor);
 	}

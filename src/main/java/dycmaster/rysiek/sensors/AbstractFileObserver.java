@@ -6,12 +6,21 @@ import dycmaster.rysiek.shared.Create;
 import java.io.File;
 import java.util.Collection;
 
-public abstract class AbstractFileObserver implements  FileObserver {
+public abstract class AbstractFileObserver implements IFileObserver {
 
-    private final File observedFile;
+    private  File observedFile;
 
     public AbstractFileObserver(File file){
         observedFile = file;
+    }
+
+    public AbstractFileObserver(){
+
+    }
+
+    @Override
+    public void setObservedFile(File observedFile){
+        this.observedFile = observedFile;
     }
 
 

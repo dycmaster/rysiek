@@ -4,8 +4,8 @@ package dycmaster.rysiek.triggers.criteriaHandlers;
  * This is so far for absoluteTimeCriteria.
  * You have to:
  * 1. create and give criteria
- * 2. start
- * 3. Receive created trigger and start observing it
+ * 2. startObserving
+ * 3. Receive created trigger and startObserving observing it
  */
 
 import dycmaster.rysiek.triggers.SensorTrigger;

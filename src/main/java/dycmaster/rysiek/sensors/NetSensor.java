@@ -2,15 +2,14 @@ package dycmaster.rysiek.sensors;
 
 
 
+//not implemented yet
 public class NetSensor extends Sensor {
 	@Override
-	public void start() {
-
+	public void startObserving() {
 	}
 
 	@Override
-	public void stop() {
-
+	public void stopObserving() {
 	}
 
 	@Override
@@ -22,4 +21,5 @@ public class NetSensor extends Sensor {
 	protected SensorValue getChangedEventArgs() {
 		return null;
 	}
+
 }

@@ -1,10 +1,10 @@
 package dycmaster.rysiek.sensors;
 
+import dycmaster.rysiek.shared.Create;
 import org.apache.commons.collections.CollectionUtils;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
 
 /**
  * Sensor observes something and can issue a signal when the underlying
@@ -18,13 +18,13 @@ import java.util.LinkedList;
 public abstract class Sensor {
 
 	private Collection<SensorListener> sensorListeners =
-			CollectionUtils.synchronizedCollection(new LinkedList<>());
+			CollectionUtils.<SensorListener>synchronizedCollection(Create.<SensorListener>newCollection());
 	private String _name;
 	private Date lastChangeTime;
 
-	public abstract void start();
+	public abstract void startObserving();
 
-	public abstract void stop();
+	public abstract void stopObserving();
 
 	public abstract  boolean isEnabled();
 
@@ -85,4 +85,7 @@ public abstract class Sensor {
 		}
 
 	}
+
+
+
 }

@@ -16,11 +16,6 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
     classes = {ConfigLocalTests.class})
 @ActiveProfiles("localTests")
 public class BaseContextTestTemplate {
-    @Test
-    public void dummy(){
-
-    }
-
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);

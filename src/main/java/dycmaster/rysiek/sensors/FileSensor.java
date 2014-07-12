@@ -1,11 +1,9 @@
 package dycmaster.rysiek.sensors;
 
 
-import dycmaster.rysiek.deployment.ScriptRunner;
-import net.contentobjects.jnotify.JNotify;
-import net.contentobjects.jnotify.JNotifyException;
-import net.contentobjects.jnotify.JNotifyListener;
+import dycmaster.rysiek.shared.Create;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -17,37 +15,43 @@ import java.util.List;
 public class FileSensor extends Sensor implements FileObserverSubscriber {
 
 
-
 	private Logger logger;
 	private File fileToObserve;
-	private File signalFile;
-	private int fileWatchId;
 	private boolean _isEnabled = false;
+    private IFileObserver fObserver;
 
+    public FileSensor(){
+        logger = Logger.getLogger(this.getClass());
+    }
 
-	public FileSensor(ScriptRunner script) {
-		this(script.getOutputFile(), script.getSignalFile());
+	public FileSensor(File fileToObserve) {
+        this();
+		setFileToObserve(fileToObserve);
 	}
 
-	public FileSensor(File fileToObserve, File signalFile) {
-		this.fileToObserve = fileToObserve;
-		this.signalFile = signalFile;
-		setName(fileToObserve.getName());
-		logger = Logger.getLogger(FileSensor.class.getSimpleName() + ":" + getName());
-	}
+    public void setFileToObserve(File fileToObserve) {
+        this.fileToObserve = fileToObserve;
+        this.fObserver.setObservedFile(fileToObserve);
+        this.setName(String.format("%s:%s",this.getClass().getSimpleName(), fileToObserve.getName()));
+    }
+
+
+    @Autowired
+    public void setFileObserver(IFileObserver fileObserver){
+        fObserver = fileObserver;
+        fObserver.subscribeToObserver(this);
+    }
 
 	@Override
 	protected SensorValue getChangedEventArgs() {
 		try {
-			if (signalFile != null)
-				logger.info(signalFile.getName() + " sensor: Change detected,");
-
-			if (fileToObserve != null) {
-				List<String> lines;
-				lines = Files.readAllLines(fileToObserve.toPath(), StandardCharsets.UTF_8);
-
-				SensorValue sv = new SensorValue(lines);
-				return sv;
+            if (fileToObserve != null) {
+				logger.info( String.format("%s detected change in %s", getName(), fileToObserve.getName()));
+				List<String> lines = Create.newList();
+                if(fileToObserve.exists()) {
+                    lines = Files.readAllLines(fileToObserve.toPath(), StandardCharsets.UTF_8);
+                }
+                return new SensorValue(lines);
 			} else {
 				return null;
 			}
@@ -57,21 +61,18 @@ public class FileSensor extends Sensor implements FileObserverSubscriber {
 		}
 	}
 
-	/*
-	 * This method returns immediately
-	 */
-	@Override
-	public void start() {
 
-		int mask = JNotify.FILE_MODIFIED;
-		try {
-			//Observation takes place in a separate thread.
-			fileWatchId = JNotify.addWatch(signalFile.getPath(), mask, false, changeListener);
-			logger.info(fileToObserve.getName() + " sensor: File observation started.");
-			_isEnabled = true;
-		} catch (JNotifyException e) {
-			logger.error(e.getMessage());
-		}
+    /*
+     * This method returns immediately
+     */
+	@Override
+	public void startObserving() {
+        if(fObserver != null){
+            fObserver.startObserving();
+            _isEnabled = true;
+        }else{
+            throw new RuntimeException("File observer not injected!");
+        }
 	}
 
 	@Override
@@ -82,24 +83,13 @@ public class FileSensor extends Sensor implements FileObserverSubscriber {
 	/*
 	 * This method returns immediately
 	 */
-	public void stop() {
-		boolean res = false;
-		try {
-			res = JNotify.removeWatch(fileWatchId);
-			_isEnabled = false;
-		} catch (JNotifyException e) {
-			e.printStackTrace();
-			logger.info(fileToObserve.getName() + " sensor: exception while removing watcher!");
-		}
-		if (res) {
-			logger.info(fileToObserve.getName() + " sensor: watcher succesfully removed.");
-		} else {
-			logger.info(fileToObserve.getName() + " sensor: invalid watcher ID specified..");
-		}
+	public void stopObserving() {
+        fObserver.stopObserving();
+        _isEnabled = false;
 	}
 
     @Override
     public void handleFileObserverEvent(FileObserverEventArgs args) {
-
+        this.onChangeDetected();
     }
 }

@@ -1,43 +1,45 @@
 package dycmaster.rysiek.sensors;
 
+import dycmaster.rysiek.BaseIntegrationTestTemplate;
 import dycmaster.rysiek.deployment.DeploymentManager;
 import dycmaster.rysiek.deployment.SCRIPTS_TO_RUN;
 import dycmaster.rysiek.deployment.ScriptRunner;
 import dycmaster.rysiek.sensors.sensorParsers.FlipFlopSensorParser;
-import dycmaster.rysiek.triggers.SensorTrigger;
-import dycmaster.rysiek.triggers.Trigger;
-import dycmaster.rysiek.triggers.triggerParsers.flipFlopTriggerParser;
 import org.junit.Test;
-import static org.mockito.Mockito.*;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
+import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.Collection;
 import java.util.LinkedList;
 
 
-public class FileSensorIntegrationTest {
+public class FileSensorIntegrationTest extends BaseIntegrationTestTemplate {
 
 	public static final URL testFileDataProvider = SCRIPTS_TO_RUN.class.getClassLoader().getResource("testDataProvider");
 
+    @Autowired
+    FileSensor sensor;
 
 	@Test
 	public void testSensorListenerNotifies () throws Exception {
-        String libPath =  System.getProperty("java.library.path");
-        System.out.println("libPath = " + libPath);
-        ScriptRunner testScript = deployTestScriptAndRun();
-
-
-		Sensor sensor = new FileSensor(testScript);
-		sensor.start();
-
-		SensorListener sensorListener = spy( new DefaultSensorListener(sensor, new FlipFlopSensorParser()));
-		sensorListener.start();
-
-		Thread.sleep(3000);
-
-		verify(sensorListener, atLeastOnce()).sensorValueChangedHandler(any(SensorValue.class));
-	}
+        File temp = File.createTempFile("temp-file", ".tmp");
+        try {
+            SensorListener listener = Mockito.mock(SensorListener.class);
+            sensor.subscribeToSensor(listener);
+            sensor.setFileToObserve(temp);
+            sensor.startObserving();
+            Files.write(temp.toPath(), "test".getBytes());
+            Thread.sleep(200);
+            Mockito.verify(listener, Mockito.atLeast(1)).sensorValueChangedHandler(Mockito.any(SensorValue.class));
+            sensor.stopObserving();
+        }finally {
+            temp.delete();
+        }
+    }
 
 
 

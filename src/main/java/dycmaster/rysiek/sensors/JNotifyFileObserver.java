@@ -19,6 +19,8 @@ public class JNotifyFileObserver extends AbstractFileObserver {
         super(fileToObserve);
     }
 
+    public JNotifyFileObserver(){
+    }
 
 
     @Override
@@ -27,6 +29,7 @@ public class JNotifyFileObserver extends AbstractFileObserver {
             int mask = JNotify.FILE_MODIFIED;
             fileWatchId = JNotify.addWatch(getObservedFile().getPath(), mask, false, changeListener);
             _isEnabled = true;
+            logger.debug(String.format("Jnotify started observing: %s", getObservedFile().getName()));
         } catch (JNotifyException e) {
             e.printStackTrace();
         }
@@ -43,7 +46,7 @@ public class JNotifyFileObserver extends AbstractFileObserver {
             logger.info(getObservedFileName()+ " observer: exception while removing watcher!");
         }
         if (res) {
-            logger.info(getObservedFileName() + " observer: watcher succesfully removed.");
+            logger.info(getObservedFileName() + " observer: watcher successfully removed.");
         } else {
             logger.info(getObservedFileName() + " observer: invalid watcher ID specified..");
         }
