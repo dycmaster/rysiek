@@ -18,7 +18,7 @@ public class FileSensorMockedTestMockito extends BaseContextTestTemplate {
 	@Test
 	public void testFileSensorNotifiesUponChanges() throws Exception{
         SensorListener listener = mock(SensorListener.class);
-        fileSensor.subscribeToSensor(listener);
+        fileSensor.addSubscriber(listener);
         fileSensor.onChangeDetected();
         Mockito.verify(listener, Mockito.times(1)).sensorValueChangedHandler(Mockito.any(SensorValue.class));
 	}

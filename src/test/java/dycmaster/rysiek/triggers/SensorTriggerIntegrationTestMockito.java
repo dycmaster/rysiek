@@ -30,10 +30,10 @@ public class SensorTriggerIntegrationTestMockito {
 //		sensor.startObserving();
 //
 //		SensorListener sensorListener = new DefaultSensorListener(sensor, new MusicOnSensorParser());
-//		sensorListener.start();
+//		sensorListener.startListening();
 //
 //		Trigger trigger = new SensorTrigger(sensorListener, new flipFlopTriggerParser());
-//		trigger.start();
+//		trigger.startListening();
 //
 //		TriggerListener triggerListener = new AbstractTriggerListener() {
 //			@Override

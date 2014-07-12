@@ -13,6 +13,12 @@ public class ConfigLocalTests {
 
     @Bean
     @Scope("prototype")
+    public SensorListener sensorListener(){
+        return  new DefaultSensorListener();
+    }
+
+    @Bean
+    @Scope("prototype")
     public IFileObserver dummyFileObserver(){
         IFileObserver observer = new DummyFileObserver();
         return  observer;

@@ -54,7 +54,7 @@ public abstract class Sensor {
 		_name = name;
 	}
 
-	public void subscribeToSensor(SensorListener listener) {
+	public void addSubscriber(SensorListener listener) {
 		sensorListeners.add(listener);
 	}
 

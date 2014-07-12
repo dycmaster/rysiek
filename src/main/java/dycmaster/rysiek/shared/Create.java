@@ -13,16 +13,20 @@ public class Create {
 		return  new LinkedList<>();
 	}
 
+    public static <T,K> Map<T,K> newMap(){
+        return  new HashMap<>();
+    }
+
     public static <T> List<T> newList(){
         return  new LinkedList<>();
     }
 
-	public static <E> Set<E> boxIntoSet(E elt, E... elts){
+
+    @SafeVarargs
+    public static <E> Set<E> boxIntoSet(E elt, E... elts){
 		Set<E> newSet = Create.newSet();
 		newSet.add(elt);
-		for(E e: elts){
-			newSet.add(e);
-		}
+        newSet.addAll(Arrays.asList(elts));
 		return  newSet;
 	}
 

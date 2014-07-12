@@ -1,10 +1,7 @@
 package dycmaster.rysiek.config;
 
 
-import dycmaster.rysiek.sensors.IFileObserver;
-import dycmaster.rysiek.sensors.FileSensor;
-import dycmaster.rysiek.sensors.JNotifyFileObserver;
-import dycmaster.rysiek.sensors.Sensor;
+import dycmaster.rysiek.sensors.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -13,6 +10,12 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 @Profile("production")
 public class Config {
+
+    @Bean
+    @Scope("prototype")
+    public SensorListener sensorListener(){
+        return  new DefaultSensorListener();
+    }
 
     @Bean
     @Scope("prototype")

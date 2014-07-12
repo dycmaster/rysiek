@@ -6,9 +6,8 @@ import org.apache.log4j.Logger;
 import java.util.Collection;
 import java.util.Map;
 
-/**
- * Created by frs on 2/23/14.
- */
+
+
 public abstract class SensorParser {
 	public abstract Map<String, String> parse(SensorValue sensorValue);
 	public abstract Collection<String> getAvailableParameters();
