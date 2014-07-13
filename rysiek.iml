@@ -29,6 +29,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.0.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.0.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-test:4.0.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:17.0" level="project" />
   </component>
 </module>
 

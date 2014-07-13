@@ -19,15 +19,13 @@ public class ConfigIntegrationTests {
     @Bean
     @Scope("prototype")
     public IFileObserver jnotifyFileObserver(){
-        IFileObserver observer = new JNotifyFileObserver();
-        return  observer;
+        return new JNotifyFileObserver();
     }
 
     @Bean
     @Scope("prototype")
     public Sensor sensor(){
-        Sensor s = new FileSensor();
-        return  s;
+        return new FileSensor();
     }
 
     @Bean

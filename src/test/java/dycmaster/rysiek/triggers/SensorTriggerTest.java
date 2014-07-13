@@ -1,37 +1,37 @@
 package dycmaster.rysiek.triggers;
 
+import dycmaster.rysiek.BaseContextTestTemplate;
 import dycmaster.rysiek.deployment.DeploymentManager;
 import dycmaster.rysiek.deployment.SCRIPTS_TO_RUN;
 import dycmaster.rysiek.deployment.ScriptRunner;
+import dycmaster.rysiek.sensors.FileSensor;
+import dycmaster.rysiek.sensors.SensorListener;
+import dycmaster.rysiek.sensors.sensorParsers.EchoSensorParser;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.URL;
 import java.util.Collection;
 import java.util.LinkedList;
 
 
-public class SensorTriggerIntegrationTestMockito {
+public class SensorTriggerTest extends BaseContextTestTemplate {
 
-	public static final URL testFileDataProvider = SCRIPTS_TO_RUN.class.getClassLoader().getResource("testDataProvider");
 
-	private ScriptRunner deployTestScriptAndRun(){
-		ScriptRunner testScript = new ScriptRunner(testFileDataProvider);
-		Collection<ScriptRunner> scripts = new LinkedList<>();
-		scripts.add(testScript);
-		DeploymentManager deploymentManager = new DeploymentManager();
-		deploymentManager.deployAllAndRun(scripts);
-		return  testScript;
-	}
+    @Autowired
+    FileSensor fileSensor;
+
+    @Autowired
+    SensorListener sensorListener;
 
 	@Test
 	public void testFromRunningScriptToTriggerEvents() throws Exception {
-//		ScriptRunner testScript = deployTestScriptAndRun();
-//		Sensor sensor = new FileSensor(testScript);
-//		sensor.startObserving();
-//
-//		SensorListener sensorListener = new DefaultSensorListener(sensor, new MusicOnSensorParser());
-//		sensorListener.startListening();
-//
+
+		fileSensor.addSubscriber(sensorListener);
+        sensorListener.setSensorParser(new EchoSensorParser());
+        fileSensor.startObserving();
+        sensorListener.startListening();
+
 //		Trigger trigger = new SensorTrigger(sensorListener, new flipFlopTriggerParser());
 //		trigger.startListening();
 //
