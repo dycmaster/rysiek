@@ -47,9 +47,7 @@ public class OnLongerThanTimeAndInputLogic extends TimeAndInputsTriggerLogic {
         boolean initTrackedInputState = getTriggerInputStates().get(trackedInput);
         updateTriggerState(false);
 
-        if(!initTrackedInputState){
-            return;
-        }else{
+        if (initTrackedInputState) {
             timerScheduled = true;
             trackingTimer.schedule(setOnTask, duration.getMillis());
         }
@@ -88,8 +86,7 @@ public class OnLongerThanTimeAndInputLogic extends TimeAndInputsTriggerLogic {
                                         Map<Integer, String> triggerDeclaredInputs,
                                         boolean currentTriggerOutput) {
         boolean stateOfTrackedInput = triggerInputStates.get(trackedInput);
-        boolean toReturnNow =  updateTimer(stateOfTrackedInput, currentTriggerOutput);
-        return toReturnNow;
+        return updateTimer(stateOfTrackedInput, currentTriggerOutput);
 
     }
 }

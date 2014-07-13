@@ -12,7 +12,7 @@ import org.joda.time.DateTime;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class AbstractTrigger implements  ITrigger {
+abstract class AbstractTrigger implements  ITrigger {
 
 
     private ITriggerLogic triggerLogic;
@@ -52,7 +52,8 @@ public abstract class AbstractTrigger implements  ITrigger {
     }
 
     //this is called from triggerLogic
-    protected void updateTriggerStateBasedOnLogic(boolean newOutput){
+    //FIXME - this shouldn't be public...
+    public void updateTriggerStateBasedOnLogic(boolean newOutput){
         if(isEnabled()){
             setTriggerState(newOutput);
         }

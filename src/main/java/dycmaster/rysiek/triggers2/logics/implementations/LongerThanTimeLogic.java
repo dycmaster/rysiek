@@ -2,7 +2,7 @@ package dycmaster.rysiek.triggers2.logics.implementations;
 
 import dycmaster.rysiek.triggers2.TimeOnlyTrigger;
 import dycmaster.rysiek.triggers2.TimeTriggerLogic;
-import org.joda.time.DateTime;
+import org.joda.time.Duration;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,18 +14,18 @@ import java.util.TimerTask;
  */
 public class LongerThanTimeLogic extends TimeTriggerLogic {
 
-    public LongerThanTimeLogic(String description, TimeOnlyTrigger trigger, DateTime dateTime) {
-        super(description, trigger, dateTime);
+    private final Duration duration;
+
+    public LongerThanTimeLogic(String description, TimeOnlyTrigger trigger, Duration duration) {
+        super(description, trigger);
+        this.duration = duration;
         run();
     }
 
 
     private void run(){
-        DateTime timeToStayOff = getDateTime();
-        DateTime now = new DateTime();
 
-        long periodToGoOn = timeToStayOff.getMillis() - now.getMillis();
-        if(periodToGoOn<=0){
+        if(duration.getMillis()<=0){
             updateTriggerState(true);
         }else{
             TimerTask setTriggerOn = new TimerTask() {
@@ -36,7 +36,7 @@ public class LongerThanTimeLogic extends TimeTriggerLogic {
             };
             updateTriggerState(false);
             Timer timer = new Timer();
-            timer.schedule(setTriggerOn, periodToGoOn);
+            timer.schedule(setTriggerOn, duration.getMillis());
         }
     }
 

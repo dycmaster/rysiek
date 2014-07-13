@@ -1,20 +1,21 @@
 package dycmaster.rysiek.triggers2;
 
 
+import dycmaster.rysiek.BaseMockitoTestTemplate;
 import dycmaster.rysiek.shared.Create;
-import dycmaster.rysiek.triggers2.logics.implementations.FlipFlopInputLogic;
-import dycmaster.rysiek.triggers2.logics.implementations.LongerThanTimeLogic;
-import dycmaster.rysiek.triggers2.logics.implementations.OnLongerThanTimeAndInputLogic;
-import dycmaster.rysiek.triggers2.logics.implementations.TruthTableInputLogic;
+import dycmaster.rysiek.triggers2.logics.implementations.*;
+import javafx.util.Pair;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
+import java.util.List;
 import java.util.Map;
 
-public class TriggerTest {
+public class TriggerTest extends BaseMockitoTestTemplate {
 
     private static Logger log= Logger.getLogger(TriggerTest.class);
 
@@ -82,13 +83,13 @@ public class TriggerTest {
     public void testTimeOnlyTriggerWithLongerThanTriggerLogic() throws InterruptedException {
         TimeOnlyTrigger timeOnlyTrigger = new TimeOnlyTrigger("trig1");
         timeOnlyTrigger.startTriggering();
-        TimeTriggerLogic timeLogic = new LongerThanTimeLogic("longer than test", timeOnlyTrigger, new DateTime().plusMillis(200));
+        TimeTriggerLogic timeLogic = new LongerThanTimeLogic("longer than test", timeOnlyTrigger, new Duration(200));
         timeOnlyTrigger.setTriggerLogic(timeLogic);
 
         boolean initState = timeOnlyTrigger.getOutputState();
         Thread.sleep(300);
         boolean finalState = timeOnlyTrigger.getOutputState();
-        Assert.assertNotEquals("state should change due to flip-flop trigger logic", initState, finalState );
+        Assert.assertNotEquals("state should change ", initState, finalState );
     }
 
 
@@ -123,6 +124,21 @@ public class TriggerTest {
         Thread.sleep(80);
         Assert.assertTrue(timeAndInputTrigger.getOutputState());
 
+    }
+
+    @Test
+    public void testSingleShotCronLogic() throws InterruptedException {
+        TimeOnlyTrigger timeOnlyTrigger = Mockito.spy(new TimeOnlyTrigger("trig1"));
+        String cronString = "0/1 * * * * ?"; //every 3s
+        log.debug("creating logic to run every 3s");
+        TimeTriggerLogic singleShotCronLogic = new SingleShotCronTimeLogic("desc", timeOnlyTrigger, cronString );
+        timeOnlyTrigger.startTriggering();
+        timeOnlyTrigger.setTriggerLogic(singleShotCronLogic);
+        Thread.sleep(2000);
+        List<Pair<DateTime, Boolean>> triggerHistory = timeOnlyTrigger.getTriggerHistory();
+        Pair<DateTime, Boolean> dateTimeBooleanPair = triggerHistory.stream().filter(a -> a.getValue().equals(true)).findFirst().get();
+        Assert.assertNotNull(dateTimeBooleanPair);
+        Assert.assertTrue(dateTimeBooleanPair.getValue().equals(true));
     }
 
 }
