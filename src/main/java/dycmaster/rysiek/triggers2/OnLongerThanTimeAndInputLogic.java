@@ -1,7 +1,5 @@
-package dycmaster.rysiek.triggers2.logics.implementations;
+package dycmaster.rysiek.triggers2;
 
-import dycmaster.rysiek.triggers2.TimeAndInputTrigger;
-import dycmaster.rysiek.triggers2.TimeAndInputsTriggerLogic;
 import org.joda.time.Duration;
 
 import java.util.Map;

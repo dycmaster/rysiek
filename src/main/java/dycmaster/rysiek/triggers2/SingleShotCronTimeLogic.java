@@ -1,8 +1,6 @@
-package dycmaster.rysiek.triggers2.logics.implementations;
+package dycmaster.rysiek.triggers2;
 
 
-import dycmaster.rysiek.triggers2.TimeOnlyTrigger;
-import dycmaster.rysiek.triggers2.TimeTriggerLogic;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
@@ -41,13 +39,13 @@ public class SingleShotCronTimeLogic extends TimeTriggerLogic {
         Scheduler sched = sf.getScheduler();
 
         JobDetail job = newJob(JobToDo.class)
-                .withIdentity("job1", "group1")
+                .withIdentity("job_"+System.currentTimeMillis(), "group1")
                 .build();
 
         job.getJobDataMap().put("trigger", getTrigger());
 
         CronTrigger trigger = newTrigger()
-                .withIdentity("trigger1", "group1")
+                .withIdentity("trigger_"+System.currentTimeMillis(), "group1")
                 .withSchedule(cronSchedule(cronString))
                 .build();
 

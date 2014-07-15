@@ -2,7 +2,9 @@ package dycmaster.rysiek.triggers2;
 
 
 import dycmaster.rysiek.shared.Create;
+import javafx.util.Pair;
 
+import java.util.List;
 import java.util.Map;
 
 public class InputOnlyTrigger extends AbstractTrigger {
@@ -54,6 +56,70 @@ public class InputOnlyTrigger extends AbstractTrigger {
             boolean newState = inputOnlyTriggerLogic.processTriggerInputs(inputStates, declaredInputs);
             updateTriggerStateBasedOnLogic(newState);
         }
+    }
+
+
+    public static class Builder{
+        private final Map<Integer, String> declaredInputs;
+        private final String name;
+        private String logicType;
+        private String logicDescription;
+        private TruthTable truthTable;
+
+        public Builder(Map<Integer, String> declaredInputs, String name){
+            this.declaredInputs = declaredInputs;
+            this.name = name;
+        }
+
+        public Builder withLogicType(String logicType){
+            this.logicType = logicType;
+            return  this;
+        }
+
+        public Builder withLogicDescription(String logicDescription){
+            this.logicDescription = logicDescription;
+            return  this;
+        }
+
+        public Builder withTruthTable(String[] header, List<Pair<Boolean[], Boolean>> rows){
+            TruthTable currTable = new TruthTable(header);
+            for (Pair<Boolean[], Boolean> row : rows) {
+                currTable.addRow(row.getKey(), row.getValue());
+            }
+            this.truthTable = currTable;
+            return  this;
+        }
+
+        public Builder withTruthTable(TruthTable truthTable){
+            this.truthTable = truthTable;
+            return  this;
+        }
+
+        public InputOnlyTrigger build(){
+            InputOnlyTrigger trigger = new InputOnlyTrigger(declaredInputs, name);
+            trigger.startTriggering();
+            InputTriggerLogic logic;
+
+            TriggerLogics logicTypeEnum = Create.newCollection(TriggerLogics.values()).stream()
+                    .filter(x->x.getLogicStringName().equals(logicType)).findFirst().get();
+
+            switch (logicTypeEnum){
+                case TruthTableInputLogic:
+                    logic = new TruthTableInputLogic(logicDescription, truthTable);
+                    break;
+
+                case FlipFlopInputLogic:
+                    logic = new FlipFlopInputLogic(logicDescription);
+                    break;
+
+                default:
+                    throw new RuntimeException("Unknown logic type: "+logicType);
+            }
+
+            trigger.setTriggerLogic(logic);
+            return trigger;
+        }
+
     }
 
 }

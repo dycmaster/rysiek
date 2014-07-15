@@ -47,13 +47,12 @@ abstract class AbstractTrigger implements  ITrigger {
         if (newState != triggerState) {
             triggerState = newState;
             triggerHistory.add(new Pair<>(new DateTime(), triggerState));
-            log.debug(String.format("Trigger %s went %s", getName(), newState));
+            log.debug(String.format("Trigger '%s' went '%s'", getName(), newState));
         }
     }
 
     //this is called from triggerLogic
-    //FIXME - this shouldn't be public...
-    public void updateTriggerStateBasedOnLogic(boolean newOutput){
+    protected void updateTriggerStateBasedOnLogic(boolean newOutput){
         if(isEnabled()){
             setTriggerState(newOutput);
         }

@@ -15,12 +15,12 @@ public class TruthTable {
         this.header = header;
     }
 
-    public void addRow(boolean [] values, boolean output){
+    public void addRow(Boolean[] values, boolean output){
         TruthTableRow rowToAdd = new TruthTableRow(values);
         table.put(rowToAdd, output);
     }
 
-    public boolean findOutputForValues(boolean [] values){
+    public boolean findOutputForValues(Boolean [] values){
         TruthTableRow rowToFind = new TruthTableRow(values);
         return table.get(rowToFind);
     }
@@ -29,7 +29,12 @@ public class TruthTable {
         return header;
     }
 
+
     class TruthTableRow{
+
+
+        private final  Boolean [] values;
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -46,8 +51,7 @@ public class TruthTable {
             return Arrays.hashCode(values);
         }
 
-        private final  boolean [] values;
-        TruthTableRow(boolean[] values) {
+        TruthTableRow(Boolean[] values) {
             this.values = values;
         }
     }

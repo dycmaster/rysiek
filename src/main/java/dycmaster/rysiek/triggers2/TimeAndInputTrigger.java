@@ -1,6 +1,7 @@
 package dycmaster.rysiek.triggers2;
 
 import dycmaster.rysiek.shared.Create;
+import org.joda.time.Duration;
 
 import java.util.Map;
 
@@ -49,6 +50,77 @@ public class TimeAndInputTrigger extends  AbstractTrigger {
             boolean newState = triggerLogic.processTriggerInputs(inputStates, declaredInputs, getOutputState());
             updateTriggerStateBasedOnLogic(newState);
         }
+    }
+
+    public static class Builder{
+
+        //for trigger
+        private final String name;
+        private final Map<Integer, String> declaredInputs;
+
+        //for logic
+        private String logicType;
+        private Duration duration;
+        private String trackedInput;
+        private String description;
+
+        public Builder(String name, Map<Integer, String> declaredInputs){
+            this.name = name;
+            this.declaredInputs = declaredInputs;
+        }
+
+
+        public Builder withLogicDescription(String logicDescription){
+            this.description = logicDescription;
+            return  this;
+        }
+
+        public Builder withInputTrackedByLogic(String trackedInput){
+            this.trackedInput = trackedInput;
+            return  this;
+        }
+
+        public Builder withLogicDelayWhenTrackingInput(Duration duration){
+            this.duration = duration;
+            return  this;
+        }
+
+        public Builder withLogicDelayWhenTrackingInput(long duration){
+            this.duration = new Duration(duration);
+            return  this;
+        }
+
+        public Builder withLogicType(String logicType){
+            this.logicType = logicType;
+            return  this;
+        }
+
+        public TimeAndInputTrigger build(){
+
+            TimeAndInputTrigger trigger = new TimeAndInputTrigger(this.name, this.declaredInputs);
+            trigger.startTriggering();
+            TimeAndInputsTriggerLogic logic;
+
+            TriggerLogics trigLogicEnum = Create.newCollection(TriggerLogics.values()).stream()
+                    .filter(x->x.getLogicStringName().equals(logicType)).findFirst().get();
+
+            switch(trigLogicEnum){
+                case OnLongerThanTime:
+                     logic = new TimeAndInputsTriggerLogic.Builder(this.description, this.logicType)
+                             .withDuration(this.duration.getMillis())
+                             .withTrackedInput(this.trackedInput)
+                             .withTrigger(trigger)
+                             .build();
+                    break;
+                default:
+                    throw new RuntimeException("Unknown logic type: "+logicType);
+            }
+
+            trigger.setTriggerLogic(logic);
+            return  trigger;
+        }
+
+
     }
 
 }

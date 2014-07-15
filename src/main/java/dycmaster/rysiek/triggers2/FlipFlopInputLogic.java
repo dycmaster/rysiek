@@ -1,6 +1,4 @@
-package dycmaster.rysiek.triggers2.logics.implementations;
-
-import dycmaster.rysiek.triggers2.InputTriggerLogic;
+package dycmaster.rysiek.triggers2;
 
 import java.util.Map;
 
