@@ -5,7 +5,6 @@ import javafx.util.Pair;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public abstract class InputTriggerLogic extends AbstractTriggerLogic {
 
@@ -42,7 +41,7 @@ public abstract class InputTriggerLogic extends AbstractTriggerLogic {
 
         public InputTriggerLogic build(){
 
-            TriggerLogics logic = Create.newCollection(TriggerLogics.values())
+            TriggerLogic logic = Create.newCollection(TriggerLogic.values())
                     .stream().filter(x->x.getLogicStringName().equals(logicType)).findFirst().get();
 
             switch (logic){

@@ -34,7 +34,7 @@ public class TriggerTest extends BaseMockitoTestTemplate {
     @Test
     public void testInputOnlyTrigger_FlipFlopLogic_builder(){
         InputOnlyTrigger trigger = new InputOnlyTrigger.Builder(Create.newMap(), "trig1")
-                .withLogicType(TriggerLogics.FlipFlopInputLogic.getLogicStringName())
+                .withLogicType(TriggerLogic.FlipFlopInputLogic.getLogicStringName())
                 .withLogicDescription("desc")
                 .build();
 
@@ -106,7 +106,7 @@ public class TriggerTest extends BaseMockitoTestTemplate {
         truthTable.addRow(new Boolean[]{false, false}, false);
 
         InputOnlyTrigger inputOnlyTrigger = new InputOnlyTrigger.Builder(declaredInputs, "name")
-                .withLogicType(TriggerLogics.TruthTableInputLogic.getLogicStringName())
+                .withLogicType(TriggerLogic.TruthTableInputLogic.getLogicStringName())
                 .withLogicDescription("desc")
                 .withTruthTable(truthTable).build();
 
@@ -156,7 +156,7 @@ public class TriggerTest extends BaseMockitoTestTemplate {
     @Test
     public void test_TimeOnlyTrigger_LongerThanTriggerLogic_builder() throws InterruptedException {
         TimeOnlyTrigger timeOnlyTrigger = new TimeOnlyTrigger.Builder("trig1")
-                .withLogicType(TriggerLogics.LongerThanTimeLogic.getLogicStringName())
+                .withLogicType(TriggerLogic.LongerThanTimeLogic.getLogicStringName())
                 .withLogicDescription("desc")
                 .withLogicDuration(200)
                 .build();
@@ -206,7 +206,7 @@ public class TriggerTest extends BaseMockitoTestTemplate {
         Map<Integer,String> declaredInputs = Create.newMap();
         declaredInputs.put(1,"input1");
         TimeAndInputTrigger timeAndInputTrigger = new TimeAndInputTrigger.Builder("name", declaredInputs)
-                .withLogicType(TriggerLogics.OnLongerThanTime.getLogicStringName())
+                .withLogicType(TriggerLogic.OnLongerThanTime.getLogicStringName())
                 .withInputTrackedByLogic("input1")
                 .withLogicDelayWhenTrackingInput(100)
                 .withLogicDescription("desc")
@@ -255,7 +255,7 @@ public class TriggerTest extends BaseMockitoTestTemplate {
     public void test_SingleShotCronLogic_builder() throws InterruptedException {
         String cronString = "0/1 * * * * ?"; //every 3s
         TimeOnlyTrigger timeOnlyTrigger = new TimeOnlyTrigger.Builder("name")
-                .withLogicType(TriggerLogics.SingleShotCronTimeLogic.getLogicStringName())
+                .withLogicType(TriggerLogic.SingleShotCronTimeLogic.getLogicStringName())
                 .withLogicDescription("desc")
                 .withLogicCronString(cronString)
                 .build();

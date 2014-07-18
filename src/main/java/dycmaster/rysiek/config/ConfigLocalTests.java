@@ -2,6 +2,7 @@ package dycmaster.rysiek.config;
 
 
 import dycmaster.rysiek.sensors.*;
+import dycmaster.rysiek.triggersManager.Manager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -10,6 +11,11 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 @Profile("localTests")
 public class ConfigLocalTests {
+
+    @Bean
+    public Manager triggersManager(){
+        return  new Manager();
+    }
 
     @Bean
     @Scope("prototype")

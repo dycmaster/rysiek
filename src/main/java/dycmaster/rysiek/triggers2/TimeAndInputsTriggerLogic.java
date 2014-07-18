@@ -62,7 +62,7 @@ public abstract class TimeAndInputsTriggerLogic extends AbstractTriggerLogic {
 
         public TimeAndInputsTriggerLogic build(){
 
-            TriggerLogics triggerLogicEnum = Create.newCollection(TriggerLogics.values()).stream()
+            TriggerLogic triggerLogicEnum = Create.newCollection(TriggerLogic.values()).stream()
                     .filter(x->x.getLogicStringName().equals(logicType)).findFirst().get();
 
             switch(triggerLogicEnum){

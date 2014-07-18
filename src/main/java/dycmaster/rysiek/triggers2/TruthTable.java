@@ -1,6 +1,7 @@
 package dycmaster.rysiek.triggers2;
 
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import dycmaster.rysiek.shared.Create;
 
 import java.util.Arrays;
@@ -13,6 +14,26 @@ public class TruthTable {
 
     public TruthTable(String [] header) {
         this.header = header;
+    }
+
+    public TruthTable(String singleLineTable, String[] inputNames) {
+        //1 1 1|1 0 0|0 1 0|0 0 0
+        this(inputNames);
+        String [] rows = singleLineTable.split("\\|");
+        for (String row : rows) {
+            String [] numbers = row.split(" ");
+            Boolean outVal = strToBoolean(numbers[numbers.length-1]);
+
+            Boolean [] inputs = new Boolean[numbers.length-1];
+            for(int i=0; i<numbers.length-1; i++){
+                inputs[i] = strToBoolean(numbers[i]);
+            }
+            addRow(inputs, outVal);
+        }
+    }
+
+    private boolean strToBoolean(String str){
+        return Integer.valueOf(str)!=0;
     }
 
     public void addRow(Boolean[] values, boolean output){

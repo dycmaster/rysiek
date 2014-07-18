@@ -52,7 +52,7 @@ public abstract class TimeTriggerLogic extends AbstractTriggerLogic {
 
         public TimeTriggerLogic build(){
 
-            TriggerLogics trigLogEnum = Create.newCollection(TriggerLogics.values()).stream()
+            TriggerLogic trigLogEnum = Create.newCollection(TriggerLogic.values()).stream()
                     .filter(x->x.getLogicStringName().equals(logicType)).findFirst().get();
 
             switch (trigLogEnum){

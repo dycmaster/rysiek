@@ -55,7 +55,7 @@ public class TimeOnlyTrigger extends AbstractTrigger {
             trigger.startTriggering();
             TimeTriggerLogic logic;
 
-            TriggerLogics trigLogicEnum = Create.newCollection(TriggerLogics.values()).stream()
+            TriggerLogic trigLogicEnum = Create.newCollection(TriggerLogic.values()).stream()
                     .filter(x->x.getLogicStringName().equals(logicType)).findFirst().get();
 
             switch (trigLogicEnum){

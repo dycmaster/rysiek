@@ -95,12 +95,17 @@ public class InputOnlyTrigger extends AbstractTrigger {
             return  this;
         }
 
+        public Builder withTruthTable(String singleLineTable, String[] inputNames){
+            this.truthTable = new TruthTable(singleLineTable, inputNames);
+            return  this;
+        }
+
         public InputOnlyTrigger build(){
             InputOnlyTrigger trigger = new InputOnlyTrigger(declaredInputs, name);
             trigger.startTriggering();
             InputTriggerLogic logic;
 
-            TriggerLogics logicTypeEnum = Create.newCollection(TriggerLogics.values()).stream()
+            TriggerLogic logicTypeEnum = Create.newCollection(TriggerLogic.values()).stream()
                     .filter(x->x.getLogicStringName().equals(logicType)).findFirst().get();
 
             switch (logicTypeEnum){

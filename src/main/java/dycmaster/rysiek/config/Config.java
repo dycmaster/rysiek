@@ -2,6 +2,7 @@ package dycmaster.rysiek.config;
 
 
 import dycmaster.rysiek.sensors.*;
+import dycmaster.rysiek.triggersManager.Manager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -36,6 +37,11 @@ public class Config {
     public FileSensor fileSensor(){
         FileSensor s = new FileSensor();
         return  s;
+    }
+
+    @Bean
+    public Manager triggersManager(){
+        return  new Manager();
     }
 
 
