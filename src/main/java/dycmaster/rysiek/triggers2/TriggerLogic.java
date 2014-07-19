@@ -7,15 +7,15 @@ import java.util.Optional;
 public enum TriggerLogic {
 
     //time only logics
-    LongerThanTimeLogic("LongerThanTimeLogic", TriggerLogicType.TIME_ONLY),
-    SingleShotCronTimeLogic("SingleShotCron", TriggerLogicType.TIME_ONLY),
+    LongerThanTimeLogic("LongerThanTimeLogic", new String[]{"longerThanTime"}, TriggerLogicType.TIME_ONLY),
+    SingleShotCronTimeLogic("SingleShotCron", new String[]{"cronSingleShot"}, TriggerLogicType.TIME_ONLY),
 
     //time and input logics
-    OnLongerThanTime("OnLongerThanTime", TriggerLogicType.TIME_AND_INPUT),
+    OnLongerThanTime("OnLongerThanTime", new String[]{"onLongerThan"}, TriggerLogicType.TIME_AND_INPUT),
 
     //input only logics
     TruthTableInputLogic("TruthTableInputLogic",new String[]{"truthTable"}, TriggerLogicType.INPUT_ONLY),
-    FlipFlopInputLogic("FlipFlopInputLogic", TriggerLogicType.INPUT_ONLY);
+    FlipFlopInputLogic("FlipFlopInputLogic", new String[]{"flipFlopInput"}, TriggerLogicType.INPUT_ONLY);
 
 
     private final String logicStringName;

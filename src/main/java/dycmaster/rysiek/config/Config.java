@@ -2,7 +2,7 @@ package dycmaster.rysiek.config;
 
 
 import dycmaster.rysiek.sensors.*;
-import dycmaster.rysiek.triggersManager.Manager;
+import dycmaster.rysiek.logicService.TriggersCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -40,8 +40,8 @@ public class Config {
     }
 
     @Bean
-    public Manager triggersManager(){
-        return  new Manager();
+    public TriggersCreator triggersManager(){
+        return  new TriggersCreator();
     }
 
 

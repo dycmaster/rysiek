@@ -1,6 +1,7 @@
 #what,where,which input
-sensor1,trigger1,input1;
-trigger2,trigger3,input2;
-trigger1,trigger3,input1;
-trigger3,actionDispatcher,null;
-trigger4,; #implicitely to actionDispatcher
+sensor1,trigger1,input1
+trigger2,trigger3,input2
+trigger1,trigger3,input1
+trigger3,actionDispatcher
+trigger4 #implicitely to actionDispatcher
+sensor2 #implicitely to actionDispatcher

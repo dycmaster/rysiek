@@ -50,6 +50,37 @@ public class TimeOnlyTrigger extends AbstractTrigger {
             this.name = triggerName;
         }
 
+        public Builder(){}
+
+        public Builder withName(String name){
+            this.name = name;
+            return  this;
+        }
+
+        public Builder fromSingleString(String declarationString, String separator){
+            String [] values = declarationString.split(separator);
+            String tName = values[0];
+            String logicType = values[2];
+            String logicDescription = values[2+1];
+            TriggerLogic logic = TriggerLogic.getByParserName(logicType);
+
+            //const for all
+            this.withName(tName)
+                    .withLogicDescription(logicDescription)
+                    .withLogicType(logic.getLogicStringName());
+
+            switch (logic) {
+                case SingleShotCronTimeLogic:
+                    String cronString = values[4];
+                    return this.withLogicCronString(cronString);
+                case LongerThanTimeLogic:
+                    String targetTimeMs = values[4];
+                    return  this.withLogicDuration(Long.parseLong(targetTimeMs));
+                default:
+                    throw new RuntimeException("Unknown logic type " + logicType);
+            }
+        }
+
         public TimeOnlyTrigger build(){
             TimeOnlyTrigger trigger = new TimeOnlyTrigger(this.name);
             trigger.startTriggering();

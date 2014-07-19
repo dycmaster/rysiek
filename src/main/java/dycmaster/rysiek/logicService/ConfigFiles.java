@@ -1,4 +1,4 @@
-package dycmaster.rysiek.triggersManager;
+package dycmaster.rysiek.logicService;
 
 
 import java.net.URL;

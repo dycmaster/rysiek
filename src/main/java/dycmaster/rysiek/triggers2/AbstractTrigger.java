@@ -47,6 +47,7 @@ abstract class AbstractTrigger implements  ITrigger {
         if (newState != triggerState) {
             triggerState = newState;
             triggerHistory.add(new Pair<>(new DateTime(), triggerState));
+            triggerOutputChangedEvent();
             log.debug(String.format("Trigger '%s' went '%s'", getName(), newState));
         }
     }

@@ -7,7 +7,7 @@ import javafx.util.Pair;
 import java.util.List;
 import java.util.Map;
 
-public class InputOnlyTrigger extends AbstractTrigger {
+public class InputOnlyTrigger extends AbstractTrigger implements IInputTrigger {
     private final Map<Integer,String> declaredInputs;   //number, name
     private Map<String, Integer> inputNumbers;  //name, number
     private Map<String, Boolean> inputStates;   //name, state
@@ -40,11 +40,13 @@ public class InputOnlyTrigger extends AbstractTrigger {
     }
 
 
+    @Override
     public void setInputState(String inputName, boolean state) {
         inputStates.put(inputName, state);
         updateTriggerStateBasedOnInputs(inputStates);
     }
 
+    @Override
     public void setInputState(int inputNumber, boolean state) {
         String key = declaredInputs.get(inputNumber);
         inputStates.put(key, state);
@@ -60,15 +62,64 @@ public class InputOnlyTrigger extends AbstractTrigger {
 
 
     public static class Builder{
-        private final Map<Integer, String> declaredInputs;
-        private final String name;
+        private  Map<Integer, String> declaredInputs;
+        private  String name;
         private String logicType;
         private String logicDescription;
         private TruthTable truthTable;
 
+        public Builder(){
+        }
+
         public Builder(Map<Integer, String> declaredInputs, String name){
             this.declaredInputs = declaredInputs;
             this.name = name;
+        }
+
+        public Builder fromSingleString(String declarationString, String separator){
+            String [] values = declarationString.split(separator);
+            String tName = values[0];
+            Integer inputCount = Integer.valueOf(values[2]);
+            String [] inputNames = new String[inputCount];
+            for(int i=0; i<inputCount; i++){
+                inputNames[i] = values[3+i];
+            }
+
+            Map<Integer, String> declaredInputs = Create.newMap();
+            int c=0;
+            for(String str: inputNames){
+                declaredInputs.put(++c, str);
+            }
+            String logicType = values[2+1+inputCount];
+            String logicDescription = values[2+1+inputCount+1];
+            TriggerLogic logic = TriggerLogic.getByParserName(logicType);
+
+            //const for all
+            this.withName(tName)
+                    .withDeclaredInputs(declaredInputs)
+                    .withLogicDescription(logicDescription)
+                    .withLogicType(logic.getLogicStringName());
+
+            switch (logic) {
+                case TruthTableInputLogic:
+                    String truthTableSingleStr = values[2 + 1 + inputCount + 1 + 1];
+                    return this.withTruthTable(truthTableSingleStr, inputNames);
+                case FlipFlopInputLogic:
+                    return  this;
+                default:
+                    throw new RuntimeException("Unknown logic type " + logicType);
+            }
+
+        }
+
+        public Builder withName(String name){
+            this.name = name;
+            return  this;
+        }
+
+        public Builder withDeclaredInputs(Map<Integer, String> declaredInputs){
+            this.declaredInputs = declaredInputs;
+            return this;
         }
 
         public Builder withLogicType(String logicType){

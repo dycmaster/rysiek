@@ -1,5 +1,7 @@
 thisShould stay#and this not
-trigger1,inputAndTime,1,input1,onLongerThan,300;
-trigger2,time,longerThanTime,300;
-trigger4,time,cronSingleShot,1 * * * ?;
+trigger1,inputAndTime,1,input1,onLongerThan,some on longer than test..,input1,300
+trigger2,time,longerThanTime,test longer than time logic,300
+trigger4,time,cronSingleShot,test cron single shot logic,0/1 * * * * ?
 trigger3,input,2,input1,input2,truthTable,test truth table,1 1 1|1 0 0|0 1 0|0 0 0
+trigger5,input,1,input1,flipFlopInput,test flip flop
+

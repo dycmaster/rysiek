@@ -1,7 +1,6 @@
 package dycmaster.rysiek.triggers2;
 
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import dycmaster.rysiek.shared.Create;
 
 import java.util.Arrays;

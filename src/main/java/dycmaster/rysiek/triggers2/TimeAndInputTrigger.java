@@ -5,7 +5,7 @@ import org.joda.time.Duration;
 
 import java.util.Map;
 
-public class TimeAndInputTrigger extends  AbstractTrigger {
+public class TimeAndInputTrigger extends  AbstractTrigger implements IInputTrigger {
 
     private final Map<Integer,String> declaredInputs;   //number, name
     private Map<String, Boolean> inputStates;   //name, state
@@ -34,11 +34,13 @@ public class TimeAndInputTrigger extends  AbstractTrigger {
         }
     }
 
+    @Override
     public void setInputState(String inputName, boolean state) {
         inputStates.put(inputName, state);
         updateTriggerStateBasedOnInputs(inputStates);
     }
 
+    @Override
     public void setInputState(int inputNumber, boolean state) {
         String key = declaredInputs.get(inputNumber);
         inputStates.put(key, state);
@@ -55,8 +57,8 @@ public class TimeAndInputTrigger extends  AbstractTrigger {
     public static class Builder{
 
         //for trigger
-        private final String name;
-        private final Map<Integer, String> declaredInputs;
+        private  String name;
+        private  Map<Integer, String> declaredInputs;
 
         //for logic
         private String logicType;
@@ -64,9 +66,22 @@ public class TimeAndInputTrigger extends  AbstractTrigger {
         private String trackedInput;
         private String description;
 
+        public Builder(){}
+
+
         public Builder(String name, Map<Integer, String> declaredInputs){
             this.name = name;
             this.declaredInputs = declaredInputs;
+        }
+
+        public Builder withName(String name){
+            this.name = name;
+            return  this;
+        }
+
+        public Builder withDeclaredInputs(Map<Integer, String> declaredInputs){
+            this.declaredInputs = declaredInputs;
+            return  this;
         }
 
 
@@ -93,6 +108,45 @@ public class TimeAndInputTrigger extends  AbstractTrigger {
         public Builder withLogicType(String logicType){
             this.logicType = logicType;
             return  this;
+        }
+
+        public Builder fromSingleString(String declarationString, String separator){
+            String [] values = declarationString.split(separator);
+            String tName = values[0];
+
+            //inputs
+            Integer inputCount = Integer.valueOf(values[2]);
+            String [] inputNames = new String[inputCount];
+            for(int i=0; i<inputCount; i++){
+                inputNames[i] = values[3+i];
+            }
+            Map<Integer, String> declaredInputs = Create.newMap();
+            int c=0;
+            for(String str: inputNames){
+                declaredInputs.put(++c, str);
+            }
+
+            //logic
+            String logicType = values[2+1+inputCount];
+            String logicDescription = values[2+1+inputCount+1];
+            TriggerLogic logic = TriggerLogic.getByParserName(logicType);
+
+            //const for all
+            this.withName(tName)
+                    .withDeclaredInputs(declaredInputs)
+                    .withLogicDescription(logicDescription)
+                    .withLogicType(logic.getLogicStringName());
+
+            switch (logic) {
+                case OnLongerThanTime:
+                    String trackedInput = values[2+1+inputCount+1+1];
+                    String duration = values[2+1+inputCount+1+1+1];
+                    return this.withInputTrackedByLogic(trackedInput)
+                            .withLogicDelayWhenTrackingInput(Long.parseLong(duration));
+
+                default:
+                    throw new RuntimeException("Unknown logic type " + logicType);
+            }
         }
 
         public TimeAndInputTrigger build(){
