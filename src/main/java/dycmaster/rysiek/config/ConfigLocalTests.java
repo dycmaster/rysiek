@@ -1,12 +1,14 @@
 package dycmaster.rysiek.config;
 
 
+import dycmaster.rysiek.logicService.*;
 import dycmaster.rysiek.sensors.*;
-import dycmaster.rysiek.logicService.TriggersCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
+
+import java.io.IOException;
 
 @Configuration
 @Profile("localTests")
@@ -14,8 +16,16 @@ public class ConfigLocalTests {
 
     @Bean
     public TriggersCreator triggersManager(){
-        return  new TriggersCreator();
+
+        TriggersCreator triggersCreator = new TriggersCreator();
+        try {
+            triggersCreator.initTriggersFromConfig();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return triggersCreator;
     }
+
 
     @Bean
     @Scope("prototype")
@@ -41,5 +51,25 @@ public class ConfigLocalTests {
     @Scope("prototype")
     public FileSensor fileSensor(){
         return new FileSensor();
+    }
+
+    @Bean
+    public ILogicService logicService(){
+        return  new DefaultLogicService();
+    }
+
+    @Bean
+    public Switchboard switchboard(){
+        return  new Switchboard();
+    }
+
+    @Bean
+    public IActionDispatcher actionDispatcher(){
+        return  new ActionDispatcher();
+    }
+
+    @Bean
+    public  IHtmlSender htmlSender(){
+        return  new TestHtmlSender();
     }
 }

@@ -43,6 +43,10 @@ public class TriggersCreator {
         timeAndInputTriggers = initTimeAndInputTriggersFromConfig(triggerDeclarations);
     }
 
+    public void initTriggersFromConfig() throws IOException{
+        initTriggersFromConfig(ConfigFiles.TriggerDeclarations.getUrl());
+    }
+
     protected InputOnlyTrigger parseLineToInputOnlyTriggerIfPossible(String line) {
         return new InputOnlyTrigger.Builder().fromSingleString(line, ConfigTools.separator).build();
     }

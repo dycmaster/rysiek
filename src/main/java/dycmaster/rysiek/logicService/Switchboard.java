@@ -8,42 +8,49 @@ import dycmaster.rysiek.shared.FileTools;
 import dycmaster.rysiek.triggers2.*;
 import javafx.util.Pair;
 import org.apache.log4j.Logger;
-import org.javatuples.Triplet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+import org.terracotta.quartz.collections.TimeTrigger;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
  * The switchboard contains triggers and routs signals between them, inputs and outputs.
  * Usage:
- * 1. set triggers
- * 2. set action dispatcher
- * 3. call init()
+ * 1. set action dispatcher (mandatory)
+ * 2. call setTriggersAndInit (optional)
  */
 public class Switchboard implements ITriggerListener {
 
+    private static Logger log = Logger.getLogger(Switchboard.class);
     private Collection<InputOnlyTrigger> inputOnlyTriggers;
     private Collection<TimeOnlyTrigger> timeOnlyTriggers;
     private Collection<TimeAndInputTrigger> timeAndInputTriggers;
     private Map<String, Pair<String, String>> routingTable;
-    private Map<String, IInputTrigger> inputTriggersMap;
+    private Map<String, IInputTrigger> inputTriggersMap = Create.newMap();
     private IActionDispatcher IActionDispatcher;
 
-    private static Logger log = Logger.getLogger(Switchboard.class);
+    public Switchboard(){
+        initRoutingTable();
+    }
 
     private static Map.Entry<String, Pair<String, String>> parseOneLineToRoutingTableRow(String line) {
         String[] parts = line.split(ConfigTools.separator);
 
         if (parts.length == 1) {
-            return  new AbstractMap.SimpleEntry<String, Pair<String, String>>(parts[0].trim(), new Pair<>(null, null));
+            return new AbstractMap.SimpleEntry<String, Pair<String, String>>(parts[0].trim(), new Pair<>(null, null));
         } else if (parts.length == 2) {
-            return  new AbstractMap.SimpleEntry<String, Pair<String, String>>(parts[0].trim(), new Pair<>(parts[1].trim(), null));
+            return new AbstractMap.SimpleEntry<String, Pair<String, String>>(parts[0].trim(), new Pair<>(parts[1].trim(), null));
         } else {
-            return  new AbstractMap.SimpleEntry<String, Pair<String, String>>(parts[0].trim(), new Pair<>(parts[1].trim(), parts[2].trim()));
+            return new AbstractMap.SimpleEntry<String, Pair<String, String>>(parts[0].trim(), new Pair<>(parts[1].trim(), parts[2].trim()));
         }
     }
 
@@ -61,13 +68,15 @@ public class Switchboard implements ITriggerListener {
         return IActionDispatcher;
     }
 
+    @Required
+    @Autowired
     public void setActionDispatcher(IActionDispatcher IActionDispatcher) {
         this.IActionDispatcher = IActionDispatcher;
     }
 
     public void dispatchSignal(String senderName, boolean value) {
         Pair<String, String> routingRowFor = findRoutingRowFor(senderName);
-        if(routingRowFor==null){
+        if (routingRowFor == null) {
             throw new RuntimeException(String.format("Routing table doesn't contain a route for a signal source=%s. " +
                     "Please verify your settings.", senderName));
         }
@@ -78,7 +87,7 @@ public class Switchboard implements ITriggerListener {
             String targetInput = routingRowFor.getValue();
 
             if (inputTriggersMap.containsKey(targetTrigger)) {
-                log.info(String.format("sending signal='%s' from %s to %s, input=%s",value, senderName, targetTrigger, targetInput));
+                log.info(String.format("sending signal='%s' from %s to %s, input=%s", value, senderName, targetTrigger, targetInput));
                 inputTriggersMap.get(targetTrigger).setInputState(targetInput, value);
             } else {
                 throw new RuntimeException(String.format("Source %s requested to send its output signal to trigger %s to input %s." +
@@ -103,11 +112,21 @@ public class Switchboard implements ITriggerListener {
         return routingTable.get(name);
     }
 
-    public void init() {
+    public void setTriggersAndInit(Collection<TimeOnlyTrigger> timeTriggers,
+                                   Collection<InputOnlyTrigger> inputOnlyTriggers,
+                                   Collection<TimeAndInputTrigger> timeAndInputTriggers){
+        setInputOnlyTriggers(inputOnlyTriggers);
+        setTimeAndInputTriggers(timeAndInputTriggers);
+        setTimeOnlyTriggers(timeTriggers);
+
+        initTriggersListening();
+        initTriggerMaps();
+
+    }
+
+    protected void initRoutingTable() {
         try {
             this.routingTable = initTriggersLayout(ConfigFiles.TriggersLayout.getUrl());
-            initTriggersListening();
-            initTriggerMaps();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -131,18 +150,21 @@ public class Switchboard implements ITriggerListener {
 
         if (inputOnlyTriggers != null) {
             for (InputOnlyTrigger inputOnlyTrigger : inputOnlyTriggers) {
+                inputOnlyTrigger.removeListener(this);
                 inputOnlyTrigger.addListener(this);
             }
         }
 
         if (timeOnlyTriggers != null) {
             for (TimeOnlyTrigger timeOnlyTrigger : timeOnlyTriggers) {
+                timeOnlyTrigger.removeListener(this);
                 timeOnlyTrigger.addListener(this);
             }
         }
 
         if (timeAndInputTriggers != null) {
             for (TimeAndInputTrigger timeAndInputTrigger : timeAndInputTriggers) {
+                timeAndInputTrigger.removeListener(this);
                 timeAndInputTrigger.addListener(this);
             }
         }
@@ -153,7 +175,7 @@ public class Switchboard implements ITriggerListener {
         return inputOnlyTriggers;
     }
 
-    public void setInputOnlyTriggers(Collection<InputOnlyTrigger> inputOnlyTriggers) {
+    protected void setInputOnlyTriggers(Collection<InputOnlyTrigger> inputOnlyTriggers) {
         this.inputOnlyTriggers = inputOnlyTriggers;
     }
 
@@ -161,7 +183,7 @@ public class Switchboard implements ITriggerListener {
         return timeOnlyTriggers;
     }
 
-    public void setTimeOnlyTriggers(Collection<TimeOnlyTrigger> timeOnlyTriggers) {
+    protected void setTimeOnlyTriggers(Collection<TimeOnlyTrigger> timeOnlyTriggers) {
         this.timeOnlyTriggers = timeOnlyTriggers;
     }
 
@@ -169,7 +191,7 @@ public class Switchboard implements ITriggerListener {
         return timeAndInputTriggers;
     }
 
-    public void setTimeAndInputTriggers(Collection<TimeAndInputTrigger> timeAndInputTriggers) {
+    protected void setTimeAndInputTriggers(Collection<TimeAndInputTrigger> timeAndInputTriggers) {
         this.timeAndInputTriggers = timeAndInputTriggers;
     }
 

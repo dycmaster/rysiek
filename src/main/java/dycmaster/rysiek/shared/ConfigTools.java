@@ -37,6 +37,23 @@ public class ConfigTools {
         return true;
     }
 
+    public static boolean isActionDispatcherConfigLineToBeProcessed(String line) {
+        if (Strings.isNullOrEmpty(line)) {
+            return false;
+        }
+        for (String comment : COMMENT_MARKS) {
+            if (line.trim().startsWith(comment)) {
+                return false;
+            }
+        }
+        //line needs to contain at least two elements
+        String[] elements = line.split(separator);
+        if (elements.length < 3) {
+            return false;
+        }
+
+        return true;
+    }
     public static boolean isLayoutConfigLineToBeProcessed(String line) {
         if (Strings.isNullOrEmpty(line)) {
             return false;

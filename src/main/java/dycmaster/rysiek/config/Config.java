@@ -1,15 +1,14 @@
 package dycmaster.rysiek.config;
 
 
+import dycmaster.rysiek.logicService.*;
 import dycmaster.rysiek.sensors.*;
-import dycmaster.rysiek.logicService.TriggersCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 
 @Configuration
-@Profile("production")
 public class Config {
 
     @Bean
@@ -44,7 +43,24 @@ public class Config {
         return  new TriggersCreator();
     }
 
+    @Bean
+    public ILogicService logicService(){
+        return  new DefaultLogicService();
+    }
 
+    @Bean
+    public Switchboard switchboard(){
+        return  new Switchboard();
+    }
 
+    @Bean
+    public IActionDispatcher actionDispatcher(){
+        return  new ActionDispatcher();
+    }
+
+    @Bean
+    public  IHtmlSender htmlSender(){
+        return  new DefaultHtmlSender();
+    }
 
 }
