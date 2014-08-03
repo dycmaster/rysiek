@@ -3,17 +3,23 @@ package dycmaster.rysiek.logicService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
+import javax.servlet.http.HttpServlet;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class DefaultLogicService implements ILogicService {
+@Component
+@Path("/")
+public class DefaultLogicService extends HttpServlet implements ILogicService  {
     private static Logger log = org.slf4j.LoggerFactory.getLogger(DefaultLogicService.class);
     private final Object lock = new Object();
     ServiceInfo myServiceInfo;
@@ -24,7 +30,7 @@ public class DefaultLogicService implements ILogicService {
     private IHtmlSender htmlSender;
 
     public DefaultLogicService(){
-        init();
+        initService();
     }
 
     @Override
@@ -56,7 +62,7 @@ public class DefaultLogicService implements ILogicService {
         }
     }
 
-    protected void init() {
+    protected void initService() {
         try {
             jmDNS = JmDNS.create();
             initConfig();
@@ -120,7 +126,13 @@ public class DefaultLogicService implements ILogicService {
     }
 
     @Override
-    public void receiveSignal(String sensorName, Boolean value, String masterName, String masterPass) {
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("{sensorName}/{value}")
+    public String receiveSignal(@PathParam("sensorName")String sensorName,
+                              @PathParam("value")Boolean value,
+                              @FormParam("login")String masterName,
+                              @FormParam("token")String masterPass) {
         if (masterName.equals(config.get("myMaster")) && masterPass.equals(config.get("mastersPasswordToMe"))) {
             log.info(String.format("Received signal from master=%s. SensorName=%s, value=%s",
                     masterName, sensorName, value));
@@ -129,8 +141,9 @@ public class DefaultLogicService implements ILogicService {
             log.info(String.format("Master %s sent wrong password. Pass=%s",
                     masterName, masterPass));
         }
-
+        return "ok";
     }
+
 
     /**
      * This has to send action request to a known master
