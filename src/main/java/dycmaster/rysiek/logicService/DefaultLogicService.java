@@ -3,23 +3,22 @@ package dycmaster.rysiek.logicService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
-import javax.servlet.http.HttpServlet;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
-@Component
-@Path("/")
-public class DefaultLogicService extends HttpServlet implements ILogicService  {
+
+public class DefaultLogicService  implements ILogicService  {
     private static Logger log = org.slf4j.LoggerFactory.getLogger(DefaultLogicService.class);
     private final Object lock = new Object();
     ServiceInfo myServiceInfo;
@@ -118,7 +117,7 @@ public class DefaultLogicService extends HttpServlet implements ILogicService  {
     private void initConfig() {
         Yaml yamlCfg = new Yaml();
         try {
-            config = (Map<String, String>) yamlCfg.load(ConfigFiles.LogicServiceConfig.getUrl().openStream());
+            config = (Map<String, String>) yamlCfg.load(Files.newInputStream(Paths.get(ConfigFiles.LogicServiceConfig.getPath())));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -126,13 +125,7 @@ public class DefaultLogicService extends HttpServlet implements ILogicService  {
     }
 
     @Override
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("{sensorName}/{value}")
-    public String receiveSignal(@PathParam("sensorName")String sensorName,
-                              @PathParam("value")Boolean value,
-                              @FormParam("login")String masterName,
-                              @FormParam("token")String masterPass) {
+    public String receiveSignal(String sensorName, Boolean value, String masterName,String masterPass) {
         if (masterName.equals(config.get("myMaster")) && masterPass.equals(config.get("mastersPasswordToMe"))) {
             log.info(String.format("Received signal from master=%s. SensorName=%s, value=%s",
                     masterName, sensorName, value));

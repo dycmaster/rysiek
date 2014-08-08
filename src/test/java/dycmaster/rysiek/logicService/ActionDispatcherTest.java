@@ -17,7 +17,7 @@ public class ActionDispatcherTest extends BaseContextTestTemplate {
 
     @Test
     public void testReadDispatchingTableFromFile() throws Exception {
-        Map<String, List<Pair<Boolean, String>>> tableFromFile = AbstractActionDispatcher.readDispatchingTableFromFile(ConfigFiles.ActionDispatcherTable.getUrl());
+        Map<String, List<Pair<Boolean, String>>> tableFromFile = AbstractActionDispatcher.readDispatchingTableFromFile(ConfigFiles.ActionDispatcherTable.getPath());
         assertNotNull(tableFromFile);
     }
 

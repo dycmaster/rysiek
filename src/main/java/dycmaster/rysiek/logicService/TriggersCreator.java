@@ -37,14 +37,14 @@ public class TriggersCreator {
         return timeOnlyTriggers;
     }
 
-    public void initTriggersFromConfig(URL triggerDeclarations) throws IOException {
+    public void initTriggersFromConfig(String triggerDeclarations) throws IOException {
         inputOnlyTriggers = initInputOnlyTriggersFromConfig(triggerDeclarations);
         timeOnlyTriggers = initTimeOnlyTriggersFromConfig(triggerDeclarations);
         timeAndInputTriggers = initTimeAndInputTriggersFromConfig(triggerDeclarations);
     }
 
     public void initTriggersFromConfig() throws IOException{
-        initTriggersFromConfig(ConfigFiles.TriggerDeclarations.getUrl());
+        initTriggersFromConfig(ConfigFiles.TriggerDeclarations.getPath());
     }
 
     protected InputOnlyTrigger parseLineToInputOnlyTriggerIfPossible(String line) {
@@ -80,7 +80,7 @@ public class TriggersCreator {
         return checkLineType(line) == TriggerType.INPUT;
     }
 
-    protected Collection<InputOnlyTrigger> initInputOnlyTriggersFromConfig(URL triggerDeclarations) throws IOException {
+    protected Collection<InputOnlyTrigger> initInputOnlyTriggersFromConfig(String triggerDeclarations) throws IOException {
         File triggerDeclarationsFile = FileTools.openFile(triggerDeclarations);
         return Files.lines(triggerDeclarationsFile.toPath())
                 .filter(ConfigTools::isConfigLineToBeProcessed)
@@ -91,7 +91,7 @@ public class TriggersCreator {
                 .collect(Collectors.toList());
     }
 
-    protected Collection<TimeOnlyTrigger> initTimeOnlyTriggersFromConfig(URL triggerDeclarations) throws IOException {
+    protected Collection<TimeOnlyTrigger> initTimeOnlyTriggersFromConfig(String triggerDeclarations) throws IOException {
         File triggerDeclarationsFile = FileTools.openFile(triggerDeclarations);
         return Files.lines(triggerDeclarationsFile.toPath())
                 .filter(ConfigTools::isConfigLineToBeProcessed)
@@ -102,7 +102,7 @@ public class TriggersCreator {
                 .collect(Collectors.toList());
     }
 
-    protected Collection<TimeAndInputTrigger> initTimeAndInputTriggersFromConfig(URL triggerDeclarations) throws IOException {
+    protected Collection<TimeAndInputTrigger> initTimeAndInputTriggersFromConfig(String triggerDeclarations) throws IOException {
         File triggerDeclarationsFile = FileTools.openFile(triggerDeclarations);
         return Files.lines(triggerDeclarationsFile.toPath())
                 .filter(ConfigTools::isConfigLineToBeProcessed)

@@ -19,7 +19,7 @@ public class ManagerTest extends BaseContextTestTemplate {
 
     @Test
     public void testInitTriggersFromConfig() throws IOException {
-        manager.initTriggersFromConfig(ConfigFiles.TriggerDeclarations.getUrl());
+        manager.initTriggersFromConfig(ConfigFiles.TriggerDeclarations.getPath());
         Collection<InputOnlyTrigger> inputOnlyTriggers = manager.getInputOnlyTriggers();
         Collection<TimeAndInputTrigger> timeAndInputTriggers = manager.getTimeAndInputTriggers();
         Collection<TimeOnlyTrigger> timeOnlyTriggers = manager.getTimeOnlyTriggers();

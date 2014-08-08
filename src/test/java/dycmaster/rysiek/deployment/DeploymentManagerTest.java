@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class DeploymentManagerTest {
 
-    public static final URL TestFileDataProvider = SCRIPTS_TO_RUN.class.getClassLoader().getResource("testDataProvider");
+    public static final String TestFileDataProvider = "fileDataProviders/testDataProvider/testDataProvider";
 
 
 	/*

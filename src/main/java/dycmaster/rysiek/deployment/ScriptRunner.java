@@ -98,8 +98,8 @@ public class ScriptRunner {
 		setScriptName("");
 	}
 
-	public ScriptRunner(URL fileUrl) {
-		this(FileTools.openFile(fileUrl));
+	public ScriptRunner(String filePath) {
+		this(FileTools.openFile(filePath));
 	}
 
 	public ScriptRunner(File f) {

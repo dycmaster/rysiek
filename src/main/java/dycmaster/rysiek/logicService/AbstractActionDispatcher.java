@@ -26,10 +26,10 @@ public abstract class AbstractActionDispatcher implements IActionDispatcher {
     private ILogicService logicService;
 
     public AbstractActionDispatcher(){
-        this(ConfigFiles.ActionDispatcherTable.getUrl());
+        this(ConfigFiles.ActionDispatcherTable.getPath());
     }
 
-    public AbstractActionDispatcher(URL dispatchingTableConfig){
+    public AbstractActionDispatcher(String dispatchingTableConfig){
         initDispatchingTable(dispatchingTableConfig);
     }
 
@@ -41,7 +41,7 @@ public abstract class AbstractActionDispatcher implements IActionDispatcher {
         return new AbstractMap.SimpleEntry<String, List<Pair<Boolean, String>>>(values[0], res);
     }
 
-    protected static Map<String, List<Pair<Boolean, String>>> readDispatchingTableFromFile(URL dispatchingTableFile) throws IOException {
+    protected static Map<String, List<Pair<Boolean, String>>> readDispatchingTableFromFile(String dispatchingTableFile) throws IOException {
         File actionDispatcherConfig = FileTools.openFile(dispatchingTableFile);
         return Files.lines(actionDispatcherConfig.toPath())
                 .filter(ConfigTools::isActionDispatcherConfigLineToBeProcessed)
@@ -75,7 +75,7 @@ public abstract class AbstractActionDispatcher implements IActionDispatcher {
         }
     }
 
-    protected void initDispatchingTable(URL dispatchingTableConfig) {
+    protected void initDispatchingTable(String dispatchingTableConfig) {
         try {
             dispatchingTable = readDispatchingTableFromFile(dispatchingTableConfig);
         } catch (IOException e) {

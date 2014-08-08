@@ -20,7 +20,7 @@ public class SwitchboardTest extends BaseContextTestTemplate {
     public void testInitTriggersLayout() throws Exception {
 
         TriggersCreator manager =new TriggersCreator();
-        manager.initTriggersFromConfig(ConfigFiles.TriggerDeclarations.getUrl());
+        manager.initTriggersFromConfig(ConfigFiles.TriggerDeclarations.getPath());
         Collection<InputOnlyTrigger> inputOnlyTriggers = manager.getInputOnlyTriggers();
         Collection<TimeAndInputTrigger> timeAndInputTriggers = manager.getTimeAndInputTriggers();
         Collection<TimeOnlyTrigger> timeOnlyTriggers = manager.getTimeOnlyTriggers();

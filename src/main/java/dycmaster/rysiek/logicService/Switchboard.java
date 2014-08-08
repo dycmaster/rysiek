@@ -54,8 +54,8 @@ public class Switchboard implements ITriggerListener {
         }
     }
 
-    protected static Map<String, Pair<String, String>> initTriggersLayout(URL configFileUrl) throws IOException {
-        File triggersLayoutConfig = FileTools.openFile(configFileUrl);
+    protected static Map<String, Pair<String, String>> initTriggersLayout(String configFilePath) throws IOException {
+        File triggersLayoutConfig = FileTools.openFile(configFilePath);
         return Files.lines(triggersLayoutConfig.toPath())
                 .filter(ConfigTools::isLayoutConfigLineToBeProcessed)
                 .map(ConfigTools::getConfigLinePartToProcess)
@@ -126,7 +126,7 @@ public class Switchboard implements ITriggerListener {
 
     protected void initRoutingTable() {
         try {
-            this.routingTable = initTriggersLayout(ConfigFiles.TriggersLayout.getUrl());
+            this.routingTable = initTriggersLayout(ConfigFiles.TriggersLayout.getPath());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,25 +1,27 @@
 package dycmaster.rysiek.logicService;
 
 
-import dycmaster.rysiek.config.Config;
-
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public enum ConfigFiles {
-    TriggerDeclarations(ConfigFiles.class.getClassLoader().getResource("config/triggerDeclarations")),
-    TriggersLayout(ConfigFiles.class.getClassLoader().getResource("config/triggersLayout")),
-    ActionDispatcherTable(ConfigFiles.class.getClassLoader().getResource("config/actionDispatchingTable")),
-    LogicServiceConfig(ConfigFiles.class.getClassLoader().getResource("config/logicServiceConfig"))
-    ;
+//    TriggerDeclarations(ConfigFiles.class.getClassLoader().getResource("config/triggerDeclarations")),
+//    TriggersLayout(ConfigFiles.class.getClassLoader().getResource("config/triggersLayout")),
+//    ActionDispatcherTable(ConfigFiles.class.getClassLoader().getResource("config/actionDispatchingTable")),
+//    LogicServiceConfig(ConfigFiles.class.getClassLoader().getResource("config/logicServiceConfig"))
 
+    TriggerDeclarations("config/triggerDeclarations"),
+    TriggersLayout("config/triggersLayout"),
+    ActionDispatcherTable("config/actionDispatchingTable"),
+    LogicServiceConfig("config/logicServiceConfig");
+    private String path;
 
-
-    private URL url;
-    private ConfigFiles(URL url){
-        this.url = url;
+    private ConfigFiles(String path) {
+        this.path = path;
     }
 
-    public URL getUrl() {
-        return url;
+    public String getPath() {
+        return path;
     }
+
 }

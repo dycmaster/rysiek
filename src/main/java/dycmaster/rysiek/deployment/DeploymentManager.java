@@ -32,7 +32,7 @@ public class DeploymentManager {
 		for(String scriptName: scriptsCollection){
 			for(SCRIPTS_TO_RUN script: SCRIPTS_TO_RUN.values()){
 				if(script.name().equalsIgnoreCase(scriptName)){
-					result.add(new ScriptRunner(script.getUrl()));
+					result.add(new ScriptRunner(script.getPath()));
 				}
 			}
 		}
@@ -134,7 +134,7 @@ public class DeploymentManager {
 
         Collection<ScriptRunner> scripts = new LinkedList<>();
         for(SCRIPTS_TO_RUN fileSensor:  SCRIPTS_TO_RUN.values()){
-            scripts.add( new ScriptRunner(fileSensor.getUrl()));
+            scripts.add( new ScriptRunner(fileSensor.getPath()));
         }
 
         return scripts;

@@ -5,19 +5,21 @@ import java.net.URL;
 public enum SCRIPTS_TO_RUN {
 
 
-    DetectUserWifi(SCRIPTS_TO_RUN.class.getClassLoader().getResource("sensors/fileDataProviders/detectUserWifi")),
-    CheckTemperature(SCRIPTS_TO_RUN.class.getClassLoader().getResource("sensors/fileDataProviders/tempShutdown")),
-    CheckSoundcard(SCRIPTS_TO_RUN.class.getClassLoader().getResource("sensors/fileDataProviders/soundCardActivity"));
+    DetectUserWifi("sensors/fileDataProviders/detectUserWifi"),
+    CheckTemperature("sensors/fileDataProviders/tempShutdown"),
+    CheckSoundcard("sensors/fileDataProviders/soundCardActivity");
 
 
-    private URL _url;
-    private SCRIPTS_TO_RUN(URL url){
-        _url = url;
+    private String path;
+
+    public String getPath() {
+        return path;
     }
 
-    public URL getUrl(){
-        return  _url;
+    private SCRIPTS_TO_RUN(String path){
+        this.path = path;
     }
+
 
 }
 

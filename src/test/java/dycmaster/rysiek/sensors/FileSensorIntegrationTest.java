@@ -24,7 +24,7 @@ import static junit.framework.TestCase.assertEquals;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class FileSensorIntegrationTest extends BaseIntegrationTestTemplate {
 
-	public static final URL testFileDataProvider = SCRIPTS_TO_RUN.class.getClassLoader().getResource("testDataProvider");
+	public static final String testFileDataProvider = " testFileDataProviders/testDataProvider/testDataProvider";
 
     @Autowired
     FileSensor sensor;
