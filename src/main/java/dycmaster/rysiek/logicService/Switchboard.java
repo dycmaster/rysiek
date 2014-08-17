@@ -7,7 +7,7 @@ import dycmaster.rysiek.shared.Create;
 import dycmaster.rysiek.shared.FileTools;
 import dycmaster.rysiek.triggers2.*;
 import javafx.util.Pair;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.terracotta.quartz.collections.TimeTrigger;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  */
 public class Switchboard implements ITriggerListener {
 
-    private static Logger log = Logger.getLogger(Switchboard.class);
+    private static Logger log = org.slf4j.LoggerFactory.getLogger(Switchboard.class);
     private Collection<InputOnlyTrigger> inputOnlyTriggers;
     private Collection<TimeOnlyTrigger> timeOnlyTriggers;
     private Collection<TimeAndInputTrigger> timeAndInputTriggers;

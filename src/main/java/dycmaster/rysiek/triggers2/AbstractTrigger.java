@@ -6,8 +6,9 @@ import com.google.common.collect.Iterables;
 import dycmaster.rysiek.shared.Create;
 import javafx.util.Pair;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.log4j.Logger;
+
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
 
 import java.util.Collection;
 import java.util.List;
@@ -21,7 +22,7 @@ abstract class AbstractTrigger implements  ITrigger {
     private boolean enabled;
     private boolean triggerState;
     private List<Pair<DateTime, Boolean>> triggerHistory = Create.newList();
-    Logger log = Logger.getLogger(AbstractTrigger.class);
+    Logger log = org.slf4j.LoggerFactory.getLogger(AbstractTrigger.class);
 
     private Collection<ITriggerListener> subscribers =
             CollectionUtils.<ITriggerListener>synchronizedCollection(Create.<ITriggerListener>newCollection());

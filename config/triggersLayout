@@ -1,12 +1,14 @@
 #what,where,which input
-sensor1,trigger1,input1
-trigger2,trigger3,input2
-trigger1,trigger3,input1
-trigger3,actionDispatcher
-trigger4 #implicitely to actionDispatcher
-sensor2 #implicitely to actionDispatcher
+#sensor1,trigger1,input1
+#trigger2,trigger3,input2
+#trigger1,trigger3,input1
+#trigger3,actionDispatcher
+#trigger4 #implicitely to actionDispatcher
+#sensor2 #implicitely to actionDispatcher
 
 #alarm clock(week days)
+
+UserHomeWifi,trigger6,input1
 trigger6,trigger8,input1
 trigger7,trigger8,input2
 trigger8,actionDispatcher
