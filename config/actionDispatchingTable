@@ -4,3 +4,6 @@ trigger4,1,action1
 trigger2,0,action2
 trigger2,0,action3
 trigger2,1,action4
+
+#alarm clock
+trigger8,1,AlarmClock

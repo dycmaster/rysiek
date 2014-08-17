@@ -1,7 +1,8 @@
 package dycmaster.rysiek.config;
 
+import dycmaster.rysiek.controllers.LogicServiceController;
+import dycmaster.rysiek.logicService.*;
 import dycmaster.rysiek.sensors.*;
-import dycmaster.rysiek.logicService.TriggersCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -38,5 +39,33 @@ public class ConfigIntegrationTests {
     @Scope("prototype")
     public FileSensor fileSensor(){
         return new FileSensor();
+    }
+
+
+    ///////////
+
+    @Bean
+    public ILogicService logicService(){
+        return  new DefaultLogicService();
+    }
+
+    @Bean
+    public Switchboard switchboard(){
+        return  new Switchboard();
+    }
+
+    @Bean
+    public IActionDispatcher actionDispatcher(){
+        return  new ActionDispatcher();
+    }
+
+    @Bean
+    public  IHtmlSender htmlSender(){
+        return  new DefaultHtmlSender();
+    }
+
+    @Bean
+    public LogicServiceController logicServiceController(){
+        return  new LogicServiceController();
     }
 }

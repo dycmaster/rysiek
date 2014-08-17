@@ -1,6 +1,7 @@
 package dycmaster.rysiek.config;
 
 
+import dycmaster.rysiek.controllers.LogicServiceController;
 import dycmaster.rysiek.logicService.*;
 import dycmaster.rysiek.sensors.*;
 import org.springframework.context.annotation.*;
@@ -9,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebMvc
-//@ComponentScan(basePackages = {"dycmaster.rysiek.*"})
 public class Config {
 
     @Bean
@@ -62,6 +62,11 @@ public class Config {
     @Bean
     public  IHtmlSender htmlSender(){
         return  new DefaultHtmlSender();
+    }
+
+    @Bean
+    public LogicServiceController logicServiceController(){
+        return  new LogicServiceController();
     }
 
 }

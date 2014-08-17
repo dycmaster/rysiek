@@ -1,7 +1,15 @@
 thisShould stay#and this not
+
+#examples of different trigger types
 trigger1,inputAndTime,1,input1,onLongerThan,some on longer than test..,input1,300
 trigger2,time,longerThanTime,test longer than time logic,300
 trigger4,time,cronSingleShot,test cron single shot logic,0/1 * * * * ?
 trigger3,input,2,input1,input2,truthTable,test truth table,1 1 1|1 0 0|0 1 0|0 0 0
 trigger5,input,1,input1,flipFlopInput,test flip flop
+
+#alarm clock
+trigger6,inputAndTime,1,input1,onLongerThan,to wake me up only when I am home,input1,120000
+trigger7,time,cronSingleShot,my week alarm clock schedule,0 7 * * 1-5 ?
+trigger8,input,2,input1,input2,truthTable,alarm clock weekly,1 1 1|1 0 0|0 1 0|0 0 0
+
 

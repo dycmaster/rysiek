@@ -19,8 +19,7 @@ public class DefaultLogicServiceTest extends BaseContextTestTemplate {
         logicService.getSwitchboard().setTriggersAndInit(triggersCreator.getTimeOnlyTriggers(),
                 triggersCreator.getInputOnlyTriggers(), triggersCreator.getTimeAndInputTriggers());
 
-
-        Thread.sleep(300000);
+        Thread.sleep(3000);
 
     }
 }

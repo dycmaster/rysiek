@@ -5,3 +5,8 @@ trigger1,trigger3,input1
 trigger3,actionDispatcher
 trigger4 #implicitely to actionDispatcher
 sensor2 #implicitely to actionDispatcher
+
+#alarm clock(week days)
+trigger6,trigger8,input1
+trigger7,trigger8,input2
+trigger8,actionDispatcher

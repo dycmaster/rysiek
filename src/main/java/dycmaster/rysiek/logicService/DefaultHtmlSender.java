@@ -14,24 +14,28 @@ public class DefaultHtmlSender implements IHtmlSender {
     @Override
     public int senGet(String url) throws IOException {
         URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        // optional default is GET
-        con.setRequestMethod("GET");
-        int responseCode = con.getResponseCode();
         log.info("\nSending 'GET' request to URL : " + url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setRequestMethod("GET");
 
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuilder response = new StringBuilder();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
+        int responseCode;
+        try {
+            responseCode = con.getResponseCode();
+        }catch (Exception e){
+            responseCode = -1;
         }
-        in.close();
-        //print result
-        log.debug("response is: " + response.toString());
+        if(responseCode>=200 && responseCode<300) {
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuilder response = new StringBuilder();
 
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+            log.debug("response is: " + response.toString());
+        }
         return responseCode;
     }
 }

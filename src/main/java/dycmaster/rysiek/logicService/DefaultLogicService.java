@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,6 +68,7 @@ public class DefaultLogicService  implements ILogicService  {
             initConfig();
             initAvahiAdvertising();
             initAvahiListening(config.get("masterService"));
+            initTrackingMaster();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -92,7 +94,6 @@ public class DefaultLogicService  implements ILogicService  {
 
             @Override
             public void serviceRemoved(ServiceEvent serviceEvent) {
-
             }
 
             @Override
@@ -102,16 +103,52 @@ public class DefaultLogicService  implements ILogicService  {
         });
     }
 
+    private void initTrackingMaster() {
+        Thread masterTracker = new Thread() {
+            @SuppressWarnings("InfiniteLoopStatement")
+            public void run() {
+                while (true) {
+                    if (getMyMaster() != null) {
+                        String user = config.get("loginToMaster");
+                        String token = config.get("passToMaster");
+                        String host = getMyMaster().getHostname()[0];
+                        int port = getMyMaster().getPort();
+                        String mName = getMyMaster().getName();
+                        String url = String.format("http://%s:%s/masters/%s/ping?user=%s&token=%s",
+                                host, port, mName, user, token);
+                        int respCode = 0;
+                        try {
+                            respCode = htmlSender.senGet(url);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if(!(respCode>=200 && respCode<300)){
+                            log.info(String.format("Response code received: %s. Removing current master.",respCode));
+                            setMyMaster(null);
+                        }
+                    }
+                    try {
+                        Thread.sleep(Long.parseLong(config.get("masterTrackerSleep")));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        masterTracker.start();
+    }
+
     private void initAvahiAdvertising() throws IOException {
         String myName = config.get("myName");
         String myType = config.get("logicService");
         int myPort = Integer.parseInt(config.get("myPort"));
         String myDesc = config.get("myDesc");
-
+        String service_key = "description"; // Max 9 chars
+        HashMap<String, byte[]> properties = new HashMap<String, byte[]>();
+        properties.put(service_key, myDesc.getBytes());
         myServiceInfo = ServiceInfo.create(myType, myName,
-                myPort, myDesc);
+                myPort, 0,0,true, properties );
         jmDNS.registerService(myServiceInfo);
-
     }
 
     private void initConfig() {
@@ -129,12 +166,17 @@ public class DefaultLogicService  implements ILogicService  {
         if (masterName.equals(config.get("myMaster")) && masterPass.equals(config.get("mastersPasswordToMe"))) {
             log.info(String.format("Received signal from master=%s. SensorName=%s, value=%s",
                     masterName, sensorName, value));
-            switchboard.dispatchSignal(sensorName, value);
+            try {
+                switchboard.dispatchSignal(sensorName, value);
+            }catch(Exception e){
+                log.info("switchboard throw an exception",e);
+            }
+            return "ok";
         } else {
             log.info(String.format("Master %s sent wrong password. Pass=%s",
                     masterName, masterPass));
+            throw  new RuntimeException("forbidden");
         }
-        return "ok";
     }
 
 
@@ -156,7 +198,7 @@ public class DefaultLogicService  implements ILogicService  {
             return;
         }
 
-        String user = config.get("logicService1");
+        String user = config.get("loginToMaster");
         String token = config.get("passToMaster");
         String host = getMyMaster().getHostname()[0];
         int port = getMyMaster().getPort();
