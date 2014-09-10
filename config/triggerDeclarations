@@ -7,9 +7,9 @@ thisShould stay#and this not
 #trigger3,input,2,input1,input2,truthTable,test truth table,1 1 1|1 0 0|0 1 0|0 0 0
 #trigger5,input,1,input1,flipFlopInput,test flip flop
 
-#alarm clock
+#alarm clock, wake me up at 7 when I am home
 trigger6,inputAndTime,1,input1,onLongerThan,to wake me up only when I am home,input1,30000
-trigger7,time,cronSingleShot,my week alarm clock schedule,34 22 * * * ?
+trigger7,time,cronSingleShot,my week alarm clock schedule,0 7 00 ? * *
 trigger8,input,2,input1,input2,truthTable,alarm clock weekly,1 1 1|1 0 0|0 1 0|0 0 0
 
 

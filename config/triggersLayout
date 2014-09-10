@@ -7,7 +7,6 @@
 #sensor2 #implicitely to actionDispatcher
 
 #alarm clock(week days)
-
 UserHomeWifi,trigger6,input1
 trigger6,trigger8,input1
 trigger7,trigger8,input2

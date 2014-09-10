@@ -239,8 +239,8 @@ public class TriggerTest extends BaseMockitoTestTemplate {
     @Test
     public void test_SingleShotCronLogic() throws InterruptedException {
         TimeOnlyTrigger timeOnlyTrigger = Mockito.spy(new TimeOnlyTrigger("trig1"));
-        String cronString = "0/1 * * * * ?"; //every 3s
-        log.debug("creating logic to run every 3s");
+        String cronString = "0/1 * * * * ?"; //every 1s
+        log.debug("creating logic to run every 1s");
         TimeTriggerLogic singleShotCronLogic = new SingleShotCronTimeLogic("desc", timeOnlyTrigger, cronString );
         timeOnlyTrigger.startTriggering();
         timeOnlyTrigger.setTriggerLogic(singleShotCronLogic);
@@ -253,14 +253,14 @@ public class TriggerTest extends BaseMockitoTestTemplate {
 
     @Test
     public void test_SingleShotCronLogic_builder() throws InterruptedException {
-        String cronString = "0/1 * * * * ?"; //every 3s
+        String cronString = "0/2 * * * * ?";
         TimeOnlyTrigger timeOnlyTrigger = new TimeOnlyTrigger.Builder("name")
                 .withLogicType(TriggerLogic.SingleShotCronTimeLogic.getLogicStringName())
                 .withLogicDescription("desc")
                 .withLogicCronString(cronString)
                 .build();
 
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         List<Pair<DateTime, Boolean>> triggerHistory = timeOnlyTrigger.getTriggerHistory();
         Pair<DateTime, Boolean> dateTimeBooleanPair = triggerHistory.stream().filter(a -> a.getValue().equals(true)).findFirst().get();
         Assert.assertNotNull(dateTimeBooleanPair);

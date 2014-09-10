@@ -3,12 +3,11 @@ package dycmaster.rysiek.config;
 
 import dycmaster.rysiek.controllers.LogicServiceController;
 import dycmaster.rysiek.logicService.*;
-import dycmaster.rysiek.sensors.*;
 import dycmaster.rysiek.triggers2.InputOnlyTrigger;
 import dycmaster.rysiek.triggers2.TimeAndInputTrigger;
 import dycmaster.rysiek.triggers2.TimeOnlyTrigger;
-import org.springframework.context.annotation.*;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.io.IOException;
@@ -17,33 +16,6 @@ import java.util.Collection;
 @Configuration
 @EnableWebMvc
 public class Config {
-
-    @Bean
-    @Scope("prototype")
-    public SensorListener sensorListener(){
-        return  new DefaultSensorListener();
-    }
-
-    @Bean
-    @Scope("prototype")
-    public IFileObserver jnotifyFileObserver(){
-        IFileObserver observer = new JNotifyFileObserver();
-        return  observer;
-    }
-
-    @Bean
-    @Scope("prototype")
-    public Sensor sensor(){
-        Sensor s = new FileSensor();
-        return  s;
-    }
-
-    @Bean
-    @Scope("prototype")
-    public FileSensor fileSensor(){
-        FileSensor s = new FileSensor();
-        return  s;
-    }
 
 //    TriggersCreator manager =new TriggersCreator();
 //    manager.initTriggersFromConfig(ConfigFiles.TriggerDeclarations.getPath());

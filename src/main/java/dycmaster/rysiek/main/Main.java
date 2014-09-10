@@ -9,12 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 public class Main {
 
-    private static final String CONTEXT_PATH = "/";
-    private static final String MAPPING_URL = "/*";
-    private static final String CONFIG_LOCATION = "dycmaster.rysiek.config";
-    private static final String DEFAULT_PROFILE = "dev";
-
-
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Main.class, args);
     }
