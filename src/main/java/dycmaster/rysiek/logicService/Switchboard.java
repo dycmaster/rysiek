@@ -10,11 +10,9 @@ import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
-import org.terracotta.quartz.collections.TimeTrigger;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.util.AbstractMap;
 import java.util.Collection;

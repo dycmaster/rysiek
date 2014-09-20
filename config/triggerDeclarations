@@ -12,4 +12,6 @@ trigger6,inputAndTime,1,input1,onLongerThan,to wake me up only when I am home,in
 trigger7,time,cronSingleShot,my week alarm clock schedule,0 7 00 ? * *
 trigger8,input,2,input1,input2,truthTable,alarm clock weekly,1 1 1|1 0 0|0 1 0|0 0 0
 
+#turn on the amp
+trigger9,input,1,input1,truthTable,turn amp on,1 1|0 0
 

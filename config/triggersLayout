@@ -11,3 +11,7 @@ UserHomeWifi,trigger6,input1
 trigger6,trigger8,input1
 trigger7,trigger8,input2
 trigger8,actionDispatcher
+
+#turn amp on
+SoundCardSensor,trigger9,input1
+trigger9,actionDispatcher

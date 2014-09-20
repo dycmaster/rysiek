@@ -6,13 +6,9 @@ import org.springframework.beans.factory.annotation.Required;
 import org.yaml.snakeyaml.Yaml;
 
 import javax.jmdns.JmDNS;
-import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
-import javax.jmdns.ServiceListener;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +27,36 @@ public class DefaultLogicService  implements ILogicService  {
 
     public DefaultLogicService(){
         initService();
+    }
+
+
+    @Override
+    public boolean isSubscribed(String masterName, String masterPass) {
+        String myMaster = config.get("myMaster");
+        String mastersPasswordToMe = config.get("mastersPasswordToMe");
+        if(masterName.equals(myMaster) && masterPass.equals(mastersPasswordToMe)){
+            if(getMyMaster() == null || !getMyMaster().getName().equals(masterName)){
+                return  false;
+            }else{
+                return true;
+            }
+        }
+        throw new RuntimeException("Wrong credentials!");
+    }
+
+    @Override
+    public boolean subscribe(String masterName, String masterPass, int port, String remoteHost) {
+        String myMaster = config.get("myMaster");
+        String mastersPasswordToMe = config.get("mastersPasswordToMe");
+        if(masterName.equals(myMaster) && masterPass.equals(mastersPasswordToMe)){
+            setMyMaster(new MasterInfo(myMaster, port, remoteHost));
+            log.info(String.format("Master %s subscribed ok and set as my master. Starting to track the Master.", getMyMaster().toString()));
+            return  true;
+        }
+
+        log.info(String.format("Master %s gave bad password (%s) and was not subscribed successfully", masterName,
+                masterPass));
+        return false;
     }
 
     @Override
@@ -66,42 +92,16 @@ public class DefaultLogicService  implements ILogicService  {
         try {
             jmDNS = JmDNS.create();
             initConfig();
+            log.info("config initiated");
             initAvahiAdvertising();
-            initAvahiListening(config.get("masterService"));
+            log.info("avahi advertising initiated");
             initTrackingMaster();
+            log.info("tracking master initiated");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void initAvahiListening(String masterService) throws IOException {
-        jmDNS.addServiceListener(masterService, new ServiceListener() {
-            @Override
-            public void serviceAdded(ServiceEvent serviceEvent) {
-                ServiceInfo info = serviceEvent.getDNS().getServiceInfo(serviceEvent.getType(), serviceEvent.getName());
-                int port = info.getPort();
-                String[] hostAddresses = info.getHostAddresses();
-                String name = info.getName();
-                String myMaster = config.get("myMaster");
-                if (!name.equals(myMaster)) {
-                    log.info("This is not my master.. found master=" + name);
-                    return;
-                }
-                setMyMaster(new MasterInfo(name, port, hostAddresses));
-                log.info(String.format("New master found and set. name=%s, host=%s, port=%d",
-                        name, hostAddresses[0], port));
-            }
-
-            @Override
-            public void serviceRemoved(ServiceEvent serviceEvent) {
-            }
-
-            @Override
-            public void serviceResolved(ServiceEvent serviceEvent) {
-
-            }
-        });
-    }
 
     private void initTrackingMaster() {
         Thread masterTracker = new Thread() {
@@ -111,7 +111,7 @@ public class DefaultLogicService  implements ILogicService  {
                     if (getMyMaster() != null) {
                         String user = config.get("loginToMaster");
                         String token = config.get("passToMaster");
-                        String host = getMyMaster().getHostname()[0];
+                        String host = getMyMaster().getHostname();
                         int port = getMyMaster().getPort();
                         String mName = getMyMaster().getName();
                         String url = String.format("http://%s:%s/masters/%s/ping?user=%s&token=%s",
@@ -164,16 +164,16 @@ public class DefaultLogicService  implements ILogicService  {
     @Override
     public String receiveSignal(String sensorName, Boolean value, String masterName,String masterPass) {
         if (masterName.equals(config.get("myMaster")) && masterPass.equals(config.get("mastersPasswordToMe"))) {
-            log.info(String.format("Received signal from master=%s. SensorName=%s, value=%s",
+            log.debug(String.format("Received signal from master=%s. SensorName=%s, value=%s",
                     masterName, sensorName, value));
             try {
                 switchboard.dispatchSignal(sensorName, value);
             }catch(Exception e){
-                log.info("switchboard throw an exception",e);
+                log.error("switchboard throw an exception",e);
             }
             return "ok";
         } else {
-            log.info(String.format("Master %s sent wrong password. Pass=%s",
+            log.warn(String.format("Master %s sent wrong password. Pass=%s",
                     masterName, masterPass));
             throw  new RuntimeException("forbidden");
         }
@@ -194,13 +194,13 @@ public class DefaultLogicService  implements ILogicService  {
             return;
         }
         if(getMyMaster()==null){
-            log.info("Master not set yet.");
+            log.info("Master not set!! Action won't be fired!");
             return;
         }
 
         String user = config.get("loginToMaster");
         String token = config.get("passToMaster");
-        String host = getMyMaster().getHostname()[0];
+        String host = getMyMaster().getHostname();
         int port = getMyMaster().getPort();
         String mName = getMyMaster().getName();
 
@@ -220,9 +220,9 @@ public class DefaultLogicService  implements ILogicService  {
     private class MasterInfo {
         String name;
         int port;
-        String[] hostname;
+        String hostname;
 
-        private MasterInfo(String name, int port, String[] hostname) {
+        private MasterInfo(String name, int port, String hostname) {
             this.name = name;
             this.port = port;
             this.hostname = hostname;
@@ -236,8 +236,17 @@ public class DefaultLogicService  implements ILogicService  {
             return port;
         }
 
-        public String[] getHostname() {
+        public String getHostname() {
             return hostname;
+        }
+
+        @Override
+        public String toString() {
+            return "MasterInfo{" +
+                    "name='" + name + '\'' +
+                    ", port=" + port +
+                    ", hostname='" + hostname + '\'' +
+                    '}';
         }
     }
 }

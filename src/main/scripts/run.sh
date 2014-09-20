@@ -19,4 +19,4 @@ done
 progdir=`dirname "$PRG"`
 cd $progdir
 
-java -jar -Djava.library.path="${release.natives}" "${finalName}.jar"
+java -client -jar -Djava.library.path="${release.natives}" "${finalName}.jar"  --server.port=8082

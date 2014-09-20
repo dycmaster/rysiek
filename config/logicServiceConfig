@@ -1,5 +1,5 @@
 myName: 'logicService1'
-myPort: '8080'
+myPort: '8082'
 myDesc: 'awesomeProc'
 loginToMaster: 'logicService1'
 passToMaster: 'password'
@@ -7,7 +7,7 @@ masterTrackerSleep: '10000'
 
 #master sending sensor's value has to send this as user and token respectively
 myMaster: 'Master1'
-mastersPasswordToMe: 'passToSensor'
+mastersPasswordToMe: 'password'
 
 sensorService: '_nufw._tcp'
 masterService: '_islc._tcp.local.'

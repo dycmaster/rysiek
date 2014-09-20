@@ -14,4 +14,7 @@ public interface ILogicService {
     public void sendActionRequest(String sourceName, boolean triggeringState, List<String> requestedAction);
 
     public Switchboard getSwitchboard();
+
+    public boolean isSubscribed(String masterName, String masterPass);
+    public boolean subscribe(String masterName, String masterPass, int port, String remoteHost);
 }
