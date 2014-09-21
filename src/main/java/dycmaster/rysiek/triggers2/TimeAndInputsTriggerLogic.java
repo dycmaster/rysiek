@@ -68,6 +68,8 @@ public abstract class TimeAndInputsTriggerLogic extends AbstractTriggerLogic {
             switch(triggerLogicEnum){
                 case OnLongerThanTime:
                     return new OnLongerThanTimeAndInputLogic(description, trigger, duration,trackedInput);
+                case OffLongerThanTime:
+                    return new OffLongerThanTimeAndInputLogic(description, trigger, duration,trackedInput);
                 default:
                     throw  new RuntimeException(String.format("Unhandled trigger type encountered! (%s)", logicType));
             }

@@ -15,3 +15,7 @@ trigger8,actionDispatcher
 #turn amp on
 SoundCardSensor,trigger9,input1
 trigger9,actionDispatcher
+
+#turn amp off
+SoundCardSensor,trigger10,input1
+trigger10,actionDispatcher

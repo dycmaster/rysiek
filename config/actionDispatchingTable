@@ -11,4 +11,5 @@ trigger2,1,action4
 #amp on
 trigger9,1,SwitchAmpOn
 
-
+#amp off
+trigger10,1,SwitchAmpOff

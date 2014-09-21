@@ -144,6 +144,12 @@ public class TimeAndInputTrigger extends  AbstractTrigger implements IInputTrigg
                     return this.withInputTrackedByLogic(trackedInput)
                             .withLogicDelayWhenTrackingInput(Long.parseLong(duration));
 
+                case OffLongerThanTime:
+                    trackedInput = values[2+1+inputCount+1+1];
+                    duration = values[2+1+inputCount+1+1+1];
+                    return this.withInputTrackedByLogic(trackedInput)
+                            .withLogicDelayWhenTrackingInput(Long.parseLong(duration));
+
                 default:
                     throw new RuntimeException("Unknown logic type " + logicType);
             }
@@ -166,6 +172,15 @@ public class TimeAndInputTrigger extends  AbstractTrigger implements IInputTrigg
                              .withTrigger(trigger)
                              .build();
                     break;
+
+                case OffLongerThanTime:
+                    logic = new TimeAndInputsTriggerLogic.Builder(this.description, this.logicType)
+                            .withDuration(this.duration.getMillis())
+                            .withTrackedInput(this.trackedInput)
+                            .withTrigger(trigger)
+                            .build();
+                    break;
+
                 default:
                     throw new RuntimeException("Unknown logic type: "+logicType);
             }

@@ -40,9 +40,9 @@ public class ActionDispatcher extends AbstractActionDispatcher {
     private void handleDispatcherCommand(DispatcherCommand ds){
         String triggerName = ds.getTriggerName();
         boolean state = ds.getState();
-        log.info(String.format("Action dispatch request received. Trigger name=%s, state=%s", triggerName, state));
         List<String> actionsToFire = findActionsToFire(triggerName, state);
-        log.info("Actions to request to be fired: "+actionsToFire.toString());
+        log.info(String.format("Action dispatch request received. Trigger name=%s, state=%s. Actions to be fired: %s",
+                triggerName, state, actionsToFire.toString()));
         getLogicService().sendActionRequest(triggerName, state, actionsToFire);
     }
 

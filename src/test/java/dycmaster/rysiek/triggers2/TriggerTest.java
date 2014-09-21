@@ -4,7 +4,6 @@ package dycmaster.rysiek.triggers2;
 import dycmaster.rysiek.BaseMockitoTestTemplate;
 import dycmaster.rysiek.shared.Create;
 import javafx.util.Pair;
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.junit.Assert;
@@ -16,7 +15,7 @@ import java.util.Map;
 
 public class TriggerTest extends BaseMockitoTestTemplate {
 
-    private static Logger log= Logger.getLogger(TriggerTest.class);
+    org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TriggerTest.class);
 
     @Test
     public void testInputOnlyTrigger_FlipFlopLogic(){
@@ -234,6 +233,40 @@ public class TriggerTest extends BaseMockitoTestTemplate {
         Thread.sleep(80);
         Assert.assertTrue(timeAndInputTrigger.getOutputState());
 
+    }
+
+    @Test
+    public void testTimeAndInputTriggerWithIsOffLongerThanLogic_builder() throws InterruptedException {
+        Map<Integer,String> declaredInputs = Create.newMap();
+        declaredInputs.put(1,"input1");
+        TimeAndInputTrigger timeAndInputTrigger = new TimeAndInputTrigger.Builder("name", declaredInputs)
+                .withLogicType(TriggerLogic.OffLongerThanTime.getLogicStringName())
+                .withInputTrackedByLogic("input1")
+                .withLogicDelayWhenTrackingInput(100)
+                .withLogicDescription("desc")
+                .build();
+
+        //now trigger is ready to be used
+        //////////////////////////////////////////////
+
+        boolean initState = timeAndInputTrigger.getOutputState();
+        timeAndInputTrigger.setInputState("input1", false);
+        log.debug("input set to 0. in 100 ms trigger should go true");
+        Thread.sleep(200);
+        boolean outputState = timeAndInputTrigger.getOutputState();
+        Assert.assertFalse(initState);
+        Assert.assertTrue(outputState);
+
+        log.debug("setting input to  true. Trigger should go false immediately");
+        timeAndInputTrigger.setInputState("input1", true);
+        Assert.assertFalse(timeAndInputTrigger.getOutputState());
+
+        timeAndInputTrigger.setInputState("input1", false);
+        log.debug("input set to  false. Trigger should go true in 100 ms");
+        Thread.sleep(50);
+        Assert.assertFalse(timeAndInputTrigger.getOutputState());
+        Thread.sleep(80);
+        Assert.assertTrue(timeAndInputTrigger.getOutputState());
     }
 
     @Test

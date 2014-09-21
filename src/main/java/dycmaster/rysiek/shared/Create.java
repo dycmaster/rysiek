@@ -12,8 +12,16 @@ public class Create {
 		return  new LinkedList<>();
 	}
 
-    public static <T> Collection<T> newCollection( T[] array){
+    public static <T> Collection<T> newCollection( T... array){
         Collection res = newCollection();
+        for (T t : array) {
+            res.add(t);
+        }
+        return  res;
+    }
+
+    public static <T> List<T> newList( T... array){
+        List res = newList();
         for (T t : array) {
             res.add(t);
         }

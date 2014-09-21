@@ -12,6 +12,7 @@ public enum TriggerLogic {
 
     //time and input logics
     OnLongerThanTime("OnLongerThanTime", new String[]{"onLongerThan"}, TriggerLogicType.TIME_AND_INPUT),
+    OffLongerThanTime("OffLongerThanTime", new String[]{"offLongerThan"}, TriggerLogicType.TIME_AND_INPUT),
 
     //input only logics
     TruthTableInputLogic("TruthTableInputLogic",new String[]{"truthTable"}, TriggerLogicType.INPUT_ONLY),

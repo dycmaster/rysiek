@@ -15,3 +15,5 @@ trigger8,input,2,input1,input2,truthTable,alarm clock weekly,1 1 1|1 0 0|0 1 0|0
 #turn on the amp
 trigger9,input,1,input1,truthTable,turn amp on,1 1|0 0
 
+#turn amp off
+trigger10,inputAndTime,1,input1,offLongerThan,to turn amp off after some time idling,input1,240000
